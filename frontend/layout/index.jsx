@@ -54,27 +54,27 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
     const adminItems = [
       {
         key: 'admin_dashboard',
-        icon: <BankOutlined className="text-emerald-400" />,
+        icon: <BankOutlined className="text-blue-950" />,
         label: 'Bank Reserves & Analytics',
       },
       {
         key: 'admin_employees',
-        icon: <TeamOutlined className="text-cyan-400" />,
+        icon: <TeamOutlined className="text-blue-100" />,
         label: 'Manage Employees',
       },
       {
         key: 'admin_departments',
-        icon: <AppstoreOutlined className="text-teal-400" />,
+        icon: <AppstoreOutlined className="text-blue-100" />,
         label: 'Manage Departments',
       },
       {
         key: 'admin_customers',
-        icon: <UsergroupAddOutlined className="text-orange-400" />,
+        icon: <UsergroupAddOutlined className="text-blue-100" />,
         label: 'Manage Customers',
       },
       {
         key: 'admin_mis',
-        icon: <PieChartOutlined className="text-indigo-400" />,
+        icon: <PieChartOutlined className="text-blue-100" />,
         label: 'Management Information System',
       }
     ];
@@ -82,17 +82,17 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
     const employeeItems = [
       {
         key: 'employee_dashboard',
-        icon: <WalletOutlined className="text-violet-400" />,
+        icon: <WalletOutlined className="text-blue-950" />,
         label: 'Account Control Center',
       },
       {
         key: 'employee_requests',
-        icon: <AuditOutlined className="text-amber-400" />,
+        icon: <AuditOutlined className="text-blue-100" />,
         label: 'Account Opening Req.',
       },
       {
         key: 'employee_loans',
-        icon: <span className="ant-menu-item-icon text-orange-400 font-bold text-base">₹</span>,
+        icon: <span className="ant-menu-item-icon text-blue-100 font-bold text-base">₹</span>,
         label: 'Loan Applications',
       }
     ];
@@ -100,24 +100,24 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
     const customerItems = [
       {
         key: 'customer_dashboard',
-        icon: <WalletOutlined className="text-indigo-400" />,
+        icon: <WalletOutlined className="text-blue-950" />,
         label: 'My Accounts & Transfer',
       },
       {
         key: 'customer_loans',
-        icon: <span className="ant-menu-item-icon text-sky-400 font-bold text-base">₹</span>,
+        icon: <span className="ant-menu-item-icon text-blue-100 font-bold text-base">₹</span>,
         label: 'Loans & Financing',
       },
       {
         key: 'customer_requests',
-        icon: <FileTextOutlined className="text-purple-400" />,
+        icon: <FileTextOutlined className="text-blue-100" />,
         label: 'Account Request Hub',
       }
     ];
 
     const logoutItem = {
       key: 'logout',
-      icon: <LogoutOutlined className="text-rose-400" />,
+      icon: <LogoutOutlined className="text-blue-950" />,
       label: 'Logout',
     };
 
@@ -149,12 +149,12 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
   const getRoleTag = () => {
     switch (user.role) {
       case 'admin':
-        return <Tag color="emerald" className="m-0 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider text-xs">Admin</Tag>;
+        return <Tag className="m-0 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider text-xs border border-white text-blue-950 bg-blue-800">Admin</Tag>;
       case 'employee':
-        return <Tag color="purple" className="m-0 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider text-xs">Employee</Tag>;
+        return <Tag className="m-0 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider text-xs border border-white text-blue-950 bg-blue-600">Employee</Tag>;
       case 'customer':
       default:
-        return <Tag color="indigo" className="m-0 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider text-xs">Customer</Tag>;
+        return <Tag className="m-0 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider text-xs border border-white text-blue-950 bg-blue-500">Customer</Tag>;
     }
   };
 
@@ -228,7 +228,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
               )}
             </div>
             <Avatar
-              style={{ backgroundColor: user.role === 'admin' ? '#10b981' : user.role === 'employee' ? '#8b5cf6' : '#4f46e5' }}
+              style={{ backgroundColor: '#ffffff', color: '#1e3a8a' }}
               icon={<UserOutlined />}
               className="shadow-md"
             />
@@ -240,8 +240,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
             margin: '24px 24px',
             padding: 24,
             minHeight: 280,
-            background: 'transparent',
-            // content area inherits the blue-50 from Layout above
+            background: 'white',
             borderRadius: borderRadiusLG,
           }}
           className="overflow-y-auto"

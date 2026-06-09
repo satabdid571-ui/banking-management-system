@@ -120,13 +120,13 @@ const AdminDashboard = ({ activeMenu }) => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <Text className="text-slate-200 font-semibold">{text}</Text>,
+      render: (text) => <Text className="text-blue-950 font-semibold">{text}</Text>,
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      render: (text) => <Text className="text-slate-400 text-xs">{text}</Text>,
+      render: (text) => <Text className="text-blue-600 text-xs">{text}</Text>,
     },
     {
       title: 'Department',
@@ -138,13 +138,13 @@ const AdminDashboard = ({ activeMenu }) => {
       title: 'Position / Role',
       dataIndex: 'role',
       key: 'role',
-      render: (text) => <Tag color="purple">{text}</Tag>,
+      render: (text) => <Tag color="geekblue">{text}</Tag>,
     },
     {
       title: 'Salary (Monthly)',
       dataIndex: 'salary',
       key: 'salary',
-      render: (val) => <Text className="text-emerald-400 font-semibold">₹{val.toLocaleString()}</Text>,
+      render: (val) => <Text className="text-blue-700 font-semibold">₹{val.toLocaleString()}</Text>,
     },
     {
       title: 'Status',
@@ -161,7 +161,7 @@ const AdminDashboard = ({ activeMenu }) => {
         <Space size="middle">
           <Button 
             type="text" 
-            icon={<EditOutlined className="text-indigo-400" />} 
+            icon={<EditOutlined className="text-blue-700" />} 
             onClick={() => {
               setEditingEmp(record);
               empForm.setFieldsValue(record);
@@ -193,20 +193,20 @@ const AdminDashboard = ({ activeMenu }) => {
       title: 'Department Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <Text className="text-slate-200 font-semibold">{text}</Text>,
+      render: (text) => <Text className="text-blue-950 font-semibold">{text}</Text>,
     },
     {
       title: 'ID Code',
       dataIndex: 'id',
       key: 'id',
-      render: (text) => <Text code className="text-xs text-indigo-300">{text}</Text>,
+      render: (text) => <Text code className="text-xs text-blue-600">{text}</Text>,
     },
     {
       title: 'Employee Count',
       key: 'empCount',
       render: (_, record) => {
         const count = employees.filter(emp => emp.department === record.name).length;
-        return <Tag color="cyan" className="font-semibold">{count} Personnel</Tag>;
+        return <Tag color="blue" className="font-semibold">{count} Personnel</Tag>;
       }
     },
     {
@@ -243,10 +243,10 @@ const AdminDashboard = ({ activeMenu }) => {
   if (activeMenu === 'admin_employees') {
     return (
       <div className="space-y-6">
-        <div className="flex justify-between items-center bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
+        <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: 'white' }}>Employee Registry</Title>
-            <Text className="text-slate-400 text-xs">Manage active vault handlers, bank tellers, and managers.</Text>
+            <Text className="text-blue-600 text-xs">Manage active vault handlers, bank tellers, and managers.</Text>
           </div>
           <Button 
             type="primary" 
@@ -256,13 +256,13 @@ const AdminDashboard = ({ activeMenu }) => {
               empForm.resetFields();
               setEmpModalVisible(true);
             }}
-            className="bg-emerald-600 hover:bg-emerald-500 border-0 h-10 rounded-xl"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-10 rounded-xl"
           >
             Add New Employee
           </Button>
         </div>
 
-        <Card className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden">
+        <Card className="bg-white border-blue-100 rounded-3xl overflow-hidden">
           <Table 
             dataSource={employees} 
             columns={employeeColumns} 
@@ -275,8 +275,8 @@ const AdminDashboard = ({ activeMenu }) => {
         {/* Add/Edit Employee Modal */}
         <Modal
           title={
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-              <TeamOutlined className="text-indigo-400" />
+            <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+              <TeamOutlined className="text-blue-700" />
               <span className="font-bold text-lg">{editingEmp ? 'Edit Employee Details' : 'Register New Employee'}</span>
             </div>
           }
@@ -298,7 +298,7 @@ const AdminDashboard = ({ activeMenu }) => {
           >
             <Form.Item
               name="name"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Employee Name</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Employee Name</span>}
               rules={[{ required: true, message: 'Please input employee name!' }]}
             >
               <Input placeholder="Enter employee full name" className="rounded-lg" />
@@ -306,7 +306,7 @@ const AdminDashboard = ({ activeMenu }) => {
 
             <Form.Item
               name="email"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Email Address</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Email Address</span>}
               rules={[
                 { required: true, message: 'Please input email!' },
                 { type: 'email', message: 'Enter a valid email address!' }
@@ -319,7 +319,7 @@ const AdminDashboard = ({ activeMenu }) => {
               <Col span={12}>
                 <Form.Item
                   name="department"
-                  label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Department</span>}
+                  label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Department</span>}
                   rules={[{ required: true, message: 'Select department!' }]}
                 >
                   <Select placeholder="Select" className="rounded-lg">
@@ -332,7 +332,7 @@ const AdminDashboard = ({ activeMenu }) => {
               <Col span={12}>
                 <Form.Item
                   name="role"
-                  label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Position Role</span>}
+                  label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Position Role</span>}
                   rules={[{ required: true, message: 'Select role!' }]}
                 >
                   <Select placeholder="Select" className="rounded-lg">
@@ -349,17 +349,17 @@ const AdminDashboard = ({ activeMenu }) => {
 
             <Form.Item
               name="salary"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Monthly Salary (₹)</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Monthly Salary (₹)</span>}
               rules={[{ required: true, message: 'Please input salary!' }]}
             >
               <InputNumber className="w-full rounded-lg" min={1000} placeholder="5000" />
             </Form.Item>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
               <Button onClick={() => setEmpModalVisible(false)} className="rounded-lg">
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit" className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-lg">
+              <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
                 {editingEmp ? 'Save Changes' : 'Register Employee'}
               </Button>
             </div>
@@ -372,22 +372,22 @@ const AdminDashboard = ({ activeMenu }) => {
   if (activeMenu === 'admin_departments') {
     return (
       <div className="space-y-6">
-        <div className="flex justify-between items-center bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
+        <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: 'white' }}>Departments</Title>
-            <Text className="text-slate-400 text-xs">Define operational divisions and resource structures.</Text>
+            <Text className="text-blue-600 text-xs">Define operational divisions and resource structures.</Text>
           </div>
           <Button 
             type="primary" 
             icon={<PlusOutlined />}
             onClick={() => setDepModalVisible(true)}
-            className="bg-emerald-600 hover:bg-emerald-500 border-0 h-10 rounded-xl"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-10 rounded-xl"
           >
             Create Department
           </Button>
         </div>
 
-        <Card className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden">
+        <Card className="bg-white border-blue-100 rounded-3xl overflow-hidden">
           <Table 
             dataSource={departments} 
             columns={departmentColumns} 
@@ -399,8 +399,8 @@ const AdminDashboard = ({ activeMenu }) => {
         {/* Add Department Modal */}
         <Modal
           title={
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-              <AppstoreOutlined className="text-indigo-400" />
+            <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+              <AppstoreOutlined className="text-blue-700" />
               <span className="font-bold text-lg">Create Department</span>
             </div>
           }
@@ -421,17 +421,17 @@ const AdminDashboard = ({ activeMenu }) => {
           >
             <Form.Item
               name="name"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Department Name</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Department Name</span>}
               rules={[{ required: true, message: 'Please enter department name!' }]}
             >
               <Input placeholder="Enter unique department name" className="rounded-lg" />
             </Form.Item>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
               <Button onClick={() => setDepModalVisible(false)} className="rounded-lg">
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit" className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-lg">
+              <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
                 Create
               </Button>
             </div>
@@ -446,21 +446,21 @@ const AdminDashboard = ({ activeMenu }) => {
     <div className="space-y-6">
       
       {/* Header reserve banner */}
-      <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-indigo-950 p-8 rounded-3xl border border-emerald-900/40 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-white gap-6">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+      <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-white p-8 rounded-3xl border border-blue-200 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-6">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
         <div className="z-10">
-          <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
+          <span className="text-blue-700 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
             <SafetyCertificateOutlined className="animate-pulse" /> Reserve Security Active
           </span>
           <Title level={2} style={{ margin: 0, color: 'white' }} className="font-black">
             Vault Reserves Control
           </Title>
-          <Text className="text-slate-300">Maintain corporate vault liquidity and verify operations.</Text>
+          <Text className="text-blue-800">Maintain corporate vault liquidity and verify operations.</Text>
         </div>
-        <div className="flex items-center gap-4 bg-emerald-950/40 border border-emerald-700/30 px-6 py-4 rounded-2xl backdrop-blur-sm self-start md:self-auto min-w-[280px] justify-between">
+        <div className="flex items-center gap-4 bg-blue-50/40 border border-blue-200/30 px-6 py-4 rounded-2xl backdrop-blur-sm self-start md:self-auto min-w-[280px] justify-between">
           <div>
-            <span className="text-emerald-300 text-xs block uppercase tracking-wider font-semibold">Reserve Fund</span>
-            <span className="text-3xl font-black font-mono tracking-tight text-white">₹{reserve.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+            <span className="text-blue-600 text-xs block uppercase tracking-wider font-semibold">Reserve Fund</span>
+            <span className="text-3xl font-black font-mono tracking-tight text-blue-950">₹{reserve.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </div>
           <Button 
             type="primary" 
@@ -469,7 +469,7 @@ const AdminDashboard = ({ activeMenu }) => {
               reserveForm.setFieldsValue({ amount: reserve });
               setReserveModalVisible(true);
             }}
-            className="bg-emerald-600 hover:bg-emerald-500 border-0 rounded-lg flex items-center justify-center h-10 w-10 p-0"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg flex items-center justify-center h-10 w-10 p-0"
           />
         </div>
       </div>
@@ -477,43 +477,43 @@ const AdminDashboard = ({ activeMenu }) => {
       {/* Corporate Overview stats */}
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+          <Card className="bg-white border-blue-100 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
             <Statistic 
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Vault Liquidity</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Vault Liquidity</span>}
               value={reserve}
               precision={2}
-              valueStyle={{ color: '#10b981', fontFamily: 'monospace', fontWeight: 'bold' }}
+              valueStyle={{ color: '#1e3a8a', fontFamily: 'monospace', fontWeight: 'bold' }}
               prefix={<BankOutlined />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+          <Card className="bg-white border-blue-100 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
             <Statistic 
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Total Customer Deposits</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Total Customer Deposits</span>}
               value={totalCustomerBalances}
               precision={2}
-              valueStyle={{ color: '#818cf8', fontFamily: 'monospace', fontWeight: 'bold' }}
-              prefix={<span className="font-bold text-lg mr-1 text-indigo-400">₹</span>}
+              valueStyle={{ color: '#1e3a8a', fontFamily: 'monospace', fontWeight: 'bold' }}
+              prefix={<span className="font-bold text-lg mr-1 text-blue-700">₹</span>}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+          <Card className="bg-white border-blue-100 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
             <Statistic 
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Active Staff</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Active Staff</span>}
               value={employees.length}
-              valueStyle={{ color: '#22d3ee', fontWeight: 'bold' }}
+              valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }}
               prefix={<TeamOutlined />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+          <Card className="bg-white border-blue-100 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
             <Statistic 
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Divisions</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Divisions</span>}
               value={departments.length}
-              valueStyle={{ color: '#c084fc', fontWeight: 'bold' }}
+              valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }}
               prefix={<AppstoreOutlined />}
             />
           </Card>
@@ -522,35 +522,35 @@ const AdminDashboard = ({ activeMenu }) => {
 
       {/* Liquidity Ledger Info Card */}
       <Card 
-        className="bg-slate-900 border-slate-800 rounded-3xl p-2"
+        className="bg-white border-blue-100 rounded-3xl p-2"
         title={
           <div className="flex items-center gap-2">
-            <DashboardOutlined className="text-emerald-500 text-lg" />
+            <DashboardOutlined className="text-blue-700 text-lg" />
             <div>
-              <span className="text-slate-200 font-bold text-base block">Reserves Ledger Audit</span>
-              <span className="text-xs text-slate-400 font-normal">Real-time bank reserve compliance matching customer liabilities</span>
+              <span className="text-blue-950 font-bold text-base block">Reserves Ledger Audit</span>
+              <span className="text-xs text-blue-600 font-normal">Real-time bank reserve compliance matching customer liabilities</span>
             </div>
           </div>
         }
       >
         <div className="space-y-4 py-2">
-          <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-            <span className="text-slate-300 text-sm">Vault Reserve Capital</span>
-            <span className="text-slate-200 font-mono font-semibold">₹{reserve.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+          <div className="flex justify-between items-center border-b border-blue-100 pb-3">
+            <span className="text-blue-800 text-sm">Vault Reserve Capital</span>
+            <span className="text-blue-950 font-mono font-semibold">₹{reserve.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </div>
-          <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-            <span className="text-slate-300 text-sm">Total Deposit Liability</span>
-            <span className="text-slate-200 font-mono font-semibold">₹{totalCustomerBalances.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+          <div className="flex justify-between items-center border-b border-blue-100 pb-3">
+            <span className="text-blue-800 text-sm">Total Deposit Liability</span>
+            <span className="text-blue-950 font-mono font-semibold">₹{totalCustomerBalances.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </div>
-          <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-            <span className="text-slate-300 text-sm">Net Liquidity Leverage Ratio</span>
+          <div className="flex justify-between items-center border-b border-blue-100 pb-3">
+            <span className="text-blue-800 text-sm">Net Liquidity Leverage Ratio</span>
             <Tag color={reserve >= totalCustomerBalances ? 'success' : 'warning'} className="m-0 font-bold font-mono">
               {(totalCustomerBalances === 0 ? reserve : (reserve / totalCustomerBalances) * 100).toFixed(1)}% Liquidity
             </Tag>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-slate-300 text-sm">Corporate Capital Status</span>
-            <Tag color="success" className="m-0 font-extrabold px-3 rounded-full">SOLVENT & ACTIVE</Tag>
+            <span className="text-blue-800 text-sm">Corporate Capital Status</span>
+            <Tag color="blue" className="m-0 font-extrabold px-3 rounded-full">SOLVENT & ACTIVE</Tag>
           </div>
         </div>
       </Card>
@@ -558,8 +558,8 @@ const AdminDashboard = ({ activeMenu }) => {
       {/* Adjust Reserve Modal */}
       <Modal
         title={
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <span className="font-bold text-xl text-emerald-400 px-1">₹</span>
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <span className="font-bold text-xl text-blue-700 px-1">₹</span>
             <span className="font-bold text-lg">Edit Vault Reserves</span>
           </div>
         }
@@ -580,7 +580,7 @@ const AdminDashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="amount"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Total Reserve Fund (₹)</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Total Reserve Fund (₹)</span>}
             rules={[{ required: true, message: 'Please enter reserve amount!' }]}
           >
             <InputNumber 
@@ -592,11 +592,11 @@ const AdminDashboard = ({ activeMenu }) => {
             />
           </Form.Item>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
             <Button onClick={() => setReserveModalVisible(false)} className="rounded-lg">
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit" className="bg-emerald-600 hover:bg-emerald-500 border-0 rounded-lg">
+            <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
               Update Vault
             </Button>
           </div>

@@ -103,57 +103,57 @@ const MISDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-indigo-900 to-slate-900 border border-indigo-500/30 p-6 rounded-2xl flex items-center justify-between">
+      <div className="bg-gradient-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl flex items-center justify-between">
         <div>
           <Title level={3} style={{ margin: 0, color: 'white' }}>
             <PieChartOutlined className="mr-3" />
             Management Information System
           </Title>
-          <Text className="text-indigo-200 text-sm">Real-time aggregate data and performance indicators across the banking network.</Text>
+          <Text className="text-blue-600 text-sm">Real-time aggregate data and performance indicators across the banking network.</Text>
         </div>
       </div>
 
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl h-full shadow-lg">
+          <Card className="bg-white border-blue-100 rounded-2xl h-full shadow-lg">
             <Statistic 
-              title={<span className="text-slate-400 uppercase tracking-widest text-xs">Total Network Assets</span>} 
+              title={<span className="text-blue-600 uppercase tracking-widest text-xs">Total Network Assets</span>} 
               value={totalAssets} 
               precision={2} 
               prefix="₹" 
-              valueStyle={{ color: '#34d399', fontWeight: '900', fontSize: '28px' }} 
+              valueStyle={{ color: '#1e3a8a', fontWeight: '900', fontSize: '28px' }} 
             />
-            <div className="mt-4 text-xs text-slate-500 border-t border-slate-800 pt-3">
+            <div className="mt-4 text-xs text-blue-500 border-t border-blue-100 pt-3">
               Includes Liquid Reserves (₹{data.reserve.toLocaleString()}) + Outstanding Loan Principal
             </div>
           </Card>
         </Col>
 
         <Col xs={24} lg={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl h-full shadow-lg">
+          <Card className="bg-white border-blue-100 rounded-2xl h-full shadow-lg">
             <Statistic 
-              title={<span className="text-slate-400 uppercase tracking-widest text-xs">Total Liabilities (Deposits)</span>} 
+              title={<span className="text-blue-600 uppercase tracking-widest text-xs">Total Liabilities (Deposits)</span>} 
               value={totalLiabilities} 
               precision={2} 
               prefix="₹" 
-              valueStyle={{ color: '#fbbf24', fontWeight: '900', fontSize: '28px' }} 
+              valueStyle={{ color: '#1e3a8a', fontWeight: '900', fontSize: '28px' }} 
             />
-            <div className="mt-4 text-xs text-slate-500 border-t border-slate-800 pt-3">
+            <div className="mt-4 text-xs text-blue-500 border-t border-blue-100 pt-3">
               Total combined balances across {data.accounts.length} active customer portfolios
             </div>
           </Card>
         </Col>
 
         <Col xs={24} lg={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl h-full shadow-lg">
+          <Card className="bg-white border-blue-100 rounded-2xl h-full shadow-lg">
             <Statistic 
-              title={<span className="text-slate-400 uppercase tracking-widest text-xs">Total Loan Principal Issued</span>} 
+              title={<span className="text-blue-600 uppercase tracking-widest text-xs">Total Loan Principal Issued</span>} 
               value={totalLoanPrincipal} 
               precision={2} 
               prefix="₹" 
-              valueStyle={{ color: '#f87171', fontWeight: '900', fontSize: '28px' }} 
+              valueStyle={{ color: '#1e3a8a', fontWeight: '900', fontSize: '28px' }} 
             />
-            <div className="mt-4 text-xs text-slate-500 border-t border-slate-800 pt-3">
+            <div className="mt-4 text-xs text-blue-500 border-t border-blue-100 pt-3">
               Capital currently distributed via {data.loans.filter(l => l.status === 'Approved').length} approved loans
             </div>
           </Card>
@@ -163,62 +163,62 @@ const MISDashboard = () => {
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={12}>
           <Card 
-            className="bg-slate-900 border-slate-800 rounded-2xl shadow-lg"
-            title={<span className="text-white font-bold"><CreditCardOutlined className="mr-2" />Loan Portfolio Distribution</span>}
+            className="bg-white border-blue-100 rounded-2xl shadow-lg"
+            title={<span className="text-blue-950 font-bold"><CreditCardOutlined className="mr-2" />Loan Portfolio Distribution</span>}
           >
             <div className="mb-4">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-400">Secured Loans ({securedLoans})</span>
-                <span className="text-emerald-400">{Math.round((securedLoans / totalLoanCount) * 100)}%</span>
+                <span className="text-blue-600">Secured Loans ({securedLoans})</span>
+                <span className="text-blue-700">{Math.round((securedLoans / totalLoanCount) * 100)}%</span>
               </div>
-              <Progress percent={Math.round((securedLoans / totalLoanCount) * 100)} strokeColor="#34d399" showInfo={false} />
+              <Progress percent={Math.round((securedLoans / totalLoanCount) * 100)} strokeColor="#3b82f6" showInfo={false} />
             </div>
 
             <div className="mb-4">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-400">Unsecured Loans ({unsecuredLoans})</span>
-                <span className="text-rose-400">{Math.round((unsecuredLoans / totalLoanCount) * 100)}%</span>
+                <span className="text-blue-600">Unsecured Loans ({unsecuredLoans})</span>
+                <span className="text-blue-500">{Math.round((unsecuredLoans / totalLoanCount) * 100)}%</span>
               </div>
-              <Progress percent={Math.round((unsecuredLoans / totalLoanCount) * 100)} strokeColor="#fb7185" showInfo={false} />
+              <Progress percent={Math.round((unsecuredLoans / totalLoanCount) * 100)} strokeColor="#93c5fd" showInfo={false} />
             </div>
 
             <div className="mb-2">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-400">Business & Specialized ({businessLoans})</span>
-                <span className="text-indigo-400">{Math.round((businessLoans / totalLoanCount) * 100)}%</span>
+                <span className="text-blue-600">Business & Specialized ({businessLoans})</span>
+                <span className="text-blue-700">{Math.round((businessLoans / totalLoanCount) * 100)}%</span>
               </div>
-              <Progress percent={Math.round((businessLoans / totalLoanCount) * 100)} strokeColor="#818cf8" showInfo={false} />
+              <Progress percent={Math.round((businessLoans / totalLoanCount) * 100)} strokeColor="#1e40af" showInfo={false} />
             </div>
           </Card>
         </Col>
 
         <Col xs={24} lg={12}>
           <Card 
-            className="bg-slate-900 border-slate-800 rounded-2xl shadow-lg"
-            title={<span className="text-white font-bold"><UsergroupAddOutlined className="mr-2" />Account Portfolio Distribution</span>}
+            className="bg-white border-blue-100 rounded-2xl shadow-lg"
+            title={<span className="text-blue-950 font-bold"><UsergroupAddOutlined className="mr-2" />Account Portfolio Distribution</span>}
           >
             <div className="mb-4">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-400">Savings Accounts ({savingsAccounts})</span>
-                <span className="text-cyan-400">{Math.round((savingsAccounts / totalAccCount) * 100)}%</span>
+                <span className="text-blue-600">Savings Accounts ({savingsAccounts})</span>
+                <span className="text-blue-600">{Math.round((savingsAccounts / totalAccCount) * 100)}%</span>
               </div>
-              <Progress percent={Math.round((savingsAccounts / totalAccCount) * 100)} strokeColor="#22d3ee" showInfo={false} />
+              <Progress percent={Math.round((savingsAccounts / totalAccCount) * 100)} strokeColor="#60a5fa" showInfo={false} />
             </div>
 
             <div className="mb-4">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-400">Checking Accounts ({checkingAccounts})</span>
-                <span className="text-amber-400">{Math.round((checkingAccounts / totalAccCount) * 100)}%</span>
+                <span className="text-blue-600">Checking Accounts ({checkingAccounts})</span>
+                <span className="text-blue-600">{Math.round((checkingAccounts / totalAccCount) * 100)}%</span>
               </div>
-              <Progress percent={Math.round((checkingAccounts / totalAccCount) * 100)} strokeColor="#fcd34d" showInfo={false} />
+              <Progress percent={Math.round((checkingAccounts / totalAccCount) * 100)} strokeColor="#2563eb" showInfo={false} />
             </div>
 
             <div className="mb-2">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-400">Business Accounts ({businessAccounts})</span>
-                <span className="text-purple-400">{Math.round((businessAccounts / totalAccCount) * 100)}%</span>
+                <span className="text-blue-600">Business Accounts ({businessAccounts})</span>
+                <span className="text-blue-600">{Math.round((businessAccounts / totalAccCount) * 100)}%</span>
               </div>
-              <Progress percent={Math.round((businessAccounts / totalAccCount) * 100)} strokeColor="#c084fc" showInfo={false} />
+              <Progress percent={Math.round((businessAccounts / totalAccCount) * 100)} strokeColor="#1e3a8a" showInfo={false} />
             </div>
           </Card>
         </Col>
@@ -226,25 +226,25 @@ const MISDashboard = () => {
 
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl text-center shadow-lg">
-            <Statistic title={<span className="text-slate-400 text-xs">Total Customers</span>} value={data.customers.length} valueStyle={{ color: 'white' }} />
+          <Card className="bg-white border-blue-100 rounded-2xl text-center shadow-lg">
+            <Statistic title={<span className="text-blue-600 text-xs">Total Customers</span>} value={data.customers.length} valueStyle={{ color: 'white' }} />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl text-center shadow-lg">
-            <Statistic title={<span className="text-slate-400 text-xs">Total Employees</span>} value={data.employees.length} valueStyle={{ color: 'white' }} />
+          <Card className="bg-white border-blue-100 rounded-2xl text-center shadow-lg">
+            <Statistic title={<span className="text-blue-600 text-xs">Total Employees</span>} value={data.employees.length} valueStyle={{ color: 'white' }} />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl text-center shadow-lg">
-            <Statistic title={<span className="text-slate-400 text-xs">Total Active Accounts</span>} value={data.accounts.length} valueStyle={{ color: 'white' }} />
+          <Card className="bg-white border-blue-100 rounded-2xl text-center shadow-lg">
+            <Statistic title={<span className="text-blue-600 text-xs">Total Active Accounts</span>} value={data.accounts.length} valueStyle={{ color: 'white' }} />
           </Card>
         </Col>
       </Row>
 
       <Card 
-        className="bg-slate-900 border-slate-800 rounded-2xl shadow-lg overflow-hidden"
-        title={<span className="text-white font-bold">Largest Network Transactions</span>}
+        className="bg-white border-blue-100 rounded-2xl shadow-lg overflow-hidden"
+        title={<span className="text-blue-950 font-bold">Largest Network Transactions</span>}
       >
         <Table 
           dataSource={largeTransactions} 

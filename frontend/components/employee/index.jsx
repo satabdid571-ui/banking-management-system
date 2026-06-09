@@ -114,13 +114,13 @@ const EmployeeDashboard = ({ activeMenu }) => {
       title: 'Customer Name',
       dataIndex: 'username',
       key: 'username',
-      render: (text) => <Text className="text-slate-200 font-semibold">{text}</Text>,
+      render: (text) => <Text className="text-blue-950 font-semibold">{text}</Text>,
     },
     {
       title: 'Account Number',
       dataIndex: 'accountNumber',
       key: 'accountNumber',
-      render: (text) => <Text code className="text-xs text-indigo-300 font-mono">{text}</Text>,
+      render: (text) => <Text code className="text-xs text-blue-600 font-mono">{text}</Text>,
     },
     {
       title: 'Type',
@@ -132,7 +132,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
       title: 'Balance',
       dataIndex: 'balance',
       key: 'balance',
-      render: (val) => <Text className="text-emerald-400 font-semibold font-mono">₹{val.toLocaleString(undefined, { minimumFractionDigits: 2 })}</Text>,
+      render: (val) => <Text className="text-blue-700 font-semibold font-mono">₹{val.toLocaleString(undefined, { minimumFractionDigits: 2 })}</Text>,
     },
     {
       title: 'Status',
@@ -167,7 +167,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
       title: 'Requested By',
       dataIndex: 'username',
       key: 'username',
-      render: (text) => <Text className="text-slate-200 font-semibold">{text}</Text>,
+      render: (text) => <Text className="text-blue-950 font-semibold">{text}</Text>,
     },
     {
       title: 'Account Type',
@@ -179,7 +179,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
       title: 'Initial Deposit',
       dataIndex: 'initialDeposit',
       key: 'initialDeposit',
-      render: (val) => <Text className="text-emerald-400 font-mono">₹{val.toLocaleString()}</Text>,
+      render: (val) => <Text className="text-blue-700 font-mono">₹{val.toLocaleString()}</Text>,
     },
     {
       title: 'Submission Date',
@@ -204,14 +204,14 @@ const EmployeeDashboard = ({ activeMenu }) => {
       render: (_, record) => (
         record.status === 'Pending' ? (
           <Space size="small">
-            <Button type="primary" size="small" onClick={() => handleApproveRequest(record.id)} className="bg-emerald-600 hover:bg-emerald-500 border-0 rounded">
+            <Button type="primary" size="small" onClick={() => handleApproveRequest(record.id)} className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded">
               Approve
             </Button>
             <Button size="small" danger onClick={() => handleRejectRequest(record.id)} className="rounded">
               Reject
             </Button>
           </Space>
-        ) : <span className="text-slate-500 text-xs">Processed</span>
+        ) : <span className="text-blue-500 text-xs">Processed</span>
       )
     }
   ];
@@ -221,19 +221,19 @@ const EmployeeDashboard = ({ activeMenu }) => {
       title: 'Applicant',
       dataIndex: 'username',
       key: 'username',
-      render: (text) => <Text className="text-slate-200 font-semibold">{text}</Text>,
+      render: (text) => <Text className="text-blue-950 font-semibold">{text}</Text>,
     },
     {
       title: 'Amount Requested',
       dataIndex: 'amount',
       key: 'amount',
-      render: (val) => <Text className="text-emerald-400 font-mono font-semibold">₹{val.toLocaleString()}</Text>,
+      render: (val) => <Text className="text-blue-700 font-mono font-semibold">₹{val.toLocaleString()}</Text>,
     },
     {
       title: 'Term',
       dataIndex: 'term',
       key: 'term',
-      render: (term) => <Tag color="purple">{term} Months</Tag>,
+      render: (term) => <Tag color="geekblue">{term} Months</Tag>,
     },
     {
       title: 'Type',
@@ -245,13 +245,13 @@ const EmployeeDashboard = ({ activeMenu }) => {
       title: 'Purpose',
       dataIndex: 'purpose',
       key: 'purpose',
-      render: (text) => <Text className="text-slate-400 text-xs">{text}</Text>,
+      render: (text) => <Text className="text-blue-600 text-xs">{text}</Text>,
     },
     {
       title: 'Remaining Balance',
       dataIndex: 'remainingAmount',
       key: 'remainingAmount',
-      render: (val) => <Text className="text-slate-400 font-mono">₹{val.toLocaleString(undefined, { minimumFractionDigits: 2 })}</Text>,
+      render: (val) => <Text className="text-blue-600 font-mono">₹{val.toLocaleString(undefined, { minimumFractionDigits: 2 })}</Text>,
     },
     {
       title: 'Status',
@@ -271,14 +271,14 @@ const EmployeeDashboard = ({ activeMenu }) => {
       render: (_, record) => (
         record.status === 'Pending' ? (
           <Space size="small">
-            <Button type="primary" size="small" onClick={() => handleApproveLoan(record.id)} className="bg-emerald-600 hover:bg-emerald-500 border-0 rounded">
+            <Button type="primary" size="small" onClick={() => handleApproveLoan(record.id)} className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded">
               Approve
             </Button>
             <Button size="small" danger onClick={() => handleRejectLoan(record.id)} className="rounded">
               Reject
             </Button>
           </Space>
-        ) : <span className="text-slate-500 text-xs">Processed</span>
+        ) : <span className="text-blue-500 text-xs">Processed</span>
       )
     }
   ];
@@ -287,11 +287,11 @@ const EmployeeDashboard = ({ activeMenu }) => {
   if (activeMenu === 'employee_requests') {
     return (
       <div className="space-y-6">
-        <div className="bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
+        <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <Title level={3} style={{ margin: 0, color: 'white' }}>Account Applications</Title>
-          <Text className="text-slate-400 text-xs">Approve or reject customer requests to open savings, checking, or business portfolios.</Text>
+          <Text className="text-blue-600 text-xs">Approve or reject customer requests to open savings, checking, or business portfolios.</Text>
         </div>
-        <Card className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden">
+        <Card className="bg-white border-blue-100 rounded-3xl overflow-hidden">
           <Table
             dataSource={requests}
             columns={requestColumns}
@@ -306,11 +306,11 @@ const EmployeeDashboard = ({ activeMenu }) => {
   if (activeMenu === 'employee_loans') {
     return (
       <div className="space-y-6">
-        <div className="bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
+        <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <Title level={3} style={{ margin: 0, color: 'white' }}>Loan Underwriting</Title>
-          <Text className="text-slate-400 text-xs">Evaluate and process pending loans submitted by retail customers.</Text>
+          <Text className="text-blue-600 text-xs">Evaluate and process pending loans submitted by retail customers.</Text>
         </div>
-        <Card className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden">
+        <Card className="bg-white border-blue-100 rounded-3xl overflow-hidden">
           <Table
             dataSource={loans}
             columns={loanColumns}
@@ -326,30 +326,30 @@ const EmployeeDashboard = ({ activeMenu }) => {
     <div className="space-y-6">
 
       {/* Banner info */}
-      <div className="bg-gradient-to-r from-violet-950 via-slate-900 to-indigo-950 p-8 rounded-3xl border border-violet-900/40 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-white gap-6">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+      <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-white p-8 rounded-3xl border border-blue-200 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-6">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
         <div className="z-10">
-          <span className="text-violet-400 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
+          <span className="text-blue-600 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
             <DatabaseOutlined className="animate-spin" style={{ animationDuration: '6s' }} /> Ledger Operations Active
           </span>
           <Title level={2} style={{ margin: 0, color: 'white' }} className="font-black">
             Account Control Center
           </Title>
-          <Text className="text-slate-300">Open client profiles, adjust user ledger balances, and perform audit controls.</Text>
+          <Text className="text-blue-800">Open client profiles, adjust user ledger balances, and perform audit controls.</Text>
         </div>
         <div className="flex gap-3 z-10 self-start md:self-auto">
           <Button
             type="primary"
             icon={<UserAddOutlined />}
             onClick={() => setCreateAccountVisible(true)}
-            className="bg-indigo-600 hover:bg-indigo-500 border-0 h-11 rounded-xl text-sm font-semibold px-5"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-11 rounded-xl text-sm font-semibold px-5"
           >
             Create Account
           </Button>
           <Button
             icon={<SwapOutlined />}
             onClick={() => setAdjustmentVisible(true)}
-            className="bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-750 h-11 rounded-xl text-sm font-semibold px-5"
+            className="bg-blue-50 text-blue-950 border-blue-200 hover:bg-blue-200 h-11 rounded-xl text-sm font-semibold px-5"
           >
             Debit / Credit Adjust
           </Button>
@@ -359,32 +359,32 @@ const EmployeeDashboard = ({ activeMenu }) => {
       {/* Stats row */}
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl">
+          <Card className="bg-white border-blue-100 rounded-2xl">
             <Statistic
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Managed Portfolios</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Managed Portfolios</span>}
               value={accounts.length}
-              valueStyle={{ color: '#2853c0ff', fontWeight: 'bold' }}
+              valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }}
               prefix={<UserAddOutlined />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl">
+          <Card className="bg-white border-blue-100 rounded-2xl">
             <Statistic
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Pending Accounts</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Pending Accounts</span>}
               value={requests.filter(r => r.status === 'Pending').length}
-              valueStyle={{ color: '#fbbf24', fontWeight: 'bold' }}
+              valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }}
               prefix={<AuditOutlined />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card className="bg-slate-900 border-slate-800 rounded-2xl">
+          <Card className="bg-white border-blue-100 rounded-2xl">
             <Statistic
-              title={<span className="text-slate-400 text-xs uppercase tracking-wider">Pending Loans</span>}
+              title={<span className="text-blue-600 text-xs uppercase tracking-wider">Pending Loans</span>}
               value={loans.filter(l => l.status === 'Pending').length}
-              valueStyle={{ color: '#f41717ff', fontWeight: 'bold' }}
-              prefix={<span className="font-bold text-lg mr-1 text-slate-500">₹</span>}
+              valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }}
+              prefix={<span className="font-bold text-lg mr-1 text-blue-500">₹</span>}
             />
           </Card>
         </Col>
@@ -392,8 +392,8 @@ const EmployeeDashboard = ({ activeMenu }) => {
 
       {/* Account Registry Table */}
       <Card
-        className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden"
-        title={<span className="text-slate-200 font-bold">Client Account Registry</span>}
+        className="bg-white border-blue-100 rounded-3xl overflow-hidden"
+        title={<span className="text-blue-950 font-bold">Client Account Registry</span>}
       >
         <Table
           dataSource={accounts}
@@ -406,8 +406,8 @@ const EmployeeDashboard = ({ activeMenu }) => {
       {/* Create Account Modal */}
       <Modal
         title={
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <UserAddOutlined className="text-indigo-400" />
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <UserAddOutlined className="text-blue-700" />
             <span className="font-bold text-lg">Create Customer Account</span>
           </div>
         }
@@ -428,7 +428,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="username"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Username</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Username</span>}
             rules={[
               { required: true, message: 'Please input username!' },
               { min: 3, message: 'Must be at least 3 characters!' }
@@ -439,7 +439,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
 
           <Form.Item
             name="password"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Temporary Password</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Temporary Password</span>}
             rules={[{ required: true, message: 'Temporary password is required!' }]}
             initialValue="password123"
           >
@@ -450,7 +450,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
             <Col span={12}>
               <Form.Item
                 name="accountType"
-                label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Account Type</span>}
+                label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Account Type</span>}
                 rules={[{ required: true }]}
                 initialValue="Savings"
               >
@@ -464,7 +464,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
             <Col span={12}>
               <Form.Item
                 name="initialDeposit"
-                label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Initial Deposit (₹)</span>}
+                label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Initial Deposit (₹)</span>}
                 rules={[{ required: true, message: 'Enter starting deposit!' }]}
                 initialValue={100}
               >
@@ -473,11 +473,11 @@ const EmployeeDashboard = ({ activeMenu }) => {
             </Col>
           </Row>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
             <Button onClick={() => setCreateAccountVisible(false)} className="rounded-lg">
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit" className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-lg">
+            <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
               Open Account
             </Button>
           </div>
@@ -487,8 +487,8 @@ const EmployeeDashboard = ({ activeMenu }) => {
       {/* Debit/Credit Balance Adjustment Modal */}
       <Modal
         title={
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <SwapOutlined className="text-indigo-400" />
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <SwapOutlined className="text-blue-700" />
             <span className="font-bold text-lg">Debit / Credit Adjustment</span>
           </div>
         }
@@ -509,7 +509,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="accountNumber"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Target Account Number</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Target Account Number</span>}
             rules={[{ required: true, message: 'Select target account!' }]}
           >
             <Select placeholder="Select customer account" className="rounded-lg">
@@ -525,7 +525,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
             <Col span={12}>
               <Form.Item
                 name="type"
-                label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Adjustment Type</span>}
+                label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Adjustment Type</span>}
                 rules={[{ required: true }]}
                 initialValue="credit"
               >
@@ -538,7 +538,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
             <Col span={12}>
               <Form.Item
                 name="amount"
-                label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Amount (₹)</span>}
+                label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Amount (₹)</span>}
                 rules={[
                   { required: true, message: 'Input adjust amount!' },
                   { type: 'number', min: 0.01, message: 'Amount must be > 0' }
@@ -551,17 +551,17 @@ const EmployeeDashboard = ({ activeMenu }) => {
 
           <Form.Item
             name="description"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Reason / Description</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Reason / Description</span>}
             rules={[{ required: true, message: 'Please provide adjustment reason!' }]}
           >
             <Input placeholder="e.g. Audit correction, manual check payout, fee reversal" className="rounded-lg" />
           </Form.Item>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
             <Button onClick={() => setAdjustmentVisible(false)} className="rounded-lg">
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit" className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-lg">
+            <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
               Apply Adjustment
             </Button>
           </div>

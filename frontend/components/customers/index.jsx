@@ -41,12 +41,12 @@ const statusIcon = {
 
 const SectionHeader = ({ icon, title, subtitle }) => (
   <div className="flex items-center gap-3 mb-4">
-    <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 text-lg">
+    <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-blue-600/20 text-blue-700 text-lg">
       {icon}
     </div>
     <div>
-      <div className="text-slate-200 font-bold text-sm">{title}</div>
-      {subtitle && <div className="text-slate-500 text-xs">{subtitle}</div>}
+      <div className="text-blue-950 font-bold text-sm">{title}</div>
+      {subtitle && <div className="text-blue-500 text-xs">{subtitle}</div>}
     </div>
   </div>
 );
@@ -133,7 +133,7 @@ const CustomerManagement = () => {
         delete submitData.accountNumber;
       }
       bankStore.addCustomer(submitData);
-      message.success({ content: `Customer "${values.fullName}" added successfully!`, icon: <CheckCircleOutlined className="text-emerald-400" /> });
+      message.success({ content: `Customer "${values.fullName}" added successfully!`, icon: <CheckCircleOutlined className="text-blue-700" /> });
       addForm.resetFields();
       setView('list');
     } catch (err) {
@@ -151,7 +151,7 @@ const CustomerManagement = () => {
         pan: values.pan?.toUpperCase(),
         dateOfBirth: values.dateOfBirth ? dayjs(values.dateOfBirth).format('YYYY-MM-DD') : selectedCustomer.dateOfBirth,
       });
-      message.success({ content: 'Customer record updated successfully!', icon: <CheckCircleOutlined className="text-emerald-400" /> });
+      message.success({ content: 'Customer record updated successfully!', icon: <CheckCircleOutlined className="text-blue-700" /> });
       setView('list');
       setSelectedCustomer(null);
     } catch (err) {
@@ -164,7 +164,7 @@ const CustomerManagement = () => {
   const handleDeleteConfirm = () => {
     try {
       bankStore.deleteCustomer(customerToDelete.id);
-      message.success({ content: `Customer "${customerToDelete.fullName}" has been deleted.`, icon: <DeleteOutlined className="text-rose-400" /> });
+      message.success({ content: `Customer "${customerToDelete.fullName}" has been deleted.`, icon: <DeleteOutlined className="text-blue-500" /> });
       setDeleteModalOpen(false);
       setCustomerToDelete(null);
       if (view !== 'list') setView('list');
@@ -209,7 +209,7 @@ const CustomerManagement = () => {
       key: 'customerId',
       sorter: (a, b) => a.customerId.localeCompare(b.customerId),
       render: (text) => (
-        <Text code className="text-xs text-indigo-300 font-mono">{text}</Text>
+        <Text code className="text-xs text-blue-600 font-mono">{text}</Text>
       ),
     },
     {
@@ -219,12 +219,12 @@ const CustomerManagement = () => {
       sorter: (a, b) => a.fullName.localeCompare(b.fullName),
       render: (text, record) => (
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-md">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-blue-950 text-xs font-bold shadow-md">
             {text?.charAt(0)?.toUpperCase()}
           </div>
           <div>
-            <div className="text-slate-200 font-semibold text-sm">{text}</div>
-            <div className="text-slate-500 text-xs">{record.occupation}</div>
+            <div className="text-blue-950 font-semibold text-sm">{text}</div>
+            <div className="text-blue-500 text-xs">{record.occupation}</div>
           </div>
         </div>
       ),
@@ -233,19 +233,19 @@ const CustomerManagement = () => {
       title: 'Mobile',
       dataIndex: 'mobile',
       key: 'mobile',
-      render: (text) => <Text className="text-slate-300 font-mono text-sm">+91 {text}</Text>,
+      render: (text) => <Text className="text-blue-800 font-mono text-sm">+91 {text}</Text>,
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      render: (text) => <Text className="text-slate-400 text-xs truncate max-w-[140px] block">{text}</Text>,
+      render: (text) => <Text className="text-blue-600 text-xs truncate max-w-[140px] block">{text}</Text>,
     },
     {
       title: 'Account No.',
       dataIndex: 'accountNumber',
       key: 'accountNumber',
-      render: (text) => <Text code className="text-xs text-cyan-300 font-mono">{text}</Text>,
+      render: (text) => <Text code className="text-xs text-blue-700 font-mono">{text}</Text>,
     },
     {
       title: 'Status',
@@ -274,18 +274,18 @@ const CustomerManagement = () => {
             <Button
               type="text"
               size="small"
-              icon={<EyeOutlined className="text-indigo-400" />}
+              icon={<EyeOutlined className="text-blue-700" />}
               onClick={() => openView(record)}
-              className="hover:bg-indigo-900/30 rounded-lg"
+              className="hover:bg-blue-100 rounded-lg"
             />
           </Tooltip>
           <Tooltip title="Edit Customer">
             <Button
               type="text"
               size="small"
-              icon={<EditOutlined className="text-amber-400" />}
+              icon={<EditOutlined className="text-blue-600" />}
               onClick={() => openEdit(record)}
-              className="hover:bg-amber-900/30 rounded-lg"
+              className="hover:bg-blue-100 rounded-lg"
             />
           </Tooltip>
           <Tooltip title="Delete Customer">
@@ -295,7 +295,7 @@ const CustomerManagement = () => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => { setCustomerToDelete(record); setDeleteModalOpen(true); }}
-              className="hover:bg-rose-900/30 rounded-lg"
+              className="hover:bg-blue-50/30 rounded-lg"
             />
           </Tooltip>
         </Space>
@@ -313,23 +313,23 @@ const CustomerManagement = () => {
       className="space-y-2"
     >
       {/* Personal Information */}
-      <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-5 mb-4">
+      <div className="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 mb-4">
         <SectionHeader icon={<UserOutlined />} title="Personal Information" subtitle="Basic identity details" />
         <Row gutter={[16, 0]}>
           <Col xs={24} sm={12}>
-            <Form.Item name="fullName" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Full Name</span>}
+            <Form.Item name="fullName" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Full Name</span>}
               rules={[{ required: true, message: 'Full name is required' }, { min: 2, message: 'Minimum 2 characters' }]}>
-              <Input placeholder="e.g. Rajesh Kumar" className="rounded-lg" prefix={<UserOutlined className="text-slate-500" />} />
+              <Input placeholder="e.g. Rajesh Kumar" className="rounded-lg" prefix={<UserOutlined className="text-blue-500" />} />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="dateOfBirth" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Date of Birth</span>}
+            <Form.Item name="dateOfBirth" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Date of Birth</span>}
               rules={[{ required: true, message: 'Date of birth is required' }]}>
               <DatePicker className="w-full rounded-lg" placeholder="YYYY-MM-DD" disabledDate={d => d && d > dayjs().subtract(18, 'year')} />
             </Form.Item>
           </Col>
           <Col xs={24} sm={8}>
-            <Form.Item name="gender" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Gender</span>}
+            <Form.Item name="gender" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Gender</span>}
               rules={[{ required: true, message: 'Gender is required' }]}>
               <Select placeholder="Select" className="rounded-lg">
                 <Option value="Male">Male</Option>
@@ -339,7 +339,7 @@ const CustomerManagement = () => {
             </Form.Item>
           </Col>
           <Col xs={24} sm={8}>
-            <Form.Item name="occupation" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Occupation</span>}
+            <Form.Item name="occupation" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Occupation</span>}
               rules={[{ required: true, message: 'Occupation is required' }]}>
               <Select placeholder="Select" className="rounded-lg">
                 <Option value="Salaried">Salaried</Option>
@@ -355,7 +355,7 @@ const CustomerManagement = () => {
             </Form.Item>
           </Col>
           <Col xs={24} sm={8}>
-            <Form.Item name="nominee" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Nominee Name</span>}
+            <Form.Item name="nominee" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Nominee Name</span>}
               rules={[{ required: true, message: 'Nominee is required' }]}>
               <Input placeholder="e.g. Anita Kumar" className="rounded-lg" />
             </Form.Item>
@@ -364,23 +364,23 @@ const CustomerManagement = () => {
       </div>
 
       {/* Contact Information */}
-      <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-5 mb-4">
+      <div className="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 mb-4">
         <SectionHeader icon={<PhoneOutlined />} title="Contact Information" subtitle="Reachability & address" />
         <Row gutter={[16, 0]}>
           <Col xs={24} sm={12}>
-            <Form.Item name="mobile" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Mobile Number</span>}
+            <Form.Item name="mobile" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Mobile Number</span>}
               rules={[{ validator: mobileValidator }]}>
-              <Input placeholder="9876543210" maxLength={10} className="rounded-lg" prefix={<PhoneOutlined className="text-slate-500" />} />
+              <Input placeholder="9876543210" maxLength={10} className="rounded-lg" prefix={<PhoneOutlined className="text-blue-500" />} />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="email" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Email Address</span>}
+            <Form.Item name="email" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Email Address</span>}
               rules={[{ required: true, message: 'Email is required' }, { type: 'email', message: 'Enter a valid email' }]}>
-              <Input placeholder="example@email.com" className="rounded-lg" prefix={<MailOutlined className="text-slate-500" />} />
+              <Input placeholder="example@email.com" className="rounded-lg" prefix={<MailOutlined className="text-blue-500" />} />
             </Form.Item>
           </Col>
           <Col xs={24}>
-            <Form.Item name="address" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Residential Address</span>}
+            <Form.Item name="address" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Residential Address</span>}
               rules={[{ required: true, message: 'Address is required' }, { min: 10, message: 'Address too short' }]}>
               <Input.TextArea rows={2} placeholder="House No., Street, City, State, PIN" className="rounded-lg" />
             </Form.Item>
@@ -389,17 +389,17 @@ const CustomerManagement = () => {
       </div>
 
       {/* KYC Documents */}
-      <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-5 mb-4">
+      <div className="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 mb-4">
         <SectionHeader icon={<IdcardOutlined />} title="KYC Documents" subtitle="Government-issued identification" />
         <Row gutter={[16, 0]}>
           <Col xs={24} sm={12}>
-            <Form.Item name="aadhaar" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Aadhaar Number</span>}
+            <Form.Item name="aadhaar" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Aadhaar Number</span>}
               rules={[{ validator: aadhaarValidator }]}>
               <Input placeholder="12-digit Aadhaar" maxLength={12} className="rounded-lg font-mono" />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="pan" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">PAN Number</span>}
+            <Form.Item name="pan" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">PAN Number</span>}
               rules={[{ validator: panValidator }]}>
               <Input placeholder="ABCDE1234F" maxLength={10} className="rounded-lg font-mono uppercase" style={{ textTransform: 'uppercase' }} />
             </Form.Item>
@@ -408,11 +408,11 @@ const CustomerManagement = () => {
       </div>
 
       {/* Account Information */}
-      <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-5 mb-4">
+      <div className="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 mb-4">
         <SectionHeader icon={<BankOutlined />} title="Account Information" subtitle="Banking account & branch details" />
         <Row gutter={[16, 0]}>
           <Col xs={24} sm={12}>
-            <Form.Item name="accountType" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Account Type</span>}
+            <Form.Item name="accountType" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Account Type</span>}
               rules={[{ required: true, message: 'Account type is required' }]} initialValue="Savings">
               <Select className="rounded-lg">
                 <Option value="Savings">Savings Account</Option>
@@ -425,8 +425,8 @@ const CustomerManagement = () => {
               <Form.Item
                 name="accountNumber"
                 label={
-                  <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">
-                    Account Number&nbsp;<span className="text-slate-500 font-normal normal-case text-xs">(optional – leave blank to auto‑generate)</span>
+                  <span className="text-xs uppercase tracking-wider font-semibold text-blue-600">
+                    Account Number&nbsp;<span className="text-blue-500 font-normal normal-case text-xs">(optional – leave blank to auto‑generate)</span>
                   </span>
                 }
               >
@@ -434,12 +434,12 @@ const CustomerManagement = () => {
                   placeholder="e.g. 10001  (max 5 chars)"
                   maxLength={5}
                   className="rounded-lg font-mono"
-                  prefix={<BankOutlined className="text-slate-500" />}
+                  prefix={<BankOutlined className="text-blue-500" />}
                 />
               </Form.Item>
             )}
             {isEdit && (
-              <Form.Item name="status" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Account Status</span>}
+              <Form.Item name="status" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Account Status</span>}
                 rules={[{ required: true }]}>
                 <Select className="rounded-lg">
                   <Option value="Active">Active</Option>
@@ -452,7 +452,7 @@ const CustomerManagement = () => {
 
           {!isEdit && (
             <Col xs={24} sm={12}>
-              <Form.Item name="initialDeposit" label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Initial Deposit (₹)</span>}
+              <Form.Item name="initialDeposit" label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Initial Deposit (₹)</span>}
                 rules={[{ required: true, message: 'Initial deposit is required' }, { type: 'number', min: 500, message: 'Minimum deposit is ₹500' }]}
                 initialValue={1000}>
                 <InputNumber className="w-full rounded-lg" min={500} placeholder="1000" formatter={v => `₹ ${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} parser={v => v.replace(/₹\s?|(,*)/g, '')} />
@@ -463,18 +463,18 @@ const CustomerManagement = () => {
           <Col xs={24} sm={12}>
             <Form.Item
               name="branch"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Branch Name</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Branch Name</span>}
               rules={[{ required: true, message: 'Branch is required' }]}
               initialValue="BURDWAN MAIN BRANCH"
             >
-              <Input className="rounded-lg" prefix={<BankOutlined className="text-slate-500" />} />
+              <Input className="rounded-lg" prefix={<BankOutlined className="text-blue-500" />} />
             </Form.Item>
           </Col>
 
           <Col xs={24} sm={12}>
             <Form.Item
               name="ifsc"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">IFSC Code</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">IFSC Code</span>}
               rules={[{ required: true, message: 'IFSC code is required' }]}
               initialValue="SBIN000048"
             >
@@ -485,7 +485,7 @@ const CustomerManagement = () => {
           <Col xs={24} sm={12}>
             <Form.Item
               name="micr"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">MICR Code</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">MICR Code</span>}
               rules={[{ required: true, message: 'MICR code is required' }]}
               initialValue="713002101"
             >
@@ -501,14 +501,14 @@ const CustomerManagement = () => {
         <Button
           icon={<ReloadOutlined />}
           onClick={() => form.resetFields()}
-          className="rounded-xl border-slate-700 text-slate-300 hover:border-slate-500"
+          className="rounded-xl border-blue-200 text-blue-800 hover:border-blue-500"
         >
           Reset Form
         </Button>
         <Button
           onClick={() => { setView('list'); setSelectedCustomer(null); }}
           icon={<CloseOutlined />}
-          className="rounded-xl border-slate-700 text-slate-300 hover:border-slate-500"
+          className="rounded-xl border-blue-200 text-blue-800 hover:border-blue-500"
         >
           Cancel
         </Button>
@@ -517,7 +517,7 @@ const CustomerManagement = () => {
           htmlType="submit"
           loading={loading}
           icon={<SaveOutlined />}
-          className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-xl px-6 font-semibold"
+          className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-xl px-6 font-semibold"
         >
           {isEdit ? 'Update Customer' : 'Save Customer'}
         </Button>
@@ -533,24 +533,24 @@ const CustomerManagement = () => {
     return (
       <div className="space-y-5">
         {/* Page Header */}
-        <div className="flex items-center justify-between bg-gradient-to-r from-indigo-950 to-slate-900 border border-indigo-900/50 p-6 rounded-2xl shadow-xl">
+        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl shadow-xl">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-black shadow-lg">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-blue-950 text-2xl font-black shadow-lg">
               {c.fullName?.charAt(0)?.toUpperCase()}
             </div>
             <div>
               <Title level={3} style={{ margin: 0, color: 'white' }}>{c.fullName}</Title>
               <div className="flex items-center gap-2 mt-1">
-                <Text code className="text-xs text-indigo-300">{c.customerId}</Text>
+                <Text code className="text-xs text-blue-600">{c.customerId}</Text>
                 <Tag color={statusColor[c.status]} icon={statusIcon[c.status]} className="font-semibold rounded-full m-0">{c.status}</Tag>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button icon={<EditOutlined />} onClick={() => openEdit(c)} className="bg-amber-600/20 text-amber-300 border-amber-700/50 hover:bg-amber-600/30 rounded-xl">
+            <Button icon={<EditOutlined />} onClick={() => openEdit(c)} className="bg-blue-100 text-blue-700 border-blue-300 hover:bg-blue-200 rounded-xl">
               Edit Customer
             </Button>
-            <Button icon={<ArrowLeftOutlined />} onClick={() => { setView('list'); setSelectedCustomer(null); }} className="bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 rounded-xl">
+            <Button icon={<ArrowLeftOutlined />} onClick={() => { setView('list'); setSelectedCustomer(null); }} className="bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-200 rounded-xl">
               Back to List
             </Button>
           </div>
@@ -559,14 +559,14 @@ const CustomerManagement = () => {
         {/* Transaction Summary stats */}
         <Row gutter={[16, 16]}>
           {[
-            { label: 'Account Number', value: c.accountNumber, color: '#818cf8', icon: <BankOutlined /> },
-            { label: 'Account Type', value: c.accountType, color: '#34d399', icon: <SafetyCertificateOutlined /> },
+            { label: 'Account Number', value: c.accountNumber, color: '#3b82f6', icon: <BankOutlined /> },
+            { label: 'Account Type', value: c.accountType, color: '#60a5fa', icon: <SafetyCertificateOutlined /> },
             { label: 'Initial Deposit', value: `₹${(c.initialDeposit || 0).toLocaleString()}`, color: '#60a5fa', icon: <BankOutlined /> },
-            { label: 'Transactions', value: totalTransactions, color: '#f59e0b', icon: <TeamOutlined /> },
+            { label: 'Transactions', value: totalTransactions, color: '#2563eb', icon: <TeamOutlined /> },
           ].map((s, i) => (
             <Col key={i} xs={12} sm={6}>
-              <Card className="bg-slate-900 border-slate-800 rounded-2xl hover:scale-[1.02] transition-all duration-300">
-                <Statistic title={<span className="text-slate-400 text-xs uppercase tracking-wider">{s.label}</span>}
+              <Card className="bg-white border-blue-100 rounded-2xl hover:scale-[1.02] transition-all duration-300">
+                <Statistic title={<span className="text-blue-600 text-xs uppercase tracking-wider">{s.label}</span>}
                   value={s.value} valueStyle={{ color: s.color, fontWeight: 'bold', fontSize: '1.1rem' }} prefix={s.icon} />
               </Card>
             </Col>
@@ -576,14 +576,14 @@ const CustomerManagement = () => {
         <Row gutter={[16, 16]}>
           {/* Personal Info */}
           <Col xs={24} lg={12}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl h-full" title={
-              <div className="flex items-center gap-2 text-slate-200">
-                <UserOutlined className="text-indigo-400" />
+            <Card className="bg-white border-blue-100 rounded-2xl h-full" title={
+              <div className="flex items-center gap-2 text-blue-950">
+                <UserOutlined className="text-blue-700" />
                 <span className="font-bold">Personal Information</span>
               </div>
             }>
-              <Descriptions column={1} size="small" labelStyle={{ color: '#94a3b8', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                contentStyle={{ color: '#e2e8f0', fontWeight: '500', paddingBottom: '12px' }}>
+              <Descriptions column={1} size="small" labelStyle={{ color: '#60a5fa', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                contentStyle={{ color: '#1e3a8a', fontWeight: '500', paddingBottom: '12px' }}>
                 <Descriptions.Item label="Full Name">{c.fullName}</Descriptions.Item>
                 <Descriptions.Item label="Date of Birth">{c.dateOfBirth}</Descriptions.Item>
                 <Descriptions.Item label="Gender">{c.gender}</Descriptions.Item>
@@ -595,13 +595,13 @@ const CustomerManagement = () => {
 
           {/* Contact Info */}
           <Col xs={24} lg={12}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl h-full" title={
-              <div className="flex items-center gap-2 text-slate-200">
-                <PhoneOutlined className="text-emerald-400" />
+            <Card className="bg-white border-blue-100 rounded-2xl h-full" title={
+              <div className="flex items-center gap-2 text-blue-950">
+                <PhoneOutlined className="text-blue-700" />
                 <span className="font-bold">Contact Information</span>
               </div>
             }>
-              <Descriptions column={1} size="small" labelStyle={{ color: '#94a3b8', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+              <Descriptions column={1} size="small" labelStyle={{ color: '#60a5fa', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
                 contentStyle={{ color: '#000101', fontWeight: '500', paddingBottom: '12px' }}>
                 <Descriptions.Item label="Mobile">+91 {c.mobile}</Descriptions.Item>
                 <Descriptions.Item label="Email">{c.email}</Descriptions.Item>
@@ -612,21 +612,21 @@ const CustomerManagement = () => {
 
           {/* KYC */}
           <Col xs={24} lg={12}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl" title={
-              <div className="flex items-center gap-2 text-slate-200">
-                <IdcardOutlined className="text-amber-400" />
+            <Card className="bg-white border-blue-100 rounded-2xl" title={
+              <div className="flex items-center gap-2 text-blue-950">
+                <IdcardOutlined className="text-blue-600" />
                 <span className="font-bold">KYC Documents</span>
               </div>
             }>
               <Descriptions column={1} size="small" labelStyle={{ color: '#94b5b8ff', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                contentStyle={{ color: '#e2e8f0', fontWeight: '500', paddingBottom: '12px' }}>
+                contentStyle={{ color: '#1e3a8a', fontWeight: '500', paddingBottom: '12px' }}>
                 <Descriptions.Item label="Aadhaar Number">
-                  <Text className="font-mono text-slate-200">
+                  <Text className="font-mono text-blue-950">
                     {c.aadhaar ? `XXXX XXXX ${c.aadhaar.slice(-4)}` : 'N/A'}
                   </Text>
                 </Descriptions.Item>
                 <Descriptions.Item label="PAN Number">
-                  <Text className="font-mono text-slate-200">{c.pan}</Text>
+                  <Text className="font-mono text-blue-950">{c.pan}</Text>
                 </Descriptions.Item>
               </Descriptions>
             </Card>
@@ -634,34 +634,34 @@ const CustomerManagement = () => {
 
           {/* Account Info */}
           <Col xs={24} lg={12}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl" title={
-              <div className="flex items-center gap-2 text-slate-200">
-                <BankOutlined className="text-cyan-400" />
+            <Card className="bg-white border-blue-100 rounded-2xl" title={
+              <div className="flex items-center gap-2 text-blue-950">
+                <BankOutlined className="text-blue-600" />
                 <span className="font-bold">Account Information</span>
               </div>
             }>
-              <Descriptions column={1} size="small" labelStyle={{ color: '#94a3b8', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                contentStyle={{ color: '#e2e8f0', fontWeight: '500', paddingBottom: '12px' }}>
+              <Descriptions column={1} size="small" labelStyle={{ color: '#60a5fa', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                contentStyle={{ color: '#1e3a8a', fontWeight: '500', paddingBottom: '12px' }}>
                 <Descriptions.Item label="Account Number">
-                  <Text code className="text-cyan-300 font-mono">{c.accountNumber}</Text>
+                  <Text code className="text-blue-700 font-mono">{c.accountNumber}</Text>
                 </Descriptions.Item>
                 <Descriptions.Item label="Account Type">
                   <Tag color="blue">{c.accountType}</Tag>
                 </Descriptions.Item>
                 <Descriptions.Item label="Branch">
-                  <Text className="text-slate-200 font-semibold">{c.branch || 'BURDWAN MAIN BRANCH'}</Text>
+                  <Text className="text-blue-950 font-semibold">{c.branch || 'BURDWAN MAIN BRANCH'}</Text>
                 </Descriptions.Item>
                 <Descriptions.Item label="IFSC Code">
-                  <Text className="font-mono text-indigo-300 font-bold">{c.ifsc || 'SBIN000048'}</Text>
+                  <Text className="font-mono text-blue-600 font-bold">{c.ifsc || 'SBIN000048'}</Text>
                 </Descriptions.Item>
                 <Descriptions.Item label="MICR Code">
-                  <Text className="font-mono text-purple-300 font-bold">{c.micr || '713002101'}</Text>
+                  <Text className="font-mono text-blue-700 font-bold">{c.micr || '713002101'}</Text>
                 </Descriptions.Item>
                 <Descriptions.Item label="Initial Deposit">
-                  <Text className="text-emerald-400 font-mono font-bold">₹{(c.initialDeposit || 0).toLocaleString()}</Text>
+                  <Text className="text-blue-700 font-mono font-bold">₹{(c.initialDeposit || 0).toLocaleString()}</Text>
                 </Descriptions.Item>
                 <Descriptions.Item label="Status">
-                  <Badge status={c.status === 'Active' ? 'success' : c.status === 'Suspended' ? 'error' : 'warning'} text={<span className="text-slate-200">{c.status}</span>} />
+                  <Badge status={c.status === 'Active' ? 'success' : c.status === 'Suspended' ? 'error' : 'warning'} text={<span className="text-blue-950">{c.status}</span>} />
                 </Descriptions.Item>
                 <Descriptions.Item label="Registered On">
                   {new Date(c.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
@@ -679,24 +679,24 @@ const CustomerManagement = () => {
           centered
           width={440}
           title={
-            <div className="flex items-center gap-2 text-rose-400">
+            <div className="flex items-center gap-2 text-blue-500">
               <DeleteOutlined />
               <span className="font-bold">Delete Customer</span>
             </div>
           }
         >
           <div className="py-4">
-            <div className="bg-rose-950/30 border border-rose-800/50 rounded-xl p-4 mb-4">
-              <p className="text-slate-200 text-sm">
-                Are you sure you want to delete <strong className="text-white">{customerToDelete?.fullName}</strong>?
-                This action <strong className="text-rose-400">cannot be undone</strong>.
+            <div className="bg-white/30 border border-blue-200 rounded-xl p-4 mb-4">
+              <p className="text-blue-950 text-sm">
+                Are you sure you want to delete <strong className="text-blue-950">{customerToDelete?.fullName}</strong>?
+                This action <strong className="text-blue-500">cannot be undone</strong>.
               </p>
             </div>
             <div className="flex justify-end gap-3">
-              <Button onClick={() => setDeleteModalOpen(false)} icon={<CloseOutlined />} className="rounded-xl border-slate-700 text-slate-300">
+              <Button onClick={() => setDeleteModalOpen(false)} icon={<CloseOutlined />} className="rounded-xl border-blue-200 text-blue-800">
                 Cancel
               </Button>
-              <Button danger type="primary" icon={<DeleteOutlined />} onClick={handleDeleteConfirm} className="rounded-xl bg-rose-600 hover:bg-rose-500 border-0">
+              <Button danger type="primary" icon={<DeleteOutlined />} onClick={handleDeleteConfirm} className="rounded-xl bg-blue-100 hover:bg-blue-200 border-blue-400 text-blue-900 border-0">
                 Confirm Delete
               </Button>
             </div>
@@ -710,18 +710,18 @@ const CustomerManagement = () => {
   if (view === 'add') {
     return (
       <div className="space-y-5">
-        <div className="flex items-center justify-between bg-gradient-to-r from-emerald-950 to-slate-900 border border-emerald-900/50 p-6 rounded-2xl">
+        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: 'white' }} className="flex items-center gap-2">
-              <UserAddOutlined className="text-emerald-400" /> Add New Customer
+              <UserAddOutlined className="text-blue-700" /> Add New Customer
             </Title>
-            <Text className="text-slate-400 text-xs">Fill in all required fields to register a new bank customer.</Text>
+            <Text className="text-blue-600 text-xs">Fill in all required fields to register a new bank customer.</Text>
           </div>
-          <Button icon={<ArrowLeftOutlined />} onClick={() => { setView('list'); addForm.resetFields(); }} className="bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 rounded-xl">
+          <Button icon={<ArrowLeftOutlined />} onClick={() => { setView('list'); addForm.resetFields(); }} className="bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-200 rounded-xl">
             Back to List
           </Button>
         </div>
-        <Card className="bg-slate-900 border-slate-800 rounded-3xl">
+        <Card className="bg-white border-blue-100 rounded-3xl">
           <CustomerForm form={addForm} onFinish={handleAddCustomer} isEdit={false} />
         </Card>
       </div>
@@ -732,18 +732,18 @@ const CustomerManagement = () => {
   if (view === 'edit' && selectedCustomer) {
     return (
       <div className="space-y-5">
-        <div className="flex items-center justify-between bg-gradient-to-r from-amber-950 to-slate-900 border border-amber-900/50 p-6 rounded-2xl">
+        <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: 'white' }} className="flex items-center gap-2">
-              <EditOutlined className="text-amber-400" /> Edit Customer
+              <EditOutlined className="text-blue-600" /> Edit Customer
             </Title>
-            <Text className="text-slate-400 text-xs">Updating record for: <strong className="text-amber-300">{selectedCustomer.fullName}</strong> ({selectedCustomer.customerId})</Text>
+            <Text className="text-blue-600 text-xs">Updating record for: <strong className="text-blue-700">{selectedCustomer.fullName}</strong> ({selectedCustomer.customerId})</Text>
           </div>
-          <Button icon={<ArrowLeftOutlined />} onClick={() => { setView('list'); setSelectedCustomer(null); }} className="bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 rounded-xl">
+          <Button icon={<ArrowLeftOutlined />} onClick={() => { setView('list'); setSelectedCustomer(null); }} className="bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-200 rounded-xl">
             Back to List
           </Button>
         </div>
-        <Card className="bg-slate-900 border-slate-800 rounded-3xl">
+        <Card className="bg-white border-blue-100 rounded-3xl">
           <CustomerForm form={editForm} onFinish={handleEditCustomer} isEdit={true} />
         </Card>
       </div>
@@ -754,15 +754,15 @@ const CustomerManagement = () => {
   return (
     <div className="space-y-5">
       {/* Page Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-900/50 p-6 rounded-2xl shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16" />
+      <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-white border border-blue-200 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/50 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
           <div>
-            <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
+            <span className="text-blue-700 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
               <TeamOutlined /> Customer Management Portal
             </span>
             <Title level={3} style={{ margin: 0, color: 'white' }}>Customer Registry</Title>
-            <Text className="text-slate-400 text-xs">Manage, view, and control all customer records in the banking system.</Text>
+            <Text className="text-blue-600 text-xs">Manage, view, and control all customer records in the banking system.</Text>
           </div>
           {/* Top Action Bar */}
           <div className="flex flex-wrap gap-2">
@@ -771,18 +771,18 @@ const CustomerManagement = () => {
                 type="primary"
                 icon={<UserAddOutlined />}
                 onClick={() => { setView('add'); addForm.resetFields(); }}
-                className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-xl font-semibold h-10"
+                className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-xl font-semibold h-10"
               >
                 Add Customer
               </Button>
             </Tooltip>
             <Tooltip title="Export as CSV">
-              <Button icon={<DownloadOutlined />} onClick={exportData} className="bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 rounded-xl h-10">
+              <Button icon={<DownloadOutlined />} onClick={exportData} className="bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-200 rounded-xl h-10">
                 Export Data
               </Button>
             </Tooltip>
             <Tooltip title="Refresh">
-              <Button icon={<ReloadOutlined />} onClick={loadData} className="bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 rounded-xl h-10">
+              <Button icon={<ReloadOutlined />} onClick={loadData} className="bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-200 rounded-xl h-10">
                 Refresh
               </Button>
             </Tooltip>
@@ -793,15 +793,15 @@ const CustomerManagement = () => {
       {/* Stats Row */}
       <Row gutter={[16, 16]}>
         {[
-          { label: 'Total Customers', value: stats.total, color: '#818cf8', icon: <TeamOutlined /> },
-          { label: 'Active', value: stats.active, color: '#34d399', icon: <CheckCircleOutlined /> },
+          { label: 'Total Customers', value: stats.total, color: '#3b82f6', icon: <TeamOutlined /> },
+          { label: 'Active', value: stats.active, color: '#60a5fa', icon: <CheckCircleOutlined /> },
           { label: 'Inactive', value: stats.inactive, color: '#fbbf24', icon: <ExclamationCircleOutlined /> },
           { label: 'Suspended', value: stats.suspended, color: '#f87171', icon: <CloseOutlined /> },
         ].map((s, i) => (
           <Col key={i} xs={12} sm={6}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer" onClick={() => setStatusFilter(i === 0 ? 'All' : s.label)}>
+            <Card className="bg-white border-blue-100 rounded-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer" onClick={() => setStatusFilter(i === 0 ? 'All' : s.label)}>
               <Statistic
-                title={<span className="text-slate-400 text-xs uppercase tracking-wider">{s.label}</span>}
+                title={<span className="text-blue-600 text-xs uppercase tracking-wider">{s.label}</span>}
                 value={s.value}
                 valueStyle={{ color: s.color, fontWeight: 'bold' }}
                 prefix={s.icon}
@@ -813,22 +813,22 @@ const CustomerManagement = () => {
 
       {/* Customer Table */}
       <Card
-        className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden"
+        className="bg-white border-blue-100 rounded-3xl overflow-hidden"
         title={
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between py-1">
             <div className="flex items-center gap-2">
-              <TeamOutlined className="text-indigo-400 text-lg" />
-              <span className="text-slate-200 font-bold">All Customers</span>
-              <Tag color="indigo" className="m-0 font-mono">{filteredCustomers.length}</Tag>
+              <TeamOutlined className="text-blue-700 text-lg" />
+              <span className="text-blue-950 font-bold">All Customers</span>
+              <Tag color="blue" className="m-0 font-mono">{filteredCustomers.length}</Tag>
             </div>
             <div className="flex gap-2 flex-wrap">
               <Input
                 placeholder="Search name, ID, mobile, email…"
-                prefix={<SearchOutlined className="text-slate-500" />}
+                prefix={<SearchOutlined className="text-blue-500" />}
                 value={searchText}
                 onChange={e => setSearchText(e.target.value)}
                 allowClear
-                className="rounded-xl w-64 bg-slate-800 border-slate-700"
+                className="rounded-xl w-64 bg-blue-50 border-blue-200"
               />
               <Select value={statusFilter} onChange={setStatusFilter} className="rounded-xl w-36" style={{ minWidth: 120 }}>
                 <Option value="All">All Status</Option>
@@ -848,11 +848,11 @@ const CustomerManagement = () => {
             pageSize: 8,
             showSizeChanger: true,
             pageSizeOptions: ['5', '8', '15', '25'],
-            showTotal: (total, range) => <span className="text-slate-400 text-xs">{range[0]}-{range[1]} of {total} customers</span>,
+            showTotal: (total, range) => <span className="text-blue-600 text-xs">{range[0]}-{range[1]} of {total} customers</span>,
           }}
           scroll={{ x: 'max-content' }}
-          rowClassName={() => 'hover:bg-slate-800/50 transition-colors'}
-          locale={{ emptyText: <div className="py-12 text-center text-slate-500"><TeamOutlined className="text-4xl mb-3 block" />No customers found</div> }}
+          rowClassName={() => 'hover:bg-blue-50/50 transition-colors'}
+          locale={{ emptyText: <div className="py-12 text-center text-blue-500"><TeamOutlined className="text-4xl mb-3 block" />No customers found</div> }}
         />
       </Card>
 
@@ -864,27 +864,27 @@ const CustomerManagement = () => {
         centered
         width={440}
         title={
-          <div className="flex items-center gap-2 text-rose-400">
+          <div className="flex items-center gap-2 text-blue-500">
             <DeleteOutlined />
             <span className="font-bold text-base">Delete Customer</span>
           </div>
         }
       >
         <div className="py-3">
-          <div className="bg-rose-950/30 border border-rose-800/50 rounded-xl p-4 mb-5">
-            <p className="text-slate-200 text-sm leading-relaxed">
+          <div className="bg-white/30 border border-blue-200 rounded-xl p-4 mb-5">
+            <p className="text-blue-950 text-sm leading-relaxed">
               Are you sure you want to delete{' '}
-              <strong className="text-white">{customerToDelete?.fullName}</strong>{' '}
-              (<Text code className="text-xs text-indigo-300">{customerToDelete?.customerId}</Text>)?
+              <strong className="text-blue-950">{customerToDelete?.fullName}</strong>{' '}
+              (<Text code className="text-xs text-blue-600">{customerToDelete?.customerId}</Text>)?
               <br />
-              <span className="text-rose-400 font-semibold">This action cannot be undone.</span>
+              <span className="text-blue-500 font-semibold">This action cannot be undone.</span>
             </p>
           </div>
           <div className="flex justify-end gap-3">
-            <Button onClick={() => { setDeleteModalOpen(false); setCustomerToDelete(null); }} icon={<CloseOutlined />} className="rounded-xl border-slate-700 text-slate-300">
+            <Button onClick={() => { setDeleteModalOpen(false); setCustomerToDelete(null); }} icon={<CloseOutlined />} className="rounded-xl border-blue-200 text-blue-800">
               Cancel
             </Button>
-            <Button danger type="primary" icon={<DeleteOutlined />} onClick={handleDeleteConfirm} className="rounded-xl bg-rose-600 hover:bg-rose-500 border-0 font-semibold">
+            <Button danger type="primary" icon={<DeleteOutlined />} onClick={handleDeleteConfirm} className="rounded-xl bg-blue-100 hover:bg-blue-200 border-blue-400 text-blue-900 border-0 font-semibold">
               Confirm Delete
             </Button>
           </div>

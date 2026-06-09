@@ -62,7 +62,7 @@ const Login = () => {
           {/* Hero text */}
           <div style={styles.heroSection}>
             <div style={styles.heroBadge}>
-              <SafetyCertificateOutlined style={{ marginRight: 6, color: "#4ade80" }} />
+              <SafetyCertificateOutlined style={{ marginRight: 6, color: "#60a5fa" }} />
               Secured with 256-bit SSL Encryption
             </div>
             <h1 style={styles.heroTitle}>
@@ -91,7 +91,7 @@ const Login = () => {
           <div style={styles.badgesRow}>
             {["RBI Regulated", "ISO 27001 Certified", "CERT-In Compliant"].map((b) => (
               <div key={b} style={styles.badge}>
-                <CheckCircleFilled style={{ color: "#4ade80", marginRight: 5, fontSize: 11 }} />
+                <CheckCircleFilled style={{ color: "#60a5fa", marginRight: 5, fontSize: 11 }} />
                 {b}
               </div>
             ))}
@@ -178,7 +178,7 @@ const Login = () => {
 
             {/* Security notice */}
             <div style={styles.securityNotice}>
-              <SafetyCertificateOutlined style={{ color: "#15803d", marginRight: 6, flexShrink: 0 }} />
+              <SafetyCertificateOutlined style={{ color: "#1e3a8a", marginRight: 6, flexShrink: 0 }} />
               <span>Your session is protected with end-to-end encryption. Never share your credentials.</span>
             </div>
 
@@ -307,7 +307,7 @@ const styles = {
     alignItems: "center",
     background: "rgba(74, 222, 128, 0.12)",
     border: "1px solid rgba(74, 222, 128, 0.3)",
-    color: "#86efac",
+    color: "#93c5fd",
     fontSize: 11,
     fontWeight: 600,
     padding: "5px 12px",
@@ -471,12 +471,12 @@ const styles = {
   securityNotice: {
     display: "flex",
     alignItems: "flex-start",
-    background: "#f0fdf4",
-    border: "1px solid #bbf7d0",
+    background: "#eff6ff",
+    border: "1px solid #bfdbfe",
     borderRadius: 10,
     padding: "10px 14px",
     fontSize: 11.5,
-    color: "#166534",
+    color: "#1e40af",
     lineHeight: 1.5,
     fontWeight: 500,
   },

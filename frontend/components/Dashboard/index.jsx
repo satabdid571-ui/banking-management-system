@@ -14,7 +14,7 @@ import {
   DownloadOutlined,
   UserOutlined,
   FileTextOutlined,
-  CreditCardOutlined,,
+  CreditCardOutlined,
   GlobalOutlined,
   MobileOutlined
 } from '@ant-design/icons';
@@ -175,7 +175,7 @@ const Dashboard = ({ activeMenu }) => {
       title: 'Tx ID',
       dataIndex: 'id',
       key: 'id',
-      render: (text) => <Text code className="text-xs text-slate-400 font-mono">{text.substring(0, 10)}...</Text>,
+      render: (text) => <Text code className="text-xs text-blue-600 font-mono">{text.substring(0, 10)}...</Text>,
     },
     {
       title: 'Timestamp',
@@ -210,17 +210,17 @@ const Dashboard = ({ activeMenu }) => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      render: (text) => <span className="text-slate-300 text-sm">{text}</span>,
+      render: (text) => <span className="text-blue-800 text-sm">{text}</span>,
     },
     {
       title: 'Parties',
       key: 'parties',
       render: (_, record) => {
-        if (record.type === 'deposit' || record.type === 'withdraw') return <span className="text-slate-500 text-xs">Internal / Cash</span>;
+        if (record.type === 'deposit' || record.type === 'withdraw') return <span className="text-blue-500 text-xs">Internal / Cash</span>;
         if (record.fromAccount === account?.accountNumber) {
-          return <span className="text-xs text-slate-300">To: <b>{record.toUsername || record.toAccount}</b></span>;
+          return <span className="text-xs text-blue-800">To: <b>{record.toUsername || record.toAccount}</b></span>;
         } else {
-          return <span className="text-xs text-slate-300">From: <b>{record.fromUsername || record.fromAccount}</b></span>;
+          return <span className="text-xs text-blue-800">From: <b>{record.fromUsername || record.fromAccount}</b></span>;
         }
       }
     },
@@ -232,7 +232,7 @@ const Dashboard = ({ activeMenu }) => {
       render: (amount, record) => {
         const isDebit = record.fromAccount === account?.accountNumber || record.type === 'withdraw';
         return (
-          <Text className={`font-bold font-mono ${isDebit ? 'text-rose-400' : 'text-emerald-400'}`}>
+          <Text className={`font-bold font-mono ${isDebit ? 'text-blue-500' : 'text-blue-700'}`}>
             {isDebit ? '-' : '+'} ₹{amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
           </Text>
         );
@@ -245,13 +245,13 @@ const Dashboard = ({ activeMenu }) => {
       title: 'Loan Code',
       dataIndex: 'id',
       key: 'id',
-      render: (text) => <Text code className="text-xs text-indigo-300 font-mono">{text.substring(0, 10)}</Text>,
+      render: (text) => <Text code className="text-xs text-blue-600 font-mono">{text.substring(0, 10)}</Text>,
     },
     {
       title: 'Principal',
       dataIndex: 'amount',
       key: 'amount',
-      render: (val) => <Text className="text-slate-200 font-semibold font-mono">₹{val.toLocaleString()}</Text>,
+      render: (val) => <Text className="text-blue-950 font-semibold font-mono">₹{val.toLocaleString()}</Text>,
     },
     {
       title: 'Term',
@@ -263,19 +263,19 @@ const Dashboard = ({ activeMenu }) => {
       title: 'Type',
       dataIndex: 'loanType',
       key: 'loanType',
-      render: (text) => <Tag color="purple">{text || 'Unsecured Loan'}</Tag>,
+      render: (text) => <Tag color="geekblue">{text || 'Unsecured Loan'}</Tag>,
     },
     {
       title: 'Purpose',
       dataIndex: 'purpose',
       key: 'purpose',
-      render: (text) => <Text className="text-slate-400 text-xs">{text}</Text>,
+      render: (text) => <Text className="text-blue-600 text-xs">{text}</Text>,
     },
     {
       title: 'Owed Balance',
       dataIndex: 'remainingAmount',
       key: 'remainingAmount',
-      render: (val) => <Text className="text-rose-400 font-mono font-bold">₹{val.toLocaleString(undefined, { minimumFractionDigits: 2 })}</Text>,
+      render: (val) => <Text className="text-blue-500 font-mono font-bold">₹{val.toLocaleString(undefined, { minimumFractionDigits: 2 })}</Text>,
     },
     {
       title: 'Status',
@@ -302,11 +302,11 @@ const Dashboard = ({ activeMenu }) => {
               paymentForm.setFieldsValue({ amount: Math.min(record.remainingAmount, 500) });
               setPaymentVisible(true);
             }}
-            className="bg-emerald-600 hover:bg-emerald-500 border-0 rounded text-xs"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded text-xs"
           >
             Pay Installment
           </Button>
-        ) : <span className="text-slate-500 text-xs">-</span>
+        ) : <span className="text-blue-500 text-xs">-</span>
       )
     }
   ];
@@ -316,7 +316,7 @@ const Dashboard = ({ activeMenu }) => {
       title: 'Reference ID',
       dataIndex: 'id',
       key: 'id',
-      render: (text) => <Text code className="text-xs text-indigo-300 font-mono">{text}</Text>,
+      render: (text) => <Text code className="text-xs text-blue-600 font-mono">{text}</Text>,
     },
     {
       title: 'Account Type',
@@ -328,7 +328,7 @@ const Dashboard = ({ activeMenu }) => {
       title: 'Starting Deposit',
       dataIndex: 'initialDeposit',
       key: 'initialDeposit',
-      render: (val) => <Text className="text-emerald-400 font-mono">₹{val.toLocaleString()}</Text>,
+      render: (val) => <Text className="text-blue-700 font-mono">₹{val.toLocaleString()}</Text>,
     },
     {
       title: 'Status',
@@ -357,16 +357,16 @@ const Dashboard = ({ activeMenu }) => {
 
     return (
       <div className="space-y-6">
-        <div className="flex justify-between items-center bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
+        <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: 'white' }}>Loans & Financing</Title>
-            <Text className="text-slate-400 text-xs">Request instant financing capital or process installment payments.</Text>
+            <Text className="text-blue-600 text-xs">Request instant financing capital or process installment payments.</Text>
           </div>
           <Button 
             type="primary" 
             icon={<span className="font-bold text-base px-1">₹</span>}
             onClick={() => setLoanVisible(true)}
-            className="bg-indigo-600 hover:bg-indigo-500 border-0 h-10 rounded-xl"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-10 rounded-xl"
           >
             Apply for Loan
           </Button>
@@ -374,31 +374,31 @@ const Dashboard = ({ activeMenu }) => {
 
         <Row gutter={[24, 24]}>
           <Col xs={24} sm={12}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl">
+            <Card className="bg-white border-blue-100 rounded-2xl">
               <Statistic 
-                title={<span className="text-slate-400 text-xs uppercase tracking-wider">Total Outstanding Debt</span>}
+                title={<span className="text-blue-600 text-xs uppercase tracking-wider">Total Outstanding Debt</span>}
                 value={totalDebt}
                 precision={2}
-                valueStyle={{ color: '#f87171', fontFamily: 'monospace', fontWeight: 'bold' }}
+                valueStyle={{ color: '#1e3a8a', fontFamily: 'monospace', fontWeight: 'bold' }}
                 prefix={<ArrowUpOutlined />}
               />
             </Card>
           </Col>
           <Col xs={24} sm={12}>
-            <Card className="bg-slate-900 border-slate-800 rounded-2xl">
+            <Card className="bg-white border-blue-100 rounded-2xl">
               <Statistic 
-                title={<span className="text-slate-400 text-xs uppercase tracking-wider">Active Loans</span>}
+                title={<span className="text-blue-600 text-xs uppercase tracking-wider">Active Loans</span>}
                 value={loans.filter(l => l.status === 'Approved' && l.remainingAmount > 0).length}
-                valueStyle={{ color: '#60a5fa', fontWeight: 'bold' }}
-                prefix={<span className="font-bold text-lg mr-1 text-sky-400">₹</span>}
+                valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }}
+                prefix={<span className="font-bold text-lg mr-1 text-blue-600">₹</span>}
               />
             </Card>
           </Col>
         </Row>
 
         <Card 
-          className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden"
-          title={<span className="text-slate-200 font-bold">My Financing Portfolios</span>}
+          className="bg-white border-blue-100 rounded-3xl overflow-hidden"
+          title={<span className="text-blue-950 font-bold">My Financing Portfolios</span>}
         >
           <Table 
             dataSource={loans} 
@@ -411,8 +411,8 @@ const Dashboard = ({ activeMenu }) => {
         {/* Loan Application Modal */}
         <Modal
           title={
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-              <span className="font-bold text-xl text-indigo-400">₹</span>
+            <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+              <span className="font-bold text-xl text-blue-700">₹</span>
               <span className="font-bold text-lg">Apply for Capital Financing</span>
             </div>
           }
@@ -433,7 +433,7 @@ const Dashboard = ({ activeMenu }) => {
           >
             <Form.Item
               name="loanType"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Loan Category</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Loan Category</span>}
               rules={[{ required: true, message: 'Please select loan type!' }]}
               initialValue="Unsecured Loan"
             >
@@ -446,7 +446,7 @@ const Dashboard = ({ activeMenu }) => {
 
             <Form.Item
               name="amount"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Financing Capital Amount (₹)</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Financing Capital Amount (₹)</span>}
               rules={[
                 { required: true, message: 'Please enter loan amount!' },
                 { type: 'number', min: 100, message: 'Minimum borrowing amount is ₹100!' }
@@ -457,7 +457,7 @@ const Dashboard = ({ activeMenu }) => {
 
             <Form.Item
               name="term"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Repayment Period</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Repayment Period</span>}
               rules={[{ required: true }]}
               initialValue={12}
             >
@@ -471,17 +471,17 @@ const Dashboard = ({ activeMenu }) => {
 
             <Form.Item
               name="purpose"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Borrowing Purpose / Description</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Borrowing Purpose / Description</span>}
               rules={[{ required: true, message: 'Brief explanation required!' }]}
             >
               <Input placeholder="e.g. Purchase business assets, education, real estate down payment" className="rounded-lg" />
             </Form.Item>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
               <Button onClick={() => setLoanVisible(false)} className="rounded-lg">
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit" loading={actionLoading} className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-lg">
+              <Button type="primary" htmlType="submit" loading={actionLoading} className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
                 Submit Underwriting Form
               </Button>
             </div>
@@ -491,8 +491,8 @@ const Dashboard = ({ activeMenu }) => {
         {/* Repayment Modal */}
         <Modal
           title={
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-              <CreditCardOutlined className="text-emerald-400" />
+            <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+              <CreditCardOutlined className="text-blue-700" />
               <span className="font-bold text-lg">Process Repayment Installment</span>
             </div>
           }
@@ -511,14 +511,14 @@ const Dashboard = ({ activeMenu }) => {
             requiredMark={false}
             className="pt-4"
           >
-            <div className="mb-4 p-3 bg-slate-900 border border-slate-800 rounded-lg">
-              <div className="text-xs text-slate-400 uppercase">Remaining Debt Balance</div>
-              <div className="text-xl font-bold font-mono text-rose-400">₹{selectedLoan?.remainingAmount.toLocaleString()}</div>
+            <div className="mb-4 p-3 bg-white border border-blue-100 rounded-lg">
+              <div className="text-xs text-blue-600 uppercase">Remaining Debt Balance</div>
+              <div className="text-xl font-bold font-mono text-blue-500">₹{selectedLoan?.remainingAmount.toLocaleString()}</div>
             </div>
 
             <Form.Item
               name="amount"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Payment Amount (₹)</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Payment Amount (₹)</span>}
               rules={[
                 { required: true, message: 'Please input payment amount!' },
                 { type: 'number', min: 1, message: 'Amount must be > ₹1' },
@@ -535,11 +535,11 @@ const Dashboard = ({ activeMenu }) => {
               <InputNumber className="w-full rounded-lg" min={1} max={selectedLoan?.remainingAmount} />
             </Form.Item>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
               <Button onClick={() => setPaymentVisible(false)} className="rounded-lg">
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit" loading={actionLoading} className="bg-emerald-600 hover:bg-emerald-500 border-0 rounded-lg">
+              <Button type="primary" htmlType="submit" loading={actionLoading} className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
                 Submit Payout
               </Button>
             </div>
@@ -552,24 +552,24 @@ const Dashboard = ({ activeMenu }) => {
   if (activeMenu === 'customer_requests') {
     return (
       <div className="space-y-6">
-        <div className="flex justify-between items-center bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
+        <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: 'white' }}>Account Request Hub</Title>
-            <Text className="text-slate-400 text-xs">Request additional portfolios (Savings / Checking / Business) to organize funds.</Text>
+            <Text className="text-blue-600 text-xs">Request additional portfolios (Savings / Checking / Business) to organize funds.</Text>
           </div>
           <Button 
             type="primary" 
             icon={<FileTextOutlined />}
             onClick={() => setReqVisible(true)}
-            className="bg-indigo-600 hover:bg-indigo-500 border-0 h-10 rounded-xl"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-10 rounded-xl"
           >
             Apply for Account
           </Button>
         </div>
 
         <Card 
-          className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden"
-          title={<span className="text-slate-200 font-bold">Portfolios Opening Application History</span>}
+          className="bg-white border-blue-100 rounded-3xl overflow-hidden"
+          title={<span className="text-blue-950 font-bold">Portfolios Opening Application History</span>}
         >
           <Table 
             dataSource={requests} 
@@ -582,8 +582,8 @@ const Dashboard = ({ activeMenu }) => {
         {/* Request Account Modal */}
         <Modal
           title={
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-              <FileTextOutlined className="text-indigo-400" />
+            <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+              <FileTextOutlined className="text-blue-700" />
               <span className="font-bold text-lg">Apply for Additional Portfolio</span>
             </div>
           }
@@ -604,7 +604,7 @@ const Dashboard = ({ activeMenu }) => {
           >
             <Form.Item
               name="type"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Portfolio Class</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Portfolio Class</span>}
               rules={[{ required: true }]}
               initialValue="Checking"
             >
@@ -617,18 +617,18 @@ const Dashboard = ({ activeMenu }) => {
 
             <Form.Item
               name="initialDeposit"
-              label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Opening Deposit (₹)</span>}
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Opening Deposit (₹)</span>}
               rules={[{ required: true, message: 'Please input deposit!' }]}
               initialValue={500}
             >
               <InputNumber className="w-full rounded-lg animate-pulse" min={0} placeholder="500" />
             </Form.Item>
 
-            <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
               <Button onClick={() => setReqVisible(false)} className="rounded-lg">
                 Cancel
               </Button>
-              <Button type="primary" htmlType="submit" loading={actionLoading} className="bg-indigo-600 hover:bg-indigo-500 border-0 rounded-lg">
+              <Button type="primary" htmlType="submit" loading={actionLoading} className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
                 Submit Opening Request
               </Button>
             </div>
@@ -643,18 +643,18 @@ const Dashboard = ({ activeMenu }) => {
     <div className="space-y-6">
       
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-slate-900 to-indigo-950 p-6 rounded-2xl border border-indigo-900/50 shadow-xl flex flex-col md:flex-row md:items-center justify-between text-white gap-4">
+      <div className="bg-gradient-to-r from-blue-100 to-white p-6 rounded-2xl border border-blue-200 shadow-xl flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-4">
         <div>
           <Title level={3} style={{ margin: 0, color: 'white' }} className="font-bold flex items-center gap-2">
             <span className="wave">👋</span> Welcome back, {user?.username}!
           </Title>
-          <Text className="text-indigo-200">Here is your real-time banking ledger summary.</Text>
+          <Text className="text-blue-600">Here is your real-time banking ledger summary.</Text>
         </div>
-        <div className="flex items-center gap-2 bg-indigo-900/30 border border-indigo-700/30 px-4 py-2 rounded-xl backdrop-blur-sm self-start md:self-auto">
-          <UserOutlined className="text-indigo-400" />
+        <div className="flex items-center gap-2 bg-blue-100 border border-blue-200 px-4 py-2 rounded-xl backdrop-blur-sm self-start md:self-auto">
+          <UserOutlined className="text-blue-700" />
           <div className="text-xs">
-            <div className="text-indigo-300">Account Owner</div>
-            <div className="font-semibold text-indigo-100">{user?.username}</div>
+            <div className="text-blue-600">Account Owner</div>
+            <div className="font-semibold text-blue-900">{user?.username}</div>
           </div>
         </div>
       </div>
@@ -664,39 +664,39 @@ const Dashboard = ({ activeMenu }) => {
         
         {/* Main Balance Card */}
         <Col xs={24} lg={16}>
-          <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 text-white p-8 rounded-3xl shadow-lg border border-indigo-400/20 min-h-[220px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-300">
+          <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-blue-950 p-8 rounded-3xl shadow-lg border border-blue-300/20 min-h-[220px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-300">
             {/* Sparkles design elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/20 rounded-full blur-2xl -ml-16 -mb-16 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-300/20 rounded-full blur-2xl -ml-16 -mb-16 pointer-events-none"></div>
 
             <div className="flex justify-between items-start z-10">
               <div>
-                <span className="text-indigo-100 text-sm tracking-wider uppercase font-medium">Available Balance</span>
+                <span className="text-blue-900 text-sm tracking-wider uppercase font-medium">Available Balance</span>
                 <div className="text-4xl lg:text-5xl font-black mt-1 tracking-tight font-mono">
                   ₹{account?.balance?.toLocaleString('en-US', { minimumFractionDigits: 2 }) || '0.00'}
                 </div>
               </div>
-              <WalletOutlined className="text-4xl text-indigo-100/50" />
+              <WalletOutlined className="text-4xl text-blue-200" />
             </div>
 
-            <div className="flex justify-between items-end border-t border-indigo-500/30 pt-4 z-10">
+            <div className="flex justify-between items-end border-t border-blue-200 pt-4 z-10">
               <div>
-                <span className="text-indigo-200 text-xs block uppercase">Account Number</span>
-                <span className="font-mono text-sm tracking-widest font-semibold flex items-center gap-2 text-indigo-100">
+                <span className="text-blue-600 text-xs block uppercase">Account Number</span>
+                <span className="font-mono text-sm tracking-widest font-semibold flex items-center gap-2 text-blue-900">
                   {account?.accountNumber || 'BANK-XXXXX'}
                   <Tooltip title="Copy Account Number">
                     <Button 
                       type="text" 
                       size="small" 
-                      icon={<CopyOutlined className="text-indigo-200 hover:text-white" />} 
+                      icon={<CopyOutlined className="text-blue-600 hover:text-blue-950" />} 
                       onClick={() => copyToClipboard(account?.accountNumber)}
                     />
                   </Tooltip>
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-indigo-200 text-xs block uppercase">Bank Status</span>
-                <Tag color="success" className="m-0 border-0 bg-emerald-500/20 text-emerald-200 font-semibold px-3 py-0.5 rounded-full">ACTIVE</Tag>
+                <span className="text-blue-600 text-xs block uppercase">Bank Status</span>
+                <Tag color="blue" className="m-0 border-0 bg-blue-100/50 text-blue-800 font-semibold px-3 py-0.5 rounded-full">ACTIVE</Tag>
               </div>
             </div>
           </div>
@@ -704,17 +704,17 @@ const Dashboard = ({ activeMenu }) => {
 
         {/* Transaction Hub */}
         <Col xs={24} lg={8}>
-          <Card className="h-full bg-slate-900 border-slate-800 rounded-3xl shadow-md flex flex-col justify-center p-2">
+          <Card className="h-full bg-white border-blue-100 rounded-3xl shadow-md flex flex-col justify-center p-2">
             <div className="mb-4">
-              <h3 className="font-bold text-slate-200 text-base mb-1">Transaction Services</h3>
-              <p className="text-slate-400 text-xs">Execute immediate balance actions on this ledger.</p>
+              <h3 className="font-bold text-blue-950 text-base mb-1">Transaction Services</h3>
+              <p className="text-blue-600 text-xs">Execute immediate balance actions on this ledger.</p>
             </div>
             
             <div className="grid grid-cols-2 gap-3">
               <Button 
                 size="large"
                 icon={<PlusOutlined />} 
-                className="bg-emerald-950 text-emerald-300 hover:bg-emerald-900 border-emerald-900/40 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
+                className="bg-blue-50 text-blue-600 hover:bg-blue-100 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
                 onClick={() => setDepositVisible(true)}
               >
                 Cash Deposit
@@ -722,7 +722,7 @@ const Dashboard = ({ activeMenu }) => {
               <Button 
                 size="large"
                 icon={<MinusOutlined />} 
-                className="bg-rose-950 text-rose-300 hover:bg-rose-900 border-rose-900/40 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
+                className="bg-white text-blue-800 hover:bg-blue-50 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
                 onClick={() => setWithdrawVisible(true)}
               >
                 Cash Withdrawal
@@ -731,7 +731,7 @@ const Dashboard = ({ activeMenu }) => {
                 type="primary" 
                 size="large"
                 icon={<SendOutlined />} 
-                className="w-full bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-semibold border-0 flex flex-col items-center justify-center py-6 h-auto"
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold border-0 flex flex-col items-center justify-center py-6 h-auto"
                 onClick={() => setTransferVisible(true)}
               >
                 Fund Transfer
@@ -739,7 +739,7 @@ const Dashboard = ({ activeMenu }) => {
               <Button 
                 size="large"
                 icon={<FileTextOutlined />} 
-                className="bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
+                className="bg-blue-50 text-blue-800 hover:bg-blue-200 border-blue-200 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
                 onClick={() => setStatementVisible(true)}
               >
                 Mini Statement
@@ -752,22 +752,22 @@ const Dashboard = ({ activeMenu }) => {
       {/* Linked Portfolios List if user requested extra checking/savings portfolios */}
       {customerAccounts.length > 1 && (
         <Card 
-          className="bg-slate-900 border-slate-800 rounded-3xl"
-          title={<span className="text-slate-200 font-bold text-sm">Linked Portfolios ({customerAccounts.length})</span>}
+          className="bg-white border-blue-100 rounded-3xl"
+          title={<span className="text-blue-950 font-bold text-sm">Linked Portfolios ({customerAccounts.length})</span>}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {customerAccounts.map(acc => (
               <div 
                 key={acc.accountNumber} 
-                className={`p-4 rounded-xl border ${acc.accountNumber === account?.accountNumber ? 'border-indigo-500 bg-indigo-950/20' : 'border-slate-800 bg-slate-900/50'} flex justify-between items-center`}
+                className={`p-4 rounded-xl border ${acc.accountNumber === account?.accountNumber ? 'border-blue-500 bg-blue-50' : 'border-blue-100 bg-white/50'} flex justify-between items-center`}
               >
                 <div>
-                  <div className="text-slate-200 font-semibold text-sm">{acc.type} Portfolio</div>
-                  <div className="text-slate-400 font-mono text-xs mt-0.5">{acc.accountNumber}</div>
+                  <div className="text-blue-950 font-semibold text-sm">{acc.type} Portfolio</div>
+                  <div className="text-blue-600 font-mono text-xs mt-0.5">{acc.accountNumber}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-emerald-400 font-mono font-bold">₹{acc.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
-                  {acc.accountNumber === account?.accountNumber && <Tag color="indigo" className="m-0 text-xs mt-1">Active View</Tag>}
+                  <div className="text-blue-700 font-mono font-bold">₹{acc.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
+                  {acc.accountNumber === account?.accountNumber && <Tag color="blue" className="m-0 text-xs mt-1">Active View</Tag>}
                 </div>
               </div>
             ))}
@@ -777,16 +777,16 @@ const Dashboard = ({ activeMenu }) => {
 
       {/* 24/7 Banking Information Card */}
       <Card 
-        className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden shadow-sm"
+        className="bg-white border-blue-100 rounded-3xl overflow-hidden shadow-sm"
       >
         <div className="flex flex-col md:flex-row items-center gap-6">
-          <div className="bg-gradient-to-br from-indigo-900/40 to-purple-900/40 p-4 rounded-2xl border border-indigo-500/20 flex-shrink-0 flex gap-4">
-            <GlobalOutlined className="text-3xl text-indigo-400" />
-            <MobileOutlined className="text-3xl text-purple-400" />
+          <div className="bg-gradient-to-br from-blue-50 to-blue-50 p-4 rounded-2xl border border-blue-500/20 flex-shrink-0 flex gap-4">
+            <GlobalOutlined className="text-3xl text-blue-700" />
+            <MobileOutlined className="text-3xl text-blue-600" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-200 text-base mb-1">24/7 Digital Banking & ATM Access</h3>
-            <p className="text-slate-400 text-sm m-0">
+            <h3 className="font-bold text-blue-950 text-base mb-1">24/7 Digital Banking & ATM Access</h3>
+            <p className="text-blue-600 text-sm m-0">
               Enjoy uninterrupted 24-hour banking services. Access your funds anytime through our nationwide network of ATM booths, comprehensive digital channels, and seamless mobile banking applications.
             </p>
           </div>
@@ -795,13 +795,13 @@ const Dashboard = ({ activeMenu }) => {
 
       {/* Transaction History Card */}
       <Card 
-        className="bg-slate-900 border-slate-800 rounded-3xl overflow-hidden" 
+        className="bg-white border-blue-100 rounded-3xl overflow-hidden" 
         title={
           <div className="flex items-center gap-2 py-1">
-            <HistoryOutlined className="text-indigo-400 text-lg" />
+            <HistoryOutlined className="text-blue-700 text-lg" />
             <div>
-              <span className="font-bold text-slate-200 text-base block">Transaction History</span>
-              <span className="text-xs text-slate-400 font-normal">History of debits and credits on this account</span>
+              <span className="font-bold text-blue-950 text-base block">Transaction History</span>
+              <span className="text-xs text-blue-600 font-normal">History of debits and credits on this account</span>
             </div>
           </div>
         }
@@ -810,7 +810,7 @@ const Dashboard = ({ activeMenu }) => {
             type="text" 
             icon={<HistoryOutlined />} 
             onClick={loadStoreData} 
-            className="text-indigo-400 hover:text-indigo-300 font-medium"
+            className="text-blue-700 hover:text-blue-600 font-medium"
           >
             Refresh
           </Button>
@@ -831,8 +831,8 @@ const Dashboard = ({ activeMenu }) => {
       {/* Transfer Modal */}
       <Modal
         title={
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <SendOutlined className="text-indigo-400" />
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <SendOutlined className="text-blue-700" />
             <span className="font-bold text-lg">Transfer Money</span>
           </div>
         }
@@ -853,7 +853,7 @@ const Dashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="recipient"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Recipient Account or Username</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Recipient Account or Username</span>}
             rules={[{ required: true, message: 'Please enter recipient username or account!' }]}
           >
             <Input placeholder="Enter username (e.g. jane) or account (e.g. BANK-10002)" className="rounded-lg" />
@@ -861,7 +861,7 @@ const Dashboard = ({ activeMenu }) => {
 
           <Form.Item
             name="amount"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Amount (₹)</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Amount (₹)</span>}
             rules={[
               { required: true, message: 'Please enter transfer amount!' },
               { type: 'number', min: 0.01, message: 'Amount must be greater than 0!' },
@@ -885,12 +885,12 @@ const Dashboard = ({ activeMenu }) => {
 
           <Form.Item
             name="description"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Description (Optional)</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Description (Optional)</span>}
           >
             <Input placeholder="E.g. Rent, dinner bill, invoice payment" className="rounded-lg" />
           </Form.Item>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
             <Button onClick={() => setTransferVisible(false)} className="rounded-lg">
               Cancel
             </Button>
@@ -898,7 +898,7 @@ const Dashboard = ({ activeMenu }) => {
               type="primary" 
               htmlType="submit" 
               loading={actionLoading} 
-              className="bg-indigo-600 hover:bg-indigo-500 rounded-lg border-0 px-6 font-semibold"
+              className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg border-0 px-6 font-semibold"
             >
               Send Transfer
             </Button>
@@ -909,8 +909,8 @@ const Dashboard = ({ activeMenu }) => {
       {/* Deposit Modal */}
       <Modal
         title={
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <PlusOutlined className="text-emerald-400" />
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <PlusOutlined className="text-blue-700" />
             <span className="font-bold text-lg">Deposit Funds</span>
           </div>
         }
@@ -931,7 +931,7 @@ const Dashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="depositType"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Deposit Category</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Deposit Category</span>}
             rules={[{ required: true, message: 'Please select deposit type!' }]}
             initialValue="Demand Deposit"
           >
@@ -944,7 +944,7 @@ const Dashboard = ({ activeMenu }) => {
 
           <Form.Item
             name="amount"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Amount to Deposit (₹)</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Amount to Deposit (₹)</span>}
             rules={[
               { required: true, message: 'Please enter deposit amount!' },
               { type: 'number', min: 0.01, message: 'Amount must be greater than 0!' }
@@ -958,7 +958,7 @@ const Dashboard = ({ activeMenu }) => {
             />
           </Form.Item>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
             <Button onClick={() => setDepositVisible(false)} className="rounded-lg">
               Cancel
             </Button>
@@ -966,7 +966,7 @@ const Dashboard = ({ activeMenu }) => {
               type="primary" 
               htmlType="submit" 
               loading={actionLoading} 
-              className="bg-emerald-600 hover:bg-emerald-500 rounded-lg border-0 px-6 font-semibold"
+              className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg border-0 px-6 font-semibold"
             >
               Deposit Funds
             </Button>
@@ -977,8 +977,8 @@ const Dashboard = ({ activeMenu }) => {
       {/* Withdraw Modal */}
       <Modal
         title={
-          <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <MinusOutlined className="text-rose-400" />
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <MinusOutlined className="text-blue-500" />
             <span className="font-bold text-lg">Withdraw Funds</span>
           </div>
         }
@@ -999,7 +999,7 @@ const Dashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="amount"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-slate-400">Amount to Withdraw (₹)</span>}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Amount to Withdraw (₹)</span>}
             rules={[
               { required: true, message: 'Please enter withdrawal amount!' },
               { type: 'number', min: 0.01, message: 'Amount must be greater than 0!' },
@@ -1021,7 +1021,7 @@ const Dashboard = ({ activeMenu }) => {
             />
           </Form.Item>
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
             <Button onClick={() => setWithdrawVisible(false)} className="rounded-lg">
               Cancel
             </Button>
@@ -1029,7 +1029,7 @@ const Dashboard = ({ activeMenu }) => {
               type="primary" 
               htmlType="submit" 
               loading={actionLoading} 
-              className="bg-rose-600 hover:bg-rose-500 rounded-lg border-0 px-6 font-semibold"
+              className="bg-blue-100 hover:bg-blue-200 border-blue-400 text-blue-900 rounded-lg border-0 px-6 font-semibold"
             >
               Withdraw Funds
             </Button>
@@ -1040,12 +1040,12 @@ const Dashboard = ({ activeMenu }) => {
       {/* Mini Statement Modal */}
       <Modal
         title={
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800 text-white">
+          <div className="flex items-center justify-between pb-2 border-b border-blue-100 text-blue-950">
             <div className="flex items-center gap-2">
-              <FileTextOutlined className="text-indigo-400" />
+              <FileTextOutlined className="text-blue-700" />
               <span className="font-bold text-lg">Mini Statement</span>
             </div>
-            <Button size="small" type="primary" className="bg-indigo-600 border-0" onClick={() => window.print()}>Print</Button>
+            <Button size="small" type="primary" className="bg-blue-600 border-0" onClick={() => window.print()}>Print</Button>
           </div>
         }
         open={statementVisible}
@@ -1056,46 +1056,46 @@ const Dashboard = ({ activeMenu }) => {
       >
         <div className="pt-4 pb-2" id="printable-statement">
           <div className="text-center mb-6">
-            <h2 className="text-slate-200 font-bold text-xl m-0">STATE BANK OF INDIA</h2>
-            <p className="text-slate-400 text-xs m-0">Account Mini Statement</p>
+            <h2 className="text-blue-950 font-bold text-xl m-0">STATE BANK OF INDIA</h2>
+            <p className="text-blue-600 text-xs m-0">Account Mini Statement</p>
           </div>
           
-          <div className="flex justify-between bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 mb-6">
+          <div className="flex justify-between bg-blue-50/50 p-4 rounded-lg border border-blue-200 mb-6">
             <div>
-              <div className="text-xs text-slate-400 uppercase tracking-wider mb-1">Account Holder</div>
-              <div className="text-slate-200 font-bold">{user?.username}</div>
+              <div className="text-xs text-blue-600 uppercase tracking-wider mb-1">Account Holder</div>
+              <div className="text-blue-950 font-bold">{user?.username}</div>
             </div>
             <div className="text-right">
-              <div className="text-xs text-slate-400 uppercase tracking-wider mb-1">Account Number</div>
-              <div className="text-indigo-400 font-mono font-bold">{account?.accountNumber}</div>
+              <div className="text-xs text-blue-600 uppercase tracking-wider mb-1">Account Number</div>
+              <div className="text-blue-700 font-mono font-bold">{account?.accountNumber}</div>
             </div>
           </div>
 
           <div className="mb-4">
-            <div className="text-xs text-slate-400 uppercase tracking-wider mb-2">Last 5 Transactions</div>
+            <div className="text-xs text-blue-600 uppercase tracking-wider mb-2">Last 5 Transactions</div>
             {transactions.slice(0, 5).map((tx, idx) => {
               const isDebit = tx.fromAccount === account?.accountNumber || tx.type === 'withdraw';
               return (
-                <div key={idx} className="flex justify-between items-center py-3 border-b border-slate-800 last:border-0">
+                <div key={idx} className="flex justify-between items-center py-3 border-b border-blue-100 last:border-0">
                   <div>
-                    <div className="text-slate-200 text-sm font-medium">{tx.description || tx.type.toUpperCase()}</div>
-                    <div className="text-slate-500 text-xs">{new Date(tx.timestamp).toLocaleString()}</div>
+                    <div className="text-blue-950 text-sm font-medium">{tx.description || tx.type.toUpperCase()}</div>
+                    <div className="text-blue-500 text-xs">{new Date(tx.timestamp).toLocaleString()}</div>
                   </div>
-                  <div className={`font-mono font-bold ${isDebit ? 'text-rose-400' : 'text-emerald-400'}`}>
+                  <div className={`font-mono font-bold ${isDebit ? 'text-blue-500' : 'text-blue-700'}`}>
                     {isDebit ? '-' : '+'} ₹{tx.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </div>
                 </div>
               );
             })}
-            {transactions.length === 0 && <div className="text-slate-500 text-center py-4 text-sm">No recent transactions found.</div>}
+            {transactions.length === 0 && <div className="text-blue-500 text-center py-4 text-sm">No recent transactions found.</div>}
           </div>
 
-          <div className="flex justify-between bg-indigo-950/30 p-4 rounded-lg border border-indigo-900/50 mt-4">
-            <div className="text-indigo-200 font-semibold">Available Balance</div>
-            <div className="text-indigo-100 font-mono font-black text-lg">₹{account?.balance?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
+          <div className="flex justify-between bg-blue-50 p-4 rounded-lg border border-blue-200 mt-4">
+            <div className="text-blue-600 font-semibold">Available Balance</div>
+            <div className="text-blue-900 font-mono font-black text-lg">₹{account?.balance?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
           </div>
           
-          <div className="text-center mt-6 text-slate-500 text-xs">
+          <div className="text-center mt-6 text-blue-500 text-xs">
             Generated on {new Date().toLocaleString()}
           </div>
         </div>
