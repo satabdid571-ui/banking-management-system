@@ -8,106 +8,16 @@ const initialData = {
     { id: 'dep_3', name: 'Loan Operations' },
     { id: 'dep_4', name: 'Risk & Compliance' }
   ],
-  employees: [
-    { id: 'emp_1', name: 'Alice Smith', email: 'alice@apexbank.com', role: 'Chief Treasurer', department: 'Treasury & Vault', salary: 9500, status: 'Active' },
-    { id: 'emp_2', name: 'Bob Johnson', email: 'bob@apexbank.com', role: 'Loan Specialist', department: 'Loan Operations', salary: 7200, status: 'Active' },
-    { id: 'emp_3', name: 'Charlie Davis', email: 'charlie@apexbank.com', role: 'Customer Success Manager', department: 'Retail Banking', salary: 5500, status: 'Active' }
-  ],
+  employees: [],
   users: [
     { id: 'usr_admin',    username: 'admin',    password: 'admin123',    role: 'admin',    createdAt: new Date().toISOString() },
-    { id: 'usr_employee', username: 'employee', password: 'employee123', role: 'employee', createdAt: new Date().toISOString() },
-    { id: 'usr_john',     username: 'voda',     password: 'password',    role: 'customer', accountNumber: 'BANK-10001', createdAt: new Date().toISOString() },
-    { id: 'usr_jane',     username: 'hola',     password: 'password',    role: 'customer', accountNumber: 'BANK-10002', createdAt: new Date().toISOString() },
-    { id: 'usr_ravi',     username: 'ravi',     password: 'password',    role: 'customer', accountNumber: 'BANK-55321', createdAt: new Date().toISOString() }
+    { id: 'usr_employee', username: 'employee', password: 'employee123', role: 'employee', createdAt: new Date().toISOString() }
   ],
-  accounts: [
-    { accountNumber: 'BANK-10001', userId: 'usr_john', username: 'voda', balance: 10000.00, status: 'Active',   type: 'Savings' },
-    { accountNumber: 'BANK-10002', userId: 'usr_jane', username: 'hola', balance: 12500.00, status: 'Active',   type: 'Checking' },
-    { accountNumber: 'BANK-55321', userId: 'usr_ravi', username: 'ravi', balance: 25000.00, status: 'Inactive', type: 'Savings' }
-  ],
-  transactions: [
-    { id: 'tx_1', fromAccount: 'SYSTEM', fromUsername: 'System', toAccount: 'BANK-10001', toUsername: 'voda', type: 'deposit', amount: 10000.00, description: 'Welcome Deposit', timestamp: new Date(Date.now() - 3600000 * 24).toISOString() },
-    { id: 'tx_2', fromAccount: 'SYSTEM', fromUsername: 'System', toAccount: 'BANK-10002', toUsername: 'hola', type: 'deposit', amount: 12500.00, description: 'Welcome Deposit', timestamp: new Date(Date.now() - 3600000 * 12).toISOString() },
-    { id: 'tx_3', fromAccount: 'SYSTEM', fromUsername: 'System', toAccount: 'BANK-55321', toUsername: 'ravi', type: 'deposit', amount: 25000.00, description: 'Account Opening Deposit', timestamp: new Date(Date.now() - 3600000 * 24 * 60).toISOString() }
-  ],
-  accountRequests: [
-    { id: 'req_1', username: 'voda', type: 'Checking', initialDeposit: 500,   status: 'Approved', timestamp: new Date(Date.now() - 3600000 * 25).toISOString() },
-    { id: 'req_2', username: 'hola', type: 'Savings',  initialDeposit: 1000,  status: 'Approved', timestamp: new Date(Date.now() - 3600000 * 13).toISOString() },
-    { id: 'req_3', username: 'ravi', type: 'Savings',  initialDeposit: 25000, status: 'Approved', timestamp: new Date(Date.now() - 3600000 * 24 * 60).toISOString() }
-  ],
-  loans: [
-    { id: 'loan_1', username: 'voda', amount: 5000,  term: 12, purpose: 'Home Renovation', status: 'Approved', remainingAmount: 4200,  loanType: 'Unsecured Loan', createdAt: new Date(Date.now() - 3600000 * 240).toISOString() },
-    { id: 'loan_2', username: 'hola', amount: 15000, term: 24, purpose: 'Car Finance',      status: 'Pending',  remainingAmount: 15000, loanType: 'Secured Loan',   createdAt: new Date(Date.now() - 3600000 * 4).toISOString() },
-    { id: 'loan_3', username: 'ravi', amount: 8000,  term: 36, purpose: 'Medical Equipment', status: 'Rejected', remainingAmount: 8000, loanType: 'Business & Specialized Loan', createdAt: new Date(Date.now() - 3600000 * 24 * 45).toISOString() }
-  ],
-  customers: [
-    {
-      id: 'cust_001',
-      customerId: 'CID-10001',
-      fullName: 'Voda',
-      dateOfBirth: '1990-05-15',
-      gender: 'Male',
-      mobile: '9876543210',
-      email: 'voda@example.com',
-      address: '12, MG Road, Bangalore, Karnataka 560001',
-      aadhaar: '123456789012',
-      pan: 'ABCDE1234F',
-      occupation: 'Software Engineer',
-      nominee: 'Mary Prakash',
-      accountType: 'Savings',
-      accountNumber: 'BANK-10001',
-      initialDeposit: 10000,
-      branch: 'BURDWAN MAIN BRANCH',
-      ifsc: 'SBIN000048',
-      micr: '713002101',
-      status: 'Active',
-      createdAt: new Date(Date.now() - 3600000 * 24 * 30).toISOString()
-    },
-    {
-      id: 'cust_002',
-      customerId: 'CID-10002',
-      fullName: 'Hola',
-      dateOfBirth: '1988-11-22',
-      gender: 'Female',
-      mobile: '9123456780',
-      email: 'hola@example.com',
-      address: '45, Anna Salai, Chennai, Tamil Nadu 600002',
-      aadhaar: '987654321098',
-      pan: 'FGHIJ5678K',
-      occupation: 'Business Owner',
-      nominee: 'Robert Williams',
-      accountType: 'Current',
-      accountNumber: 'BANK-10002',
-      initialDeposit: 12500,
-      branch: 'BURDWAN MAIN BRANCH',
-      ifsc: 'SBIN000048',
-      micr: '713002101',
-      status: 'Active',
-      createdAt: new Date(Date.now() - 3600000 * 24 * 15).toISOString()
-    },
-    {
-      id: 'cust_003',
-      customerId: 'CID-10003',
-      fullName: 'Ravi Kumar',
-      dateOfBirth: '1995-03-08',
-      gender: 'Male',
-      mobile: '9988776655',
-      email: 'ravi.kumar@example.com',
-      address: '78, Park Street, Kolkata, West Bengal 700016',
-      aadhaar: '456789012345',
-      pan: 'LMNOP9012Q',
-      occupation: 'Doctor',
-      nominee: 'Sunita Kumar',
-      accountType: 'Savings',
-      accountNumber: 'BANK-55321',
-      initialDeposit: 25000,
-      branch: 'BURDWAN MAIN BRANCH',
-      ifsc: 'SBIN000048',
-      micr: '713002101',
-      status: 'Inactive',
-      createdAt: new Date(Date.now() - 3600000 * 24 * 60).toISOString()
-    }
-  ]
+  accounts: [],
+  transactions: [],
+  accountRequests: [],
+  loans: [],
+  customers: []
 };
 
 // Load database
