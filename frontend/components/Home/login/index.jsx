@@ -22,10 +22,10 @@ const Login = () => {
     setLoading(true);
     try {
       if (isSignUp) {
-        await register(values.username, values.password);
+        await register(values.fullName, values.identifier, values.password);
         message.success("Account created successfully! Welcome bonus of ₹1,000 deposited.");
       } else {
-        await login(values.username, values.password);
+        await login(values.identifier, values.password);
         message.success("Login successful. Access granted!");
       }
     } catch (err) {
@@ -143,17 +143,35 @@ const Login = () => {
             requiredMark={false}
             style={{ marginTop: 8 }}
           >
+            {isSignUp && (
+              <Form.Item
+                name="fullName"
+                label={<span style={styles.fieldLabel}>Full Name</span>}
+                rules={[
+                  { required: true, message: "Please enter your full name" },
+                  { min: 3, message: "Must be at least 3 characters" },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined style={{ color: "#1e3a8a" }} />}
+                  placeholder="Enter your full name"
+                  size="large"
+                  style={styles.input}
+                />
+              </Form.Item>
+            )}
+
             <Form.Item
-              name="username"
-              label={<span style={styles.fieldLabel}>User ID / Client ID</span>}
+              name="identifier"
+              label={<span style={styles.fieldLabel}>{isSignUp ? "Email ID / Phone Number" : "User ID / Email / Phone"}</span>}
               rules={[
-                { required: true, message: "Please enter your User ID" },
+                { required: true, message: "Please enter your ID, email, or phone" },
                 { min: 3, message: "Must be at least 3 characters" },
               ]}
             >
               <Input
-                prefix={<UserOutlined style={{ color: "#1a56db" }} />}
-                placeholder="Enter your User ID or username"
+                prefix={<UserOutlined style={{ color: "#1e3a8a" }} />}
+                placeholder={isSignUp ? "Enter your email or phone number" : "Enter User ID, email, or phone"}
                 size="large"
                 style={styles.input}
               />

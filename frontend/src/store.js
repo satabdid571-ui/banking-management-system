@@ -128,6 +128,15 @@ export const bankStore = {
     return data.users.find(u => u.username.toLowerCase() === username.toLowerCase());
   },
 
+  getUserByIdentifier(identifier) {
+    const data = loadDb();
+    const lowerId = identifier.toLowerCase();
+    return data.users.find(u => 
+      u.username.toLowerCase() === lowerId || 
+      (u.emailOrPhone && u.emailOrPhone.toLowerCase() === lowerId)
+    );
+  },
+
   getAccounts() {
     const data = loadDb();
     return data.accounts;
@@ -144,11 +153,15 @@ export const bankStore = {
   },
 
   // Employee: Create Customer Account
-  createCustomerAccount(username, password, initialDeposit, accountType = 'Savings') {
+  createCustomerAccount(fullName, emailOrPhone, password, initialDeposit, accountType = 'Savings') {
     const data = loadDb();
     
-    if (data.users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
-      throw new Error('Username already exists');
+    if (data.users.some(u => 
+      u.username.toLowerCase() === fullName.toLowerCase() || 
+      (u.emailOrPhone && u.emailOrPhone.toLowerCase() === emailOrPhone.toLowerCase()) ||
+      u.username.toLowerCase() === emailOrPhone.toLowerCase()
+    )) {
+      throw new Error('User or Email/Phone already exists');
     }
 
     const userId = 'usr_' + Math.random().toString(36).substr(2, 9);
@@ -163,7 +176,8 @@ export const bankStore = {
 
     const newUser = {
       id: userId,
-      username,
+      username: fullName,
+      emailOrPhone,
       password,
       role: 'customer',
       accountNumber,
@@ -173,7 +187,7 @@ export const bankStore = {
     const newAccount = {
       accountNumber,
       userId,
-      username,
+      username: fullName,
       balance: parseFloat(initialDeposit) || 0,
       status: 'Active',
       type: accountType
@@ -188,7 +202,7 @@ export const bankStore = {
         fromAccount: 'SYSTEM',
         fromUsername: 'System',
         toAccount: accountNumber,
-        toUsername: username,
+        toUsername: fullName,
         type: 'deposit',
         amount: parseFloat(initialDeposit),
         description: 'Account Opening Deposit',

@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { bankStore, subscribeToStore } from './store';
 
 const AuthContext = createContext(null);
@@ -54,10 +54,10 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (identifier, password) => {
     setLoading(true);
     try {
-      const dbUser = bankStore.getUserByUsername(username);
+      const dbUser = bankStore.getUserByIdentifier(identifier);
       if (!dbUser) {
         throw new Error('Invalid username or password');
       }
@@ -85,16 +85,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (username, password) => {
+  const register = async (fullName, identifier, password) => {
     setLoading(true);
     try {
-      const existing = bankStore.getUserByUsername(username);
+      const existing = bankStore.getUserByIdentifier(identifier);
       if (existing) {
         throw new Error('Username already exists');
       }
 
       // Create a customer account with a ₹1,000 welcome bonus!
-      const { user: newUser, account: newAccount } = bankStore.createCustomerAccount(username, password, 1000.00, 'Savings');
+      const { user: newUser, account: newAccount } = bankStore.createCustomerAccount(fullName, identifier, password, 1000.00, 'Savings');
 
       const tokenObj = { id: newUser.id, username: newUser.username, role: newUser.role };
       localStorage.setItem('banking_token', JSON.stringify(tokenObj));
