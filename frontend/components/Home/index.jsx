@@ -38,13 +38,18 @@ const HomePage = () => {
       return <AdminDashboard activeMenu={activeMenu} />;
     }
 
-    switch (user.role) {
-      case 'employee':
-        return <EmployeeDashboard activeMenu={activeMenu} />;
-      case 'customer':
-      default:
+    if (user.role === 'employee') {
+      if (activeMenu.startsWith('customer_')) {
         return <Dashboard activeMenu={activeMenu} />;
+      }
+      return <EmployeeDashboard activeMenu={activeMenu} />;
     }
+
+    if (user.role === 'customer') {
+      return <Dashboard activeMenu={activeMenu} />;
+    }
+    
+    return <Dashboard activeMenu={activeMenu} />;
   };
 
   return (

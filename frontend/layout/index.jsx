@@ -133,7 +133,13 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
           logoutItem
         ];
       case 'employee':
-        return [...employeeItems, logoutItem];
+        return [
+          { type: 'group', label: 'Employee Tools', children: employeeItems },
+          { type: 'divider' },
+          { type: 'group', label: 'Customer Tools', children: customerItems },
+          { type: 'divider' },
+          logoutItem
+        ];
       case 'customer':
       default:
         return [...customerItems, logoutItem];
