@@ -325,7 +325,7 @@ const AdminDashboard = ({ activeMenu }) => {
                 { type: 'email', message: 'Enter a valid email address!' }
               ]}
             >
-              <Input placeholder="e.g. employee@apex.com" className="rounded-lg" />
+              <Input placeholder="e.g. employee@sbi.co.in" className="rounded-lg" />
             </Form.Item>
 
             <Row gutter={16}>

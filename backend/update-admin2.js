@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const uri = 'mongodb://localhost:27017/apexbank';
+const uri = 'mongodb://localhost:27017/sbibank';
 
 async function updateAdmin() {
   await mongoose.connect(uri);

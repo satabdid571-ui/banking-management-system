@@ -11,7 +11,7 @@ import {
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const JWT_SECRET = process.env.JWT_SECRET || 'apex_bank_super_secret_jwt_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'sbi_bank_super_secret_jwt_key_2026';
 
 // Middleware
 app.use(cors());
@@ -806,7 +806,7 @@ app.delete('/api/admin/departments/:id', authenticateToken, requireRole(['admin'
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`🚀 Apex Banking Backend running on port ${PORT}`);
+      console.log(`🚀 State Bank of India Backend running on port ${PORT}`);
     });
   })
   .catch(err => {

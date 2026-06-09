@@ -33,7 +33,7 @@ const MISDashboard = () => {
 
   // Helper to load raw tx from localstorage since bankStore doesn't expose getAllTransactions
   const loadDbTransactions = () => {
-    const raw = localStorage.getItem('apex_bank_database');
+    const raw = localStorage.getItem('sbi_bank_database');
     if (raw) {
       try {
         const parsed = JSON.parse(raw);

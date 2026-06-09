@@ -1,7 +1,7 @@
 {
-  "name": "apex-banking-app",
+  "name": "state-bank-of-india-app",
   "version": "1.0.0",
-  "description": "Full-stack Apex Banking Application — monorepo with separate frontend and backend",
+  "description": "Full-stack State Bank of India Application — monorepo with separate frontend and backend",
   "private": true,
   "scripts": {
     "dev:frontend": "cd frontend && npm run dev",

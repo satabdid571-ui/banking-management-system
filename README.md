@@ -1,4 +1,4 @@
-# Apex Banking App
+# State Bank of India App
 
 A full-stack banking application with a React (Vite) frontend and Node.js/Express backend, organized as a clean monorepo.
 
@@ -7,7 +7,7 @@ A full-stack banking application with a React (Vite) frontend and Node.js/Expres
 ## 📁 Project Structure
 
 ```
-apex-banking-app/
+state-bank-of-india-app/
 ├── frontend/              # React + Vite application
 │   ├── src/               # App source (store, hooks, API)
 │   ├── components/        # Page components (admin, employee, dashboard, home)

@@ -1,7 +1,7 @@
 {
-  "name": "apex-banking-backend",
+  "name": "sbi-banking-backend",
   "version": "1.0.0",
-  "description": "Backend server for Apex Banking application",
+  "description": "Backend server for State Bank of India application",
   "main": "server.js",
   "type": "module",
   "scripts": {

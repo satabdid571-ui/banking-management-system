@@ -7,7 +7,7 @@ import {
 
 // ─── Connect & Seed ──────────────────────────────────────────────────────────
 export async function connectDB() {
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/apexbank';
+  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/sbibank';
 
   await mongoose.connect(uri);
   console.log('✅ Connected to MongoDB:', uri);
@@ -35,9 +35,9 @@ async function seedIfEmpty() {
 
   // Employees
   await Employee.insertMany([
-    { id: 'emp_1', name: 'Alice Smith',   email: 'alice@apexbank.com',   role: 'Chief Treasurer',          department: 'Treasury & Vault', salary: 9500, status: 'Active' },
-    { id: 'emp_2', name: 'Bob Johnson',   email: 'bob@apexbank.com',     role: 'Loan Specialist',           department: 'Loan Operations',  salary: 7200, status: 'Active' },
-    { id: 'emp_3', name: 'Charlie Davis', email: 'charlie@apexbank.com', role: 'Customer Success Manager', department: 'Retail Banking',   salary: 5500, status: 'Active' }
+    { id: 'emp_1', name: 'Alice Smith',   email: 'alice@sbi.co.in',   role: 'Chief Treasurer',          department: 'Treasury & Vault', salary: 9500, status: 'Active' },
+    { id: 'emp_2', name: 'Bob Johnson',   email: 'bob@sbi.co.in',     role: 'Loan Specialist',           department: 'Loan Operations',  salary: 7200, status: 'Active' },
+    { id: 'emp_3', name: 'Charlie Davis', email: 'charlie@sbi.co.in', role: 'Customer Success Manager', department: 'Retail Banking',   salary: 5500, status: 'Active' }
   ]);
 
   // Users (hashed passwords)

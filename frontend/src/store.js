@@ -1,4 +1,4 @@
-const DB_KEY = 'apex_bank_database';
+const DB_KEY = 'sbi_bank_database';
 
 const initialData = {
   bankReserve: 12500000.00, // Bank vault capital amount
