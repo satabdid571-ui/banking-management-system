@@ -43,8 +43,8 @@ const EmployeeDashboard = ({ activeMenu }) => {
   // Employee actions
   const handleCreateCustomer = (values) => {
     try {
-      bankStore.createCustomerAccount(values.username, values.password, values.initialDeposit, values.accountType);
-      message.success(`Account created successfully for ${values.username}!`);
+      bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.password, values.initialDeposit, values.accountType);
+      message.success(`Account created successfully for ${values.fullName}!`);
       setCreateAccountVisible(false);
       createForm.resetFields();
     } catch (err) {
@@ -427,14 +427,25 @@ const EmployeeDashboard = ({ activeMenu }) => {
           className="pt-4"
         >
           <Form.Item
-            name="username"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Username</span>}
+            name="fullName"
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Customer Full Name</span>}
             rules={[
-              { required: true, message: 'Please input username!' },
+              { required: true, message: 'Please input full name!' },
               { min: 3, message: 'Must be at least 3 characters!' }
             ]}
           >
-            <Input placeholder="Enter username for customer" className="rounded-lg" />
+            <Input placeholder="Enter customer's full name" className="rounded-lg" />
+          </Form.Item>
+
+          <Form.Item
+            name="emailOrPhone"
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Email or Phone Number</span>}
+            rules={[
+              { required: true, message: 'Please input email or phone number!' },
+              { min: 3, message: 'Must be at least 3 characters!' }
+            ]}
+          >
+            <Input placeholder="Enter email or phone number" className="rounded-lg" />
           </Form.Item>
 
           <Form.Item

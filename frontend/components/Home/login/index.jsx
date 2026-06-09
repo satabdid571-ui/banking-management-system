@@ -17,18 +17,12 @@ const Login = () => {
   const { login, register } = useAuth();
   const [loading, setLoading] = useState(false);
   const [loginType, setLoginType] = useState('customer'); // 'customer' or 'employee'
-  const [isSignUp, setIsSignUp] = useState(false);
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      if (isSignUp) {
-        await register(values.fullName, values.identifier, values.password);
-        message.success("Account created successfully! Welcome bonus of ₹1,000 deposited.");
-      } else {
-        await login(values.identifier, values.password);
-        message.success("Login successful. Access granted!");
-      }
+      await login(values.identifier, values.password);
+      message.success("Login successful. Access granted!");
     } catch (err) {
       message.error(err.message || "Authentication failed");
     } finally {
@@ -137,7 +131,7 @@ const Login = () => {
               </Button>
               <Button 
                 type={loginType === 'employee' ? 'primary' : 'default'} 
-                onClick={() => { setLoginType('employee'); setIsSignUp(false); form.resetFields(); }}
+                onClick={() => { setLoginType('employee'); form.resetFields(); }}
                 style={{ flex: 1, borderRadius: '8px' }}
               >
                 Staff Portal
@@ -145,16 +139,12 @@ const Login = () => {
             </div>
 
             <h2 style={styles.formTitle}>
-              {loginType === 'employee' 
-                ? "Staff Portal Login" 
-                : isSignUp ? "Create Account" : "Secure Sign In"}
+              {loginType === 'employee' ? "Staff Portal Login" : "Secure Sign In"}
             </h2>
             <p style={styles.formSubtitle}>
               {loginType === 'employee'
                 ? "Enter your employee name and email address."
-                : isSignUp
-                  ? "Register as a new customer. A welcome bonus of ₹1,000 will be credited."
-                  : "Enter your authorized credentials to access the banking portal."}
+                : "Enter your authorized credentials to access the banking portal."}
             </p>
           </div>
 
@@ -166,30 +156,12 @@ const Login = () => {
             requiredMark={false}
             style={{ marginTop: 8 }}
           >
-            {isSignUp && (
-              <Form.Item
-                name="fullName"
-                label={<span style={styles.fieldLabel}>Full Name</span>}
-                rules={[
-                  { required: true, message: "Please enter your full name" },
-                  { min: 3, message: "Must be at least 3 characters" },
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined style={{ color: "#1e3a8a" }} />}
-                  placeholder="Enter your full name"
-                  size="large"
-                  style={styles.input}
-                />
-              </Form.Item>
-            )}
-
             <Form.Item
               name="identifier"
               label={<span style={styles.fieldLabel}>{
                 loginType === 'employee' 
                   ? "Employee Name" 
-                  : isSignUp ? "Email ID / Phone Number" : "User ID / Email / Phone"
+                  : "User ID / Email / Phone"
               }</span>}
               rules={[
                 { required: true, message: "Please enter your ID" },
@@ -201,7 +173,7 @@ const Login = () => {
                 placeholder={
                   loginType === 'employee'
                     ? "Enter your employee name"
-                    : isSignUp ? "Enter your email or phone number" : "Enter User ID, email, or phone"
+                    : "Enter User ID, email, or phone"
                 }
                 size="large"
                 style={styles.input}
@@ -240,28 +212,11 @@ const Login = () => {
                 style={styles.submitBtn}
                 block
               >
-                {isSignUp ? "Open Account" : "Sign In Securely"}
+                Sign In Securely
                 {!loading && <ArrowRightOutlined style={{ marginLeft: 8 }} />}
               </Button>
             </Form.Item>
           </Form>
-
-          {/* Toggle */}
-          {loginType === 'customer' && (
-            <div style={styles.toggleRow}>
-              <span style={styles.toggleText}>
-                {isSignUp ? "Already registered? " : "New customer? "}
-              </span>
-              <button
-                style={styles.toggleLink}
-                onClick={(e) => { e.preventDefault(); form.resetFields(); setIsSignUp(!isSignUp); }}
-              >
-                {isSignUp ? "Sign In" : "Open an Account"}
-              </button>
-            </div>
-          )}
-
-
 
           {/* Footer */}
           <div style={styles.formFooter}>
