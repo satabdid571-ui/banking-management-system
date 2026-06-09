@@ -274,14 +274,7 @@ const Login = () => {
             </Form.Item>
           </Form>
 
-          {loginType === 'customer' && (
-            <div style={styles.toggleRow}>
-              <span style={styles.toggleText}>{isSignUp ? "Already registered? " : "New customer? "}</span>
-              <button style={styles.toggleLink} onClick={(e) => { e.preventDefault(); form.resetFields(); setIsSignUp(!isSignUp); }}>
-                {isSignUp ? "Sign In" : "Open an Account"}
-              </button>
-            </div>
-          )}
+
 
           <div style={styles.formFooter}>
             <span>© 2026 State Bank of India. All rights reserved.</span>
