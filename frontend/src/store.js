@@ -76,6 +76,17 @@ export const bankStore = {
       ...employee
     };
     data.employees.push(newEmp);
+
+    const newUser = {
+      id: newEmp.id,
+      username: employee.name,
+      emailOrPhone: employee.email,
+      password: employee.email,
+      role: 'employee',
+      createdAt: new Date().toISOString()
+    };
+    data.users.push(newUser);
+
     saveDb(data);
     return newEmp;
   },
@@ -89,6 +100,7 @@ export const bankStore = {
   deleteEmployee(id) {
     const data = loadDb();
     data.employees = data.employees.filter(emp => emp.id !== id);
+    data.users = data.users.filter(u => u.id !== id);
     saveDb(data);
   },
 

@@ -16,6 +16,7 @@ const Login = () => {
   const [form] = Form.useForm();
   const { login, register } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [loginType, setLoginType] = useState('customer'); // 'customer' or 'employee'
   const [isSignUp, setIsSignUp] = useState(false);
 
   const onFinish = async (values) => {
@@ -125,13 +126,35 @@ const Login = () => {
               </div>
             </div>
             <div style={styles.divider} />
+            {/* Tabs */}
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+              <Button 
+                type={loginType === 'customer' ? 'primary' : 'default'} 
+                onClick={() => { setLoginType('customer'); form.resetFields(); }}
+                style={{ flex: 1, borderRadius: '8px' }}
+              >
+                Customer Portal
+              </Button>
+              <Button 
+                type={loginType === 'employee' ? 'primary' : 'default'} 
+                onClick={() => { setLoginType('employee'); setIsSignUp(false); form.resetFields(); }}
+                style={{ flex: 1, borderRadius: '8px' }}
+              >
+                Staff Portal
+              </Button>
+            </div>
+
             <h2 style={styles.formTitle}>
-              {isSignUp ? "Create Account" : "Secure Sign In"}
+              {loginType === 'employee' 
+                ? "Staff Portal Login" 
+                : isSignUp ? "Create Account" : "Secure Sign In"}
             </h2>
             <p style={styles.formSubtitle}>
-              {isSignUp
-                ? "Register as a new customer. A welcome bonus of ₹1,000 will be credited."
-                : "Enter your authorized credentials to access the banking portal."}
+              {loginType === 'employee'
+                ? "Enter your employee name and email address."
+                : isSignUp
+                  ? "Register as a new customer. A welcome bonus of ₹1,000 will be credited."
+                  : "Enter your authorized credentials to access the banking portal."}
             </p>
           </div>
 
@@ -163,15 +186,23 @@ const Login = () => {
 
             <Form.Item
               name="identifier"
-              label={<span style={styles.fieldLabel}>{isSignUp ? "Email ID / Phone Number" : "User ID / Email / Phone"}</span>}
+              label={<span style={styles.fieldLabel}>{
+                loginType === 'employee' 
+                  ? "Employee Name" 
+                  : isSignUp ? "Email ID / Phone Number" : "User ID / Email / Phone"
+              }</span>}
               rules={[
-                { required: true, message: "Please enter your ID, email, or phone" },
+                { required: true, message: "Please enter your ID" },
                 { min: 3, message: "Must be at least 3 characters" },
               ]}
             >
               <Input
                 prefix={<UserOutlined style={{ color: "#1e3a8a" }} />}
-                placeholder={isSignUp ? "Enter your email or phone number" : "Enter User ID, email, or phone"}
+                placeholder={
+                  loginType === 'employee'
+                    ? "Enter your employee name"
+                    : isSignUp ? "Enter your email or phone number" : "Enter User ID, email, or phone"
+                }
                 size="large"
                 style={styles.input}
               />
@@ -179,16 +210,16 @@ const Login = () => {
 
             <Form.Item
               name="password"
-              label={<span style={styles.fieldLabel}>Password / IPIN</span>}
+              label={<span style={styles.fieldLabel}>{loginType === 'employee' ? "Email ID" : "Password / IPIN"}</span>}
               rules={[
-                { required: true, message: "Please enter your password" },
-                { min: 6, message: "Password must be at least 6 characters" },
+                { required: true, message: loginType === 'employee' ? "Please enter your email" : "Please enter your password" },
+                { min: 6, message: "Must be at least 6 characters" },
               ]}
               style={{ marginBottom: 20 }}
             >
               <Input.Password
                 prefix={<LockOutlined style={{ color: "#1a56db" }} />}
-                placeholder="Enter your internet banking password"
+                placeholder={loginType === 'employee' ? "Enter your email address" : "Enter your internet banking password"}
                 size="large"
                 style={styles.input}
               />
@@ -216,17 +247,19 @@ const Login = () => {
           </Form>
 
           {/* Toggle */}
-          <div style={styles.toggleRow}>
-            <span style={styles.toggleText}>
-              {isSignUp ? "Already registered? " : "New customer? "}
-            </span>
-            <button
-              style={styles.toggleLink}
-              onClick={() => { form.resetFields(); setIsSignUp(!isSignUp); }}
-            >
-              {isSignUp ? "Sign In" : "Open an Account"}
-            </button>
-          </div>
+          {loginType === 'customer' && (
+            <div style={styles.toggleRow}>
+              <span style={styles.toggleText}>
+                {isSignUp ? "Already registered? " : "New customer? "}
+              </span>
+              <button
+                style={styles.toggleLink}
+                onClick={(e) => { e.preventDefault(); form.resetFields(); setIsSignUp(!isSignUp); }}
+              >
+                {isSignUp ? "Sign In" : "Open an Account"}
+              </button>
+            </div>
+          )}
 
 
 
