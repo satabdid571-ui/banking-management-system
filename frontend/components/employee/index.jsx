@@ -43,7 +43,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
   // Employee actions
   const handleCreateCustomer = (values) => {
     try {
-      bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.password, values.initialDeposit, values.accountType);
+      bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.emailOrPhone, values.initialDeposit, values.accountType);
       message.success(`Account created successfully for ${values.fullName}!`);
       setCreateAccountVisible(false);
       createForm.resetFields();
@@ -446,15 +446,6 @@ const EmployeeDashboard = ({ activeMenu }) => {
             ]}
           >
             <Input placeholder="Enter email or phone number" className="rounded-lg" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Temporary Password</span>}
-            rules={[{ required: true, message: 'Temporary password is required!' }]}
-            initialValue="password123"
-          >
-            <Input.Password className="rounded-lg" />
           </Form.Item>
 
           <Row gutter={16}>

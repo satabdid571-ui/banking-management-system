@@ -70,7 +70,7 @@ const AdminDashboard = ({ activeMenu }) => {
 
   const handleCreateCustomer = (values) => {
     try {
-      const { account } = bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.password, values.initialDeposit, values.accountType);
+      const { account } = bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.emailOrPhone, values.initialDeposit, values.accountType);
       message.success(`Account ${account.accountNumber} created successfully for ${values.fullName}!`);
       setCreateAccountVisible(false);
       createAccountForm.resetFields();
