@@ -30,12 +30,14 @@ const AdminDashboard = ({ activeMenu }) => {
   const [empModalVisible, setEmpModalVisible] = useState(false);
   const [depModalVisible, setDepModalVisible] = useState(false);
   const [reserveModalVisible, setReserveModalVisible] = useState(false);
+  const [createAccountVisible, setCreateAccountVisible] = useState(false);
   const [editingEmp, setEditingEmp] = useState(null);
 
   // Form States
   const [empForm] = Form.useForm();
   const [depForm] = Form.useForm();
   const [reserveForm] = Form.useForm();
+  const [createAccountForm] = Form.useForm();
 
   // Load Store Data
   const loadStoreData = () => {
@@ -63,6 +65,17 @@ const AdminDashboard = ({ activeMenu }) => {
       reserveForm.resetFields();
     } catch (err) {
       message.error(err.message || 'Failed to update reserve');
+    }
+  };
+
+  const handleCreateCustomer = (values) => {
+    try {
+      const { account } = bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.password, values.initialDeposit, values.accountType);
+      message.success(`Account ${account.accountNumber} created successfully for ${values.fullName}!`);
+      setCreateAccountVisible(false);
+      createAccountForm.resetFields();
+    } catch (err) {
+      message.error(err.message || 'Failed to create customer');
     }
   };
 
@@ -472,6 +485,17 @@ const AdminDashboard = ({ activeMenu }) => {
             className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg flex items-center justify-center h-10 w-10 p-0"
           />
         </div>
+        
+        <div className="flex gap-3 z-10 self-start md:self-auto">
+          <Button
+            type="primary"
+            icon={<UserOutlined />}
+            onClick={() => setCreateAccountVisible(true)}
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-11 rounded-xl text-sm font-semibold px-5"
+          >
+            Create Customer Account
+          </Button>
+        </div>
       </div>
 
       {/* Corporate Overview stats */}
@@ -559,8 +583,8 @@ const AdminDashboard = ({ activeMenu }) => {
       <Modal
         title={
           <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
-            <span className="font-bold text-xl text-blue-700 px-1">₹</span>
-            <span className="font-bold text-lg">Edit Vault Reserves</span>
+            <SafetyCertificateOutlined className="text-blue-700" />
+            <span className="font-bold text-lg">Update Vault Reserves</span>
           </div>
         }
         open={reserveModalVisible}
@@ -580,8 +604,11 @@ const AdminDashboard = ({ activeMenu }) => {
         >
           <Form.Item
             name="amount"
-            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Total Reserve Fund (₹)</span>}
-            rules={[{ required: true, message: 'Please enter reserve amount!' }]}
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Total Reserve Amount (₹)</span>}
+            rules={[
+              { required: true, message: 'Please input reserve amount!' },
+              { type: 'number', min: 0, message: 'Must be positive!' }
+            ]}
           >
             <InputNumber 
               className="w-full rounded-lg" 
@@ -597,8 +624,81 @@ const AdminDashboard = ({ activeMenu }) => {
               Cancel
             </Button>
             <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
-              Update Vault
+              Secure Update
             </Button>
+          </div>
+        </Form>
+      </Modal>
+
+      {/* Create Customer Account Modal */}
+      <Modal
+        title={
+          <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
+            <UserOutlined className="text-blue-700" />
+            <span className="font-bold text-lg">Create Customer Account</span>
+          </div>
+        }
+        open={createAccountVisible}
+        onCancel={() => {
+          setCreateAccountVisible(false);
+          createAccountForm.resetFields();
+        }}
+        footer={null}
+        destroyOnClose
+      >
+        <Form
+          form={createAccountForm}
+          layout="vertical"
+          onFinish={handleCreateCustomer}
+          requiredMark={false}
+          className="pt-4"
+        >
+          <Form.Item
+            name="fullName"
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Customer Full Name</span>}
+            rules={[{ required: true, message: 'Please input full name!' }, { min: 3, message: 'Must be at least 3 characters!' }]}
+          >
+            <Input placeholder="Enter customer's full name" className="rounded-lg" />
+          </Form.Item>
+
+          <Form.Item
+            name="emailOrPhone"
+            label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Email or Phone Number</span>}
+            rules={[{ required: true, message: 'Please input email or phone number!' }, { min: 3, message: 'Must be at least 3 characters!' }]}
+          >
+            <Input placeholder="Enter email or phone number" className="rounded-lg" />
+          </Form.Item>
+
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="accountType"
+                label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Account Type</span>}
+                rules={[{ required: true }]}
+                initialValue="Savings"
+              >
+                <Select className="rounded-lg">
+                  <Option value="Savings">Savings</Option>
+                  <Option value="Checking">Checking</Option>
+                  <Option value="Business">Business</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="initialDeposit"
+                label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Initial Deposit (₹)</span>}
+                rules={[{ required: true, message: 'Enter starting deposit!' }]}
+                initialValue={100}
+              >
+                <InputNumber className="w-full rounded-lg" min={0} />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <div className="flex justify-end gap-2 pt-4 border-t border-blue-100">
+            <Button onClick={() => setCreateAccountVisible(false)} className="rounded-lg">Cancel</Button>
+            <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">Open Account</Button>
           </div>
         </Form>
       </Modal>

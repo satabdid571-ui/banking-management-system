@@ -54,12 +54,16 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async (identifier, password) => {
+  const login = async (identifier, password, expectedRole) => {
     setLoading(true);
     try {
       const dbUser = bankStore.getUserByIdentifier(identifier);
       if (!dbUser) {
         throw new Error('Invalid username or password');
+      }
+
+      if (expectedRole && dbUser.role !== expectedRole) {
+        throw new Error('Unauthorized role for this login portal');
       }
 
       if (dbUser.password !== password) {
@@ -96,12 +100,13 @@ export const AuthProvider = ({ children }) => {
       // Create a customer account with a ₹1,000 welcome bonus!
       const { user: newUser, account: newAccount } = bankStore.createCustomerAccount(fullName, identifier, password, 1000.00, 'Savings');
 
+      // Store a simple simulated token
       const tokenObj = { id: newUser.id, username: newUser.username, role: newUser.role };
       localStorage.setItem('banking_token', JSON.stringify(tokenObj));
-
+      
       setUser(newUser);
       setAccount(newAccount);
-      return { success: true, role: newUser.role };
+      return { success: true, account: newAccount };
     } catch (err) {
       throw new Error(err.message || 'Registration failed');
     } finally {

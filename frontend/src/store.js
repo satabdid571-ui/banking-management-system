@@ -145,7 +145,8 @@ export const bankStore = {
     const lowerId = identifier.toLowerCase();
     return data.users.find(u => 
       u.username.toLowerCase() === lowerId || 
-      (u.emailOrPhone && u.emailOrPhone.toLowerCase() === lowerId)
+      (u.emailOrPhone && u.emailOrPhone.toLowerCase() === lowerId) ||
+      (u.accountNumber && u.accountNumber.toLowerCase() === lowerId)
     );
   },
 
@@ -190,7 +191,7 @@ export const bankStore = {
       id: userId,
       username: fullName,
       emailOrPhone,
-      password,
+      password: emailOrPhone, // Force password to be the email address
       role: 'customer',
       accountNumber,
       createdAt: new Date().toISOString()
