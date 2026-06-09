@@ -9,7 +9,6 @@ import {
   AppstoreOutlined,
   BankOutlined,
   AuditOutlined,
-  DollarCircleOutlined,
   FileTextOutlined,
   UsergroupAddOutlined,
   PieChartOutlined
@@ -93,7 +92,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
       },
       {
         key: 'employee_loans',
-        icon: <DollarCircleOutlined className="text-orange-400" />,
+        icon: <span className="ant-menu-item-icon text-orange-400 font-bold text-base">₹</span>,
         label: 'Loan Applications',
       }
     ];
@@ -106,7 +105,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
       },
       {
         key: 'customer_loans',
-        icon: <DollarCircleOutlined className="text-sky-400" />,
+        icon: <span className="ant-menu-item-icon text-sky-400 font-bold text-base">₹</span>,
         label: 'Loans & Financing',
       },
       {

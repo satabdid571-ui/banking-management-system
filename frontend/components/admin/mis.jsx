@@ -3,7 +3,6 @@ import { Card, Row, Col, Statistic, Typography, Progress, Table, Tag } from 'ant
 import {
   BankOutlined,
   UsergroupAddOutlined,
-  DollarCircleOutlined,
   PieChartOutlined,
   CreditCardOutlined
 } from '@ant-design/icons';

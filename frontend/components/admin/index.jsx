@@ -5,7 +5,6 @@ import {
   TeamOutlined, 
   AppstoreOutlined, 
   PlusOutlined, 
-  DollarOutlined, 
   DeleteOutlined, 
   EditOutlined,
   SafetyCertificateOutlined,
@@ -495,7 +494,7 @@ const AdminDashboard = ({ activeMenu }) => {
               value={totalCustomerBalances}
               precision={2}
               valueStyle={{ color: '#818cf8', fontFamily: 'monospace', fontWeight: 'bold' }}
-              prefix={<DollarOutlined />}
+              prefix={<span className="font-bold text-lg mr-1 text-indigo-400">₹</span>}
             />
           </Card>
         </Col>
@@ -560,7 +559,7 @@ const AdminDashboard = ({ activeMenu }) => {
       <Modal
         title={
           <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-            <DollarOutlined className="text-emerald-400" />
+            <span className="font-bold text-xl text-emerald-400 px-1">₹</span>
             <span className="font-bold text-lg">Edit Vault Reserves</span>
           </div>
         }

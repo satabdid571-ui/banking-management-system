@@ -4,7 +4,6 @@ import {
   UserAddOutlined,
   UserDeleteOutlined,
   AuditOutlined,
-  DollarCircleOutlined,
   PlusCircleOutlined,
   MinusCircleOutlined,
   SwapOutlined,
@@ -385,7 +384,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
               title={<span className="text-slate-400 text-xs uppercase tracking-wider">Pending Loans</span>}
               value={loans.filter(l => l.status === 'Pending').length}
               valueStyle={{ color: '#f41717ff', fontWeight: 'bold' }}
-              prefix={<DollarCircleOutlined />}
+              prefix={<span className="font-bold text-lg mr-1 text-slate-500">₹</span>}
             />
           </Card>
         </Col>

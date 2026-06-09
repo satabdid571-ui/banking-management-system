@@ -9,10 +9,12 @@ import {
   CopyOutlined, 
   HistoryOutlined, 
   WalletOutlined,
+  ArrowRightOutlined,
+  EyeOutlined,
+  DownloadOutlined,
   UserOutlined,
-  DollarCircleOutlined,
   FileTextOutlined,
-  CreditCardOutlined,
+  CreditCardOutlined,,
   GlobalOutlined,
   MobileOutlined
 } from '@ant-design/icons';
@@ -362,7 +364,7 @@ const Dashboard = ({ activeMenu }) => {
           </div>
           <Button 
             type="primary" 
-            icon={<DollarCircleOutlined />}
+            icon={<span className="font-bold text-base px-1">₹</span>}
             onClick={() => setLoanVisible(true)}
             className="bg-indigo-600 hover:bg-indigo-500 border-0 h-10 rounded-xl"
           >
@@ -388,7 +390,7 @@ const Dashboard = ({ activeMenu }) => {
                 title={<span className="text-slate-400 text-xs uppercase tracking-wider">Active Loans</span>}
                 value={loans.filter(l => l.status === 'Approved' && l.remainingAmount > 0).length}
                 valueStyle={{ color: '#60a5fa', fontWeight: 'bold' }}
-                prefix={<DollarCircleOutlined />}
+                prefix={<span className="font-bold text-lg mr-1 text-sky-400">₹</span>}
               />
             </Card>
           </Col>
@@ -410,7 +412,7 @@ const Dashboard = ({ activeMenu }) => {
         <Modal
           title={
             <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-white">
-              <DollarCircleOutlined className="text-indigo-400" />
+              <span className="font-bold text-xl text-indigo-400">₹</span>
               <span className="font-bold text-lg">Apply for Capital Financing</span>
             </div>
           }
