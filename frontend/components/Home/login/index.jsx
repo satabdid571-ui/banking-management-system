@@ -96,7 +96,7 @@ const Login = () => {
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.8)' }} />
         
         <div style={{ zIndex: 1, textAlign: 'center', marginBottom: 50, padding: 20, paddingTop: 100 }}>
-          <h1 style={{ color: 'white', fontSize: 52, fontWeight: 900, margin: 0, letterSpacing: '-0.02em', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>The Banker to Every Indian</h1>
+          <h1 style={{ color: 'white', fontSize: 52, fontWeight: 900, margin: 0, letterSpacing: '-0.02em', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>State Bank of India</h1>
           <p style={{ color: '#bae6fd', fontSize: 20, marginTop: 16, fontWeight: 500, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Select your portal to continue</p>
         </div>
 
