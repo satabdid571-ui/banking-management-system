@@ -197,20 +197,6 @@ const Login = () => {
           <p style={{ color: '#475569', fontSize: 18, lineHeight: '1.8', margin: '0 0 32px 0', textAlign: 'justify' }}>
             In 1955, the Reserve Bank of India acquired a controlling interest in the Imperial Bank of India, leading to the creation of the <strong>State Bank of India</strong> by an Act of Parliament. Today, SBI stands as a beacon of trust, serving hundreds of millions of customers globally, driving financial inclusion, and powering the economic growth of the nation.
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 40, flexWrap: 'wrap', marginTop: 40 }}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 36, fontWeight: 900, color: '#1e3a8a' }}>1806</div>
-              <div style={{ fontSize: 14, color: '#64748b', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600 }}>Year Founded</div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 36, fontWeight: 900, color: '#1e3a8a' }}>22,000+</div>
-              <div style={{ fontSize: 14, color: '#64748b', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600 }}>Global Branches</div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 36, fontWeight: 900, color: '#1e3a8a' }}>480M+</div>
-              <div style={{ fontSize: 14, color: '#64748b', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600 }}>Customers Served</div>
-            </div>
-          </div>
         </div>
       </div>
 
