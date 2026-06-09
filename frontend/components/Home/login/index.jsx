@@ -51,66 +51,122 @@ const Login = () => {
   };
 
   const renderLanding = () => (
-    <div style={{
-      height: '100vh',
-      width: '100vw',
-      backgroundImage: 'url(/bank-img.jpg)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontFamily: 'system-ui, -apple-system, sans-serif'
-    }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.8)' }} />
+    <div style={{ width: '100vw', height: '100vh', overflowY: 'auto', fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#f8fafc' }}>
       
-      <div style={{ zIndex: 1, textAlign: 'center', marginBottom: 50 }}>
-        <img src="/sbi-logo.png" alt="SBI" style={{ width: 100, marginBottom: 24, filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }} />
-        <h1 style={{ color: 'white', fontSize: 46, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>State Bank of India</h1>
-        <p style={{ color: '#93c5fd', fontSize: 18, marginTop: 12, fontWeight: 500 }}>Select your portal to continue</p>
-      </div>
-
-      <div style={{ zIndex: 1, display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 1000, padding: 20 }}>
+      {/* ── HERO & PORTALS ── */}
+      <div style={{
+        minHeight: '85vh',
+        width: '100%',
+        backgroundImage: 'url(/bank-img.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.8)' }} />
         
-        {/* Admin Card */}
-        <div 
-          onClick={() => { setLoginType('admin'); setIsSignUp(false); }}
-          style={{ ...styles.landingCard }}
-        >
-          <div style={{ ...styles.cardIcon, background: '#fee2e2', color: '#ef4444' }}>
-            <SafetyCertificateOutlined style={{ fontSize: 28 }} />
-          </div>
-          <h3 style={styles.cardTitle}>Admin Portal</h3>
-          <p style={styles.cardDesc}>System administrators, directors, and branch managers.</p>
+        <div style={{ zIndex: 1, textAlign: 'center', marginBottom: 50, padding: 20 }}>
+          <img src="/sbi-logo.png" alt="SBI" style={{ width: 100, marginBottom: 24, filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }} />
+          <h1 style={{ color: 'white', fontSize: 46, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>State Bank of India</h1>
+          <p style={{ color: '#93c5fd', fontSize: 18, marginTop: 12, fontWeight: 500 }}>Select your portal to continue</p>
         </div>
 
-        {/* Employee Card */}
-        <div 
-          onClick={() => { setLoginType('employee'); setIsSignUp(false); }}
-          style={{ ...styles.landingCard }}
-        >
-          <div style={{ ...styles.cardIcon, background: '#fef3c7', color: '#f59e0b' }}>
-            <BankOutlined style={{ fontSize: 28 }} />
+        <div style={{ zIndex: 1, display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 1000, padding: 20 }}>
+          
+          {/* Admin Card */}
+          <div 
+            onClick={() => { setLoginType('admin'); setIsSignUp(false); }}
+            style={{ ...styles.landingCard }}
+          >
+            <div style={{ ...styles.cardIcon, background: '#fee2e2', color: '#ef4444' }}>
+              <SafetyCertificateOutlined style={{ fontSize: 28 }} />
+            </div>
+            <h3 style={styles.cardTitle}>Admin Portal</h3>
+            <p style={styles.cardDesc}>System administrators, directors, and branch managers.</p>
           </div>
-          <h3 style={styles.cardTitle}>Staff Portal</h3>
-          <p style={styles.cardDesc}>Bank employees, tellers, and ledger management.</p>
-        </div>
 
-        {/* Customer Card */}
-        <div 
-          onClick={() => { setLoginType('customer'); setIsSignUp(false); }}
-          style={{ ...styles.landingCard }}
-        >
-          <div style={{ ...styles.cardIcon, background: '#dbeafe', color: '#3b82f6' }}>
-            <UserOutlined style={{ fontSize: 28 }} />
+          {/* Employee Card */}
+          <div 
+            onClick={() => { setLoginType('employee'); setIsSignUp(false); }}
+            style={{ ...styles.landingCard }}
+          >
+            <div style={{ ...styles.cardIcon, background: '#fef3c7', color: '#f59e0b' }}>
+              <BankOutlined style={{ fontSize: 28 }} />
+            </div>
+            <h3 style={styles.cardTitle}>Staff Portal</h3>
+            <p style={styles.cardDesc}>Bank employees, tellers, and ledger management.</p>
           </div>
-          <h3 style={styles.cardTitle}>Customer Portal</h3>
-          <p style={styles.cardDesc}>Retail banking, loans, and personal account access.</p>
-        </div>
 
+          {/* Customer Card */}
+          <div 
+            onClick={() => { setLoginType('customer'); setIsSignUp(false); }}
+            style={{ ...styles.landingCard }}
+          >
+            <div style={{ ...styles.cardIcon, background: '#dbeafe', color: '#3b82f6' }}>
+              <UserOutlined style={{ fontSize: 28 }} />
+            </div>
+            <h3 style={styles.cardTitle}>Customer Portal</h3>
+            <p style={styles.cardDesc}>Retail banking, loans, and personal account access.</p>
+          </div>
+
+        </div>
       </div>
+
+      {/* ── PRODUCTS & SERVICES ── */}
+      <div style={{ padding: '80px 40px', backgroundColor: '#fff', textAlign: 'center' }}>
+        <h2 style={{ fontSize: 36, fontWeight: 800, color: '#0f172a', margin: '0 0 12px 0', letterSpacing: '-0.02em' }}>Premium Loan Services</h2>
+        <p style={{ color: '#64748b', fontSize: 16, margin: '0 0 60px 0', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
+          Explore our tailored financing options designed to help you achieve your personal and business milestones with competitive interest rates.
+        </p>
+        
+        <div style={{ display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap', maxWidth: 1100, margin: '0 auto' }}>
+          
+          {/* Gold Loan */}
+          <div style={styles.productCard}>
+            <div style={styles.productImgWrapper}>
+              <img src="/gold-loan.png" alt="Gold Loan" style={styles.productImg} />
+            </div>
+            <div style={styles.productContent}>
+              <h3 style={styles.productTitle}>Gold Loan</h3>
+              <p style={styles.productDesc}>Unlock the value of your gold with instant liquidity. Enjoy competitive interest rates, low processing fees, and secure vault storage.</p>
+            </div>
+          </div>
+
+          {/* Car Loan */}
+          <div style={styles.productCard}>
+            <div style={styles.productImgWrapper}>
+              <img src="/car-loan.png" alt="Car Loan" style={styles.productImg} />
+            </div>
+            <div style={styles.productContent}>
+              <h3 style={styles.productTitle}>Car Loan</h3>
+              <p style={styles.productDesc}>Drive home your dream vehicle with up to 100% financing, flexible repayment tenures, and zero prepayment penalties.</p>
+            </div>
+          </div>
+
+          {/* Home Loan */}
+          <div style={styles.productCard}>
+            <div style={styles.productImgWrapper}>
+              <img src="/home-loan.png" alt="Home Loan" style={styles.productImg} />
+            </div>
+            <div style={styles.productContent}>
+              <h3 style={styles.productTitle}>Home Loan</h3>
+              <p style={styles.productDesc}>Turn your dream home into reality. Low EMIs, quick digital processing, and transparent terms for a smooth experience.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div style={{ backgroundColor: '#0f172a', color: '#94a3b8', textAlign: 'center', padding: '40px 20px', fontSize: 13 }}>
+        <img src="/sbi-logo.png" alt="SBI" style={{ width: 40, marginBottom: 16, opacity: 0.5, filter: 'grayscale(1)' }} />
+        <p style={{ margin: '0 0 8px 0' }}>© 2026 State Bank of India. All rights reserved.</p>
+        <p style={{ margin: 0, opacity: 0.7 }}>Regulated by the Reserve Bank of India. Secured with 256-bit encryption.</p>
+      </div>
+
     </div>
   );
 
@@ -268,6 +324,43 @@ const styles = {
     color: '#64748b',
     margin: 0,
     lineHeight: 1.5
+  },
+  productCard: {
+    width: 320,
+    background: '#fff',
+    borderRadius: 20,
+    overflow: 'hidden',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+    border: '1px solid #f1f5f9',
+    transition: 'transform 0.3s ease',
+    textAlign: 'left'
+  },
+  productImgWrapper: {
+    height: 200,
+    width: '100%',
+    overflow: 'hidden',
+    background: '#e2e8f0'
+  },
+  productImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover'
+  },
+  productContent: {
+    padding: 24
+  },
+  productTitle: {
+    fontSize: 20,
+    fontWeight: 800,
+    color: '#0f172a',
+    margin: '0 0 10px 0',
+    letterSpacing: '-0.01em'
+  },
+  productDesc: {
+    fontSize: 14,
+    color: '#64748b',
+    margin: 0,
+    lineHeight: 1.6
   },
   root: {
     display: "flex",
