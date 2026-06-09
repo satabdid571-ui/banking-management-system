@@ -89,16 +89,41 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (fullName, identifier, password) => {
+  const register = async (fullName, identifier, password, role = 'customer') => {
     setLoading(true);
     try {
       const existing = bankStore.getUserByIdentifier(identifier);
       if (existing) {
-        throw new Error('Username already exists');
+        throw new Error('Username/Identifier already exists');
       }
 
-      // Create a customer account with a ₹1,000 welcome bonus!
-      const { user: newUser, account: newAccount } = bankStore.createCustomerAccount(fullName, identifier, password, 1000.00, 'Savings');
+      let newUser;
+      let newAccount = null;
+
+      if (role === 'customer') {
+        const result = bankStore.createCustomerAccount(fullName, identifier, password, 1000.00, 'Savings');
+        newUser = result.user;
+        newAccount = result.account;
+      } else if (role === 'employee') {
+        const newEmp = bankStore.addEmployee({
+          name: fullName,
+          email: identifier,
+          department: 'General Staff',
+          salary: 50000
+        });
+        newUser = bankStore.getUserByUsername(fullName); // addEmployee uses 'name' for username
+        // Update password for employee (addEmployee defaults to email)
+        if (newUser) {
+          const data = JSON.parse(localStorage.getItem('sbi_bank_database'));
+          const dbUser = data.users.find(u => u.id === newUser.id);
+          if (dbUser) {
+            dbUser.password = password;
+            localStorage.setItem('sbi_bank_database', JSON.stringify(data));
+          }
+        }
+      } else if (role === 'admin') {
+        newUser = bankStore.addAdmin(fullName, identifier, password);
+      }
 
       // Store a simple simulated token
       const tokenObj = { id: newUser.id, username: newUser.username, role: newUser.role };

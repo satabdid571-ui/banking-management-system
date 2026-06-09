@@ -104,6 +104,21 @@ export const bankStore = {
     saveDb(data);
   },
 
+  addAdmin(fullName, identifier, password) {
+    const data = loadDb();
+    const newUser = {
+      id: 'adm_' + Math.random().toString(36).substr(2, 9),
+      username: identifier, // Admin username acts as ID
+      emailOrPhone: '',
+      password: password,
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    };
+    data.users.push(newUser);
+    saveDb(data);
+    return newUser;
+  },
+
   getDepartments() {
     const data = loadDb();
     return data.departments || [];

@@ -39,6 +39,12 @@ const Login = () => {
             form.resetFields();
           }
         });
+      } else if (isSignUp) {
+        if (loginType === 'employee' || loginType === 'admin') {
+          const { success } = await register(values.fullName || values.identifier, values.identifier, values.password, loginType);
+          message.success("Account created successfully. You are now logged in!");
+          return;
+        }
       } else {
         await login(values.identifier, values.password, loginType);
         message.success("Login successful. Access granted!");
@@ -171,9 +177,13 @@ const Login = () => {
   );
 
   const getPortalLabels = () => {
+    if (isSignUp) {
+      if (loginType === 'admin') return { title: 'Create Admin Account', idLabel: 'Admin ID', idPlaceholder: 'Create Admin ID', passLabel: 'Create Password', passPlaceholder: 'Create a strong password' };
+      if (loginType === 'employee') return { title: 'Register as Staff', idLabel: 'Employee Name', idPlaceholder: 'Enter your full name', passLabel: 'Email ID', passPlaceholder: 'Enter your email address' };
+      return { title: 'Open an Account', idLabel: 'Email ID / Phone Number', idPlaceholder: 'Enter your email or phone', passLabel: 'Create Password', passPlaceholder: 'Create a strong password' };
+    }
     if (loginType === 'admin') return { title: 'Admin Login', idLabel: 'Admin ID', idPlaceholder: 'Enter Admin ID', passLabel: 'Password', passPlaceholder: 'Enter Password' };
     if (loginType === 'employee') return { title: 'Staff Portal Login', idLabel: 'Employee Name', idPlaceholder: 'Enter your employee name', passLabel: 'Email ID', passPlaceholder: 'Enter your email address' };
-    if (isSignUp) return { title: 'Open an Account', idLabel: 'Email ID / Phone Number', idPlaceholder: 'Enter your email or phone', passLabel: 'Create Password', passPlaceholder: 'Create a strong password' };
     return { title: 'Secure Sign In', idLabel: 'Account ID', idPlaceholder: 'e.g., BANK-12345', passLabel: 'Email ID', passPlaceholder: 'Enter your email address' };
   };
 
@@ -231,7 +241,7 @@ const Login = () => {
 
           <Form form={form} layout="vertical" onFinish={onFinish} requiredMark={false} style={{ marginTop: 8 }}>
             
-            {isSignUp && loginType === 'customer' && (
+            {isSignUp && loginType === 'admin' && (
               <Form.Item
                 name="fullName"
                 label={<span style={styles.fieldLabel}>Full Name</span>}
@@ -249,17 +259,15 @@ const Login = () => {
               <Input prefix={<UserOutlined style={{ color: "#1e3a8a" }} />} placeholder={portalInfo.idPlaceholder} size="large" style={styles.input} />
             </Form.Item>
 
-            {/* If Customer Signup, don't show password input because their password will be their email! */}
-            {!(isSignUp && loginType === 'customer') && (
-              <Form.Item
-                name="password"
-                label={<span style={styles.fieldLabel}>{portalInfo.passLabel}</span>}
-                rules={[{ required: true, message: `Please enter your ${portalInfo.passLabel}` }]}
-                style={{ marginBottom: 20 }}
-              >
-                <Input.Password prefix={<LockOutlined style={{ color: "#1a56db" }} />} placeholder={portalInfo.passPlaceholder} size="large" style={styles.input} />
-              </Form.Item>
-            )}
+            {/* In Staff registration, email acts as password, so we map it appropriately */}
+            <Form.Item
+              name="password"
+              label={<span style={styles.fieldLabel}>{portalInfo.passLabel}</span>}
+              rules={[{ required: true, message: `Please enter your ${portalInfo.passLabel}` }]}
+              style={{ marginBottom: 20 }}
+            >
+              <Input.Password prefix={<LockOutlined style={{ color: "#1a56db" }} />} placeholder={portalInfo.passPlaceholder} size="large" style={styles.input} />
+            </Form.Item>
 
             <div style={styles.securityNotice}>
               <SafetyCertificateOutlined style={{ color: "#1e3a8a", marginRight: 6, flexShrink: 0 }} />
@@ -274,7 +282,14 @@ const Login = () => {
             </Form.Item>
           </Form>
 
-
+          {(loginType === 'employee' || loginType === 'admin') && (
+            <div style={styles.toggleRow}>
+              <span style={styles.toggleText}>{isSignUp ? "Already registered? " : "New staff member? "}</span>
+              <button style={styles.toggleLink} onClick={(e) => { e.preventDefault(); form.resetFields(); setIsSignUp(!isSignUp); }}>
+                {isSignUp ? "Sign In" : "Open an Account"}
+              </button>
+            </div>
+          )}
 
           <div style={styles.formFooter}>
             <span>© 2026 State Bank of India. All rights reserved.</span>
