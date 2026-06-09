@@ -59,11 +59,32 @@ const Login = () => {
   const renderLanding = () => (
     <div style={{ width: '100vw', height: '100vh', overflowY: 'auto', fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#f8fafc' }}>
       
+      {/* ── TOP NAV HEADER ── */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: 90, zIndex: 50,
+        background: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0))',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 60px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <img src="/sbi-logo.png" alt="SBI Logo" style={{ width: 46, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }} />
+          <span style={{ color: 'white', fontWeight: 900, fontSize: 22, letterSpacing: '0.5px', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>STATE BANK OF INDIA</span>
+        </div>
+        <div style={{ display: 'flex', gap: 40, alignItems: 'center', display: 'none', '@media (min-width: 1024px)': { display: 'flex' } }}>
+          <span style={{ color: 'white', fontWeight: 600, fontSize: 15, cursor: 'pointer', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>Personal</span>
+          <span style={{ color: 'white', fontWeight: 600, fontSize: 15, cursor: 'pointer', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>Corporate</span>
+          <span style={{ color: 'white', fontWeight: 600, fontSize: 15, cursor: 'pointer', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>NRI</span>
+          <span style={{ color: 'white', fontWeight: 600, fontSize: 15, cursor: 'pointer', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>About Us</span>
+          <Button type="primary" style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)', color: 'white', fontWeight: 600, padding: '0 28px', height: 44, borderRadius: 22, boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+            Support
+          </Button>
+        </div>
+      </div>
+
       {/* ── HERO & PORTALS ── */}
       <div style={{
         minHeight: '85vh',
         width: '100%',
-        backgroundImage: 'url(/bank-img.jpg)',
+        backgroundImage: 'url(/sbi-hero-banner.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
@@ -74,10 +95,9 @@ const Login = () => {
       }}>
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.8)' }} />
         
-        <div style={{ zIndex: 1, textAlign: 'center', marginBottom: 50, padding: 20 }}>
-          <img src="/sbi-logo.png" alt="SBI" style={{ width: 100, marginBottom: 24, filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }} />
-          <h1 style={{ color: 'white', fontSize: 46, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>State Bank of India</h1>
-          <p style={{ color: '#93c5fd', fontSize: 18, marginTop: 12, fontWeight: 500 }}>Select your portal to continue</p>
+        <div style={{ zIndex: 1, textAlign: 'center', marginBottom: 50, padding: 20, paddingTop: 100 }}>
+          <h1 style={{ color: 'white', fontSize: 52, fontWeight: 900, margin: 0, letterSpacing: '-0.02em', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>The Banker to Every Indian</h1>
+          <p style={{ color: '#bae6fd', fontSize: 20, marginTop: 16, fontWeight: 500, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Select your portal to continue</p>
         </div>
 
         <div style={{ zIndex: 1, display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 1000, padding: 20 }}>
