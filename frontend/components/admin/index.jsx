@@ -258,7 +258,7 @@ const AdminDashboard = ({ activeMenu }) => {
       <div className="space-y-6">
         <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
-            <Title level={3} style={{ margin: 0, color: 'white' }}>Employee Registry</Title>
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Employee Registry</Title>
             <Text className="text-blue-600 text-xs">Manage active vault handlers, bank tellers, and managers.</Text>
           </div>
           <Button 
@@ -387,7 +387,7 @@ const AdminDashboard = ({ activeMenu }) => {
       <div className="space-y-6">
         <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
-            <Title level={3} style={{ margin: 0, color: 'white' }}>Departments</Title>
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Departments</Title>
             <Text className="text-blue-600 text-xs">Define operational divisions and resource structures.</Text>
           </div>
           <Button 
@@ -465,7 +465,7 @@ const AdminDashboard = ({ activeMenu }) => {
           <span className="text-blue-700 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
             <SafetyCertificateOutlined className="animate-pulse" /> Reserve Security Active
           </span>
-          <Title level={2} style={{ margin: 0, color: 'white' }} className="font-black">
+          <Title level={2} style={{ margin: 0, color: '#1e3a8a' }} className="font-black">
             Vault Reserves Control
           </Title>
           <Text className="text-blue-800">Maintain corporate vault liquidity and verify operations.</Text>

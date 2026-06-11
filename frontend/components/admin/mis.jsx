@@ -105,7 +105,7 @@ const MISDashboard = () => {
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl flex items-center justify-between">
         <div>
-          <Title level={3} style={{ margin: 0, color: 'white' }}>
+          <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>
             <PieChartOutlined className="mr-3" />
             Management Information System
           </Title>
@@ -227,17 +227,17 @@ const MISDashboard = () => {
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={8}>
           <Card className="bg-white border-blue-100 rounded-2xl text-center shadow-lg">
-            <Statistic title={<span className="text-blue-600 text-xs">Total Customers</span>} value={data.customers.length} valueStyle={{ color: 'white' }} />
+            <Statistic title={<span className="text-blue-600 text-xs">Total Customers</span>} value={data.customers.length} valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }} />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
           <Card className="bg-white border-blue-100 rounded-2xl text-center shadow-lg">
-            <Statistic title={<span className="text-blue-600 text-xs">Total Employees</span>} value={data.employees.length} valueStyle={{ color: 'white' }} />
+            <Statistic title={<span className="text-blue-600 text-xs">Total Employees</span>} value={data.employees.length} valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }} />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
           <Card className="bg-white border-blue-100 rounded-2xl text-center shadow-lg">
-            <Statistic title={<span className="text-blue-600 text-xs">Total Active Accounts</span>} value={data.accounts.length} valueStyle={{ color: 'white' }} />
+            <Statistic title={<span className="text-blue-600 text-xs">Total Active Accounts</span>} value={data.accounts.length} valueStyle={{ color: '#1e3a8a', fontWeight: 'bold' }} />
           </Card>
         </Col>
       </Row>

@@ -359,7 +359,7 @@ const Dashboard = ({ activeMenu }) => {
       <div className="space-y-6">
         <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
-            <Title level={3} style={{ margin: 0, color: 'white' }}>Loans & Financing</Title>
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Loans & Financing</Title>
             <Text className="text-blue-600 text-xs">Request instant financing capital or process installment payments.</Text>
           </div>
           <Button 
@@ -554,7 +554,7 @@ const Dashboard = ({ activeMenu }) => {
       <div className="space-y-6">
         <div className="flex justify-between items-center bg-blue-50 border border-blue-200 p-6 rounded-2xl">
           <div>
-            <Title level={3} style={{ margin: 0, color: 'white' }}>Account Request Hub</Title>
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Account Request Hub</Title>
             <Text className="text-blue-600 text-xs">Request additional portfolios (Savings / Checking / Business) to organize funds.</Text>
           </div>
           <Button 
@@ -645,7 +645,7 @@ const Dashboard = ({ activeMenu }) => {
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-blue-100 to-white p-6 rounded-2xl border border-blue-200 shadow-xl flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-4">
         <div>
-          <Title level={3} style={{ margin: 0, color: 'white' }} className="font-bold flex items-center gap-2">
+          <Title level={3} style={{ margin: 0, color: '#1e3a8a' }} className="font-bold flex items-center gap-2">
             <span className="wave">👋</span> Welcome back, {user?.username}!
           </Title>
           <Text className="text-blue-600">Here is your real-time banking ledger summary.</Text>

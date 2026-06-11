@@ -288,7 +288,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
     return (
       <div className="space-y-6">
         <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl">
-          <Title level={3} style={{ margin: 0, color: 'white' }}>Account Applications</Title>
+          <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Account Applications</Title>
           <Text className="text-blue-600 text-xs">Approve or reject customer requests to open savings, checking, or business portfolios.</Text>
         </div>
         <Card className="bg-white border-blue-100 rounded-3xl overflow-hidden">
@@ -307,7 +307,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
     return (
       <div className="space-y-6">
         <div className="bg-blue-50 border border-blue-200 p-6 rounded-2xl">
-          <Title level={3} style={{ margin: 0, color: 'white' }}>Loan Underwriting</Title>
+          <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Loan Underwriting</Title>
           <Text className="text-blue-600 text-xs">Evaluate and process pending loans submitted by retail customers.</Text>
         </div>
         <Card className="bg-white border-blue-100 rounded-3xl overflow-hidden">
@@ -332,7 +332,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
           <span className="text-blue-600 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
             <DatabaseOutlined className="animate-spin" style={{ animationDuration: '6s' }} /> Ledger Operations Active
           </span>
-          <Title level={2} style={{ margin: 0, color: 'white' }} className="font-black">
+          <Title level={2} style={{ margin: 0, color: '#1e3a8a' }} className="font-black">
             Account Control Center
           </Title>
           <Text className="text-blue-800">Open client profiles, adjust user ledger balances, and perform audit controls.</Text>

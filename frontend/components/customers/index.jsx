@@ -539,7 +539,7 @@ const CustomerManagement = () => {
               {c.fullName?.charAt(0)?.toUpperCase()}
             </div>
             <div>
-              <Title level={3} style={{ margin: 0, color: 'white' }}>{c.fullName}</Title>
+              <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>{c.fullName}</Title>
               <div className="flex items-center gap-2 mt-1">
                 <Text code className="text-xs text-blue-600">{c.customerId}</Text>
                 <Tag color={statusColor[c.status]} icon={statusIcon[c.status]} className="font-semibold rounded-full m-0">{c.status}</Tag>
@@ -712,7 +712,7 @@ const CustomerManagement = () => {
       <div className="space-y-5">
         <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl">
           <div>
-            <Title level={3} style={{ margin: 0, color: 'white' }} className="flex items-center gap-2">
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }} className="flex items-center gap-2">
               <UserAddOutlined className="text-blue-700" /> Add New Customer
             </Title>
             <Text className="text-blue-600 text-xs">Fill in all required fields to register a new bank customer.</Text>
@@ -734,7 +734,7 @@ const CustomerManagement = () => {
       <div className="space-y-5">
         <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl">
           <div>
-            <Title level={3} style={{ margin: 0, color: 'white' }} className="flex items-center gap-2">
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }} className="flex items-center gap-2">
               <EditOutlined className="text-blue-600" /> Edit Customer
             </Title>
             <Text className="text-blue-600 text-xs">Updating record for: <strong className="text-blue-700">{selectedCustomer.fullName}</strong> ({selectedCustomer.customerId})</Text>
@@ -761,7 +761,7 @@ const CustomerManagement = () => {
             <span className="text-blue-700 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
               <TeamOutlined /> Customer Management Portal
             </span>
-            <Title level={3} style={{ margin: 0, color: 'white' }}>Customer Registry</Title>
+            <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>Customer Registry</Title>
             <Text className="text-blue-600 text-xs">Manage, view, and control all customer records in the banking system.</Text>
           </div>
           {/* Top Action Bar */}

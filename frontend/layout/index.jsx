@@ -168,7 +168,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
     <Layout style={{ minHeight: '100vh' }}>
 
       {/* Sidebar navigation */}
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ background: '#1a56db' }} className="shadow-2xl">
+      <Sider trigger={null} collapsible collapsed={collapsed} style={{ background: '#3b82f6' }} className="shadow-2xl no-scrollbar overflow-y-auto">
         <div className="flex flex-col items-center justify-center py-5 px-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
           {/* SBI Logo */}
           <div className="flex items-center justify-center mb-2">
@@ -209,7 +209,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
 
       {/* Main content layout */}
       <Layout style={{ background: '#f0f4ff' }}>
-        <Header style={{ padding: '0 24px', background: '#1a56db' }} className="flex justify-between items-center shadow-lg">
+        <Header style={{ padding: '0 24px', background: '#3b82f6' }} className="flex justify-between items-center shadow-lg">
           <Space size="middle" className="items-center">
             <Button
               type="text"
@@ -249,7 +249,7 @@ const HomeLayout = ({ children, activeMenu, setActiveMenu }) => {
             background: 'white',
             borderRadius: borderRadiusLG,
           }}
-          className="overflow-y-auto"
+          className="overflow-y-auto no-scrollbar"
         >
           {children}
         </Content>
