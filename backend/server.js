@@ -140,26 +140,44 @@ app.post('/api/auth/register', async (req, res) => {
 
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
-    if (!username || !password) {
-      return res.status(400).json({ message: 'Username and password are required' });
+    const { email, accountId, password } = req.body;
+    if (!email || !accountId || !password) {
+      return res.status(400).json({ message: 'Email, Account ID, and password are required' });
     }
 
-    console.log(`[LOGIN ATTEMPT] username: "${username}", password: "${password}"`);
+    console.log(`[LOGIN ATTEMPT] email: "${email}", accountId: "${accountId}"`);
     
-    const user = await User.findOne({ username: { $regex: new RegExp(`^${username}$`, 'i') } });
+    const user = await User.findOne({ 
+      $or: [
+        { email: { $regex: new RegExp(`^${email}$`, 'i') } },
+        { username: { $regex: new RegExp(`^${email}$`, 'i') } }
+      ]
+    });
     if (!user) {
-      console.log(`[LOGIN FAILED] User not found for username: "${username}"`);
-      return res.status(401).json({ message: 'Invalid username or password' });
+      console.log(`[LOGIN FAILED] User not found for email: "${email}"`);
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const isPasswordValid = bcrypt.compareSync(password, user.password);
     if (!isPasswordValid) {
-      console.log(`[LOGIN FAILED] Invalid password for username: "${username}"`);
-      return res.status(401).json({ message: 'Invalid username or password' });
+      console.log(`[LOGIN FAILED] Invalid password for email: "${email}"`);
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    if (user.role === 'customer') {
+      const account = await Account.findOne({ userId: user.id });
+      if (!account || account.accountNumber !== accountId) {
+        console.log(`[LOGIN FAILED] Invalid account ID for customer: "${email}"`);
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+    } else {
+      if (user.id !== accountId && user.username !== accountId && user.accountNumber !== accountId) {
+        console.log(`[LOGIN FAILED] Invalid account ID for employee/admin: "${email}"`);
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
     }
     
-    console.log(`[LOGIN SUCCESS] User: "${username}"`);
+    console.log(`[LOGIN SUCCESS] User: "${user.username}"`);
 
     const tokenPayload = { id: user.id, username: user.username, role: user.role };
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '24h' });
@@ -483,11 +501,16 @@ app.get('/api/employee/accounts', authenticateToken, requireRole(['employee', 'a
 
 app.post('/api/employee/accounts', authenticateToken, requireRole(['employee', 'admin']), async (req, res) => {
   try {
-    const { username, password, initialDeposit, accountType } = req.body;
+    const { username, email, password, initialDeposit, accountType } = req.body;
     const floatDeposit = parseFloat(initialDeposit) || 0;
 
-    const existing = await User.findOne({ username: { $regex: new RegExp(`^${username}$`, 'i') } });
-    if (existing) return res.status(400).json({ message: 'Username already exists' });
+    const existing = await User.findOne({ 
+      $or: [
+        { username: { $regex: new RegExp(`^${username}$`, 'i') } },
+        { email: { $regex: new RegExp(`^${email}$`, 'i') } }
+      ]
+    });
+    if (existing) return res.status(400).json({ message: 'Username or Email already exists' });
 
     const userId = 'usr_' + Math.random().toString(36).substr(2, 9);
     const accountNumber = await generateAccountNumber();
@@ -495,6 +518,7 @@ app.post('/api/employee/accounts', authenticateToken, requireRole(['employee', '
     const newUser = await User.create({
       id: userId,
       username,
+      email: email || username,
       password: bcrypt.hashSync(password, 10),
       role: 'customer',
       accountNumber,
@@ -754,6 +778,7 @@ app.post('/api/admin/employees', authenticateToken, requireRole(['admin']), asyn
     await User.create({
       id: empId,
       username: uniqueUsername,
+      email: email,
       password: empPassword,
       role: 'employee',
       createdAt: new Date().toISOString()

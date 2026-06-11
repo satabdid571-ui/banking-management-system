@@ -11,6 +11,7 @@ export const BankConfig = mongoose.model('BankConfig', bankConfigSchema);
 // ─── User ────────────────────────────────────────────────────────────────────
 const userSchema = new Schema({
   id:            { type: String, required: true, unique: true },
+  email:         { type: String },
   username:      { type: String, required: true, unique: true },
   password:      { type: String, required: true },
   role:          { type: String, enum: ['admin', 'employee', 'customer'], default: 'customer' },

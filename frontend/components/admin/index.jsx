@@ -84,14 +84,21 @@ const AdminDashboard = ({ activeMenu }) => {
     }
   };
 
-  const handleCreateCustomer = (values) => {
+  const handleCreateCustomer = async (values) => {
     try {
-      const { account } = bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.emailOrPhone, values.initialDeposit, values.accountType);
-      message.success(`Account ${account.accountNumber} created successfully for ${values.fullName}!`);
+      const res = await api.post('/employee/accounts', {
+        username: values.fullName,
+        email: values.emailOrPhone,
+        password: values.emailOrPhone,
+        initialDeposit: values.initialDeposit,
+        accountType: values.accountType
+      });
+      message.success(`Account ${res.data.account.accountNumber} created successfully for ${values.fullName}!`);
       setCreateAccountVisible(false);
       createAccountForm.resetFields();
+      loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to create customer');
+      message.error(err.response?.data?.message || err.message || 'Failed to create customer');
     }
   };
 
@@ -363,6 +370,17 @@ const AdminDashboard = ({ activeMenu }) => {
               ]}
             >
               <Input placeholder="e.g. employee@sbi.co.in" className="rounded-lg" />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              label={<span className="text-xs uppercase tracking-wider font-semibold text-blue-600">Login Password</span>}
+              rules={[
+                { required: !editingEmp, message: 'Please input a password!' },
+                { min: 6, message: 'Password must be at least 6 characters!' }
+              ]}
+            >
+              <Input.Password placeholder={editingEmp ? "Leave blank to keep existing password" : "Set employee login password"} className="rounded-lg" />
             </Form.Item>
 
             <Row gutter={16}>

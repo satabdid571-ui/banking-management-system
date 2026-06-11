@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { bankStore, subscribeToStore } from './store';
+import api from './api';
 
 const AuthContext = createContext(null);
 
@@ -8,132 +8,80 @@ export const AuthProvider = ({ children }) => {
   const [account, setAccount] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Sync auth state with database store changes
+  // Sync auth state with backend token
+  const syncState = async () => {
+    const storedToken = localStorage.getItem('banking_token');
+    if (!storedToken) {
+      setUser(null);
+      setAccount(null);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      api.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+      const res = await api.get('/auth/me');
+      setUser(res.data.user);
+      setAccount(res.data.account || null);
+    } catch (err) {
+      console.error('Error fetching auth state', err);
+      localStorage.removeItem('banking_token');
+      delete api.defaults.headers.common['Authorization'];
+      setUser(null);
+      setAccount(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const syncState = () => {
-      const storedToken = localStorage.getItem('banking_token');
-      if (!storedToken) {
-        setUser(null);
-        setAccount(null);
-        return;
-      }
-
-      // Check if user is logged in
-      try {
-        const parsedToken = JSON.parse(storedToken);
-        const dbUser = bankStore.getUserByUsername(parsedToken.username);
-        
-        if (dbUser) {
-          setUser(dbUser);
-          if (dbUser.role === 'customer') {
-            const customerAccount = bankStore.getAccountByUserId(dbUser.id);
-            setAccount(customerAccount || null);
-          } else {
-            setAccount(null); // Admin and employees don't have personal accounts
-          }
-        } else {
-          // Clean up if user deleted
-          localStorage.removeItem('banking_token');
-          setUser(null);
-          setAccount(null);
-        }
-      } catch (err) {
-        console.error('Error parsing token', err);
-        localStorage.removeItem('banking_token');
-        setUser(null);
-        setAccount(null);
-      }
-    };
-
-    // Initialize state
     syncState();
-    setLoading(false);
-
-    // Subscribe to store updates
-    const unsubscribe = subscribeToStore(syncState);
-    return () => unsubscribe();
   }, []);
 
-  const login = async (identifier, password, expectedRole) => {
+  const login = async (email, accountId, password, expectedRole) => {
     setLoading(true);
     try {
-      const dbUser = bankStore.getUserByIdentifier(identifier);
-      if (!dbUser) {
-        throw new Error('Invalid username or password');
-      }
+      const res = await api.post('/auth/login', { email, accountId, password, role: expectedRole });
+      const { token, user: dbUser, account: dbAccount } = res.data;
 
-      if (expectedRole && dbUser.role !== expectedRole) {
-        throw new Error('Unauthorized role for this login portal');
-      }
-
-      if (dbUser.password !== password) {
-        throw new Error('Invalid username or password');
-      }
-
-      // Store a simple simulated token
-      const tokenObj = { id: dbUser.id, username: dbUser.username, role: dbUser.role };
-      localStorage.setItem('banking_token', JSON.stringify(tokenObj));
+      localStorage.setItem('banking_token', token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
       setUser(dbUser);
-      if (dbUser.role === 'customer') {
-        const customerAccount = bankStore.getAccountByUserId(dbUser.id);
-        setAccount(customerAccount || null);
-      } else {
-        setAccount(null);
-      }
+      setAccount(dbAccount || null);
+      
       return { success: true, role: dbUser.role };
     } catch (err) {
-      throw new Error(err.message || 'Login failed');
+      throw new Error(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
   };
 
   const register = async (fullName, identifier, password, role = 'customer') => {
+    if (role !== 'customer') {
+      throw new Error('Only customers can register through this portal. Please contact an admin for staff accounts.');
+    }
+
     setLoading(true);
     try {
-      const existing = bankStore.getUserByIdentifier(identifier);
-      if (existing) {
-        throw new Error('Username/Identifier already exists');
-      }
-
-      let newUser;
-      let newAccount = null;
-
-      if (role === 'customer') {
-        const result = bankStore.createCustomerAccount(fullName, identifier, password, 1000.00, 'Savings');
-        newUser = result.user;
-        newAccount = result.account;
-      } else if (role === 'employee') {
-        const newEmp = bankStore.addEmployee({
-          name: fullName,
-          email: identifier,
-          department: 'General Staff',
-          salary: 50000
-        });
-        newUser = bankStore.getUserByUsername(fullName); // addEmployee uses 'name' for username
-        // Update password for employee (addEmployee defaults to email)
-        if (newUser) {
-          const data = JSON.parse(localStorage.getItem('sbi_bank_database'));
-          const dbUser = data.users.find(u => u.id === newUser.id);
-          if (dbUser) {
-            dbUser.password = password;
-            localStorage.setItem('sbi_bank_database', JSON.stringify(data));
-          }
-        }
-      } else if (role === 'admin') {
-        newUser = bankStore.addAdmin(fullName, identifier, password);
-      }
-
-      // Store a simple simulated token
-      const tokenObj = { id: newUser.id, username: newUser.username, role: newUser.role };
-      localStorage.setItem('banking_token', JSON.stringify(tokenObj));
+      const res = await api.post('/auth/register', { 
+        username: identifier, 
+        password, 
+        initialDeposit: 1000.00 
+      });
       
-      setUser(newUser);
-      setAccount(newAccount);
-      return { success: true, account: newAccount };
+      const { token, user: dbUser, account: dbAccount } = res.data;
+
+      localStorage.setItem('banking_token', token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      
+      setUser(dbUser);
+      setAccount(dbAccount || null);
+      
+      return { success: true, account: dbAccount };
     } catch (err) {
-      throw new Error(err.message || 'Registration failed');
+      throw new Error(err.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);
     }
@@ -141,14 +89,19 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('banking_token');
+    delete api.defaults.headers.common['Authorization'];
     setUser(null);
     setAccount(null);
   };
 
   const refreshAccount = async () => {
     if (user && user.role === 'customer') {
-      const customerAccount = bankStore.getAccountByUserId(user.id);
-      setAccount(customerAccount || null);
+      try {
+        const res = await api.get('/auth/me');
+        setAccount(res.data.account || null);
+      } catch (err) {
+        console.error('Failed to refresh account', err);
+      }
     }
   };
 
