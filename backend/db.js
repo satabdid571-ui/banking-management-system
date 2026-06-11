@@ -17,13 +17,31 @@ export async function connectDB() {
 
 // ─── Seed initial data if collections are empty ───────────────────────────────
 async function seedIfEmpty() {
-  const userCount = await User.countDocuments();
-  if (userCount > 0) return; // Already seeded
+  const adminExists = await User.findOne({ username: 'admin' });
+  if (!adminExists) {
+    try {
+      const adminPassword = await bcrypt.hash('admin123', 10);
+      await User.create({
+        id: 'admin_1',
+        username: 'admin',
+        password: adminPassword,
+        role: 'admin',
+        createdAt: new Date().toISOString()
+      });
+      console.log('✅ Admin user created (username: admin, password: admin123)');
+    } catch (err) {
+      if (err.code === 11000) {
+        console.log('✅ Admin user already exists.');
+      } else {
+        console.error('❌ Error creating admin:', err);
+      }
+    }
+  }
 
-  console.log('🌱 Seeding initial data into MongoDB...');
-
-  // BankConfig
-  await BankConfig.create({ bankReserve: 12500000.00 });
-
-  console.log('✅ Seed complete. (Empty project)');
+  const configExists = await BankConfig.findOne();
+  if (!configExists) {
+    console.log('🌱 Seeding initial data into MongoDB...');
+    await BankConfig.create({ bankReserve: 12500000.00 });
+    console.log('✅ Seed complete. (Empty project)');
+  }
 }

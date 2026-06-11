@@ -14,18 +14,35 @@ const initialData = {
 
 // Load database
 export function loadDb() {
-  const data = localStorage.getItem(DB_KEY);
-  if (!data) {
-    saveDb(initialData);
-    return initialData;
+  let dataStr = localStorage.getItem(DB_KEY);
+  let data;
+  if (!dataStr) {
+    data = { ...initialData };
+  } else {
+    try {
+      data = JSON.parse(dataStr);
+    } catch (e) {
+      console.error('Failed to parse database, resetting to initialData', e);
+      data = { ...initialData };
+    }
   }
-  try {
-    return JSON.parse(data);
-  } catch (e) {
-    console.error('Failed to parse database, resetting to initialData', e);
-    saveDb(initialData);
-    return initialData;
+
+  // Guarantee that the admin user exists
+  if (!data.users) data.users = [];
+  const adminExists = data.users.find(u => u.username === 'admin');
+  if (!adminExists) {
+    data.users.push({
+      id: 'adm_default_1',
+      username: 'admin',
+      emailOrPhone: '',
+      password: 'admin123',
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    });
+    localStorage.setItem(DB_KEY, JSON.stringify(data));
   }
+
+  return data;
 }
 
 // Save database and dispatch event

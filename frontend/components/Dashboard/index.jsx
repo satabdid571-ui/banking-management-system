@@ -711,39 +711,34 @@ const Dashboard = ({ activeMenu }) => {
             </div>
             
             <div className="grid grid-cols-2 gap-3">
-              <Button 
-                size="large"
-                icon={<PlusOutlined />} 
-                className="bg-blue-50 text-blue-600 hover:bg-blue-100 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6"
+              <button 
+                className="flex flex-col items-center justify-center gap-2 bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200 h-auto rounded-xl text-sm font-semibold py-4 cursor-pointer transition-colors"
                 onClick={() => setDepositVisible(true)}
               >
-                Cash Deposit
-              </Button>
-              <Button 
-                size="large"
-                icon={<MinusOutlined />} 
-                className="bg-white text-blue-800 hover:bg-blue-50 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6"
+                <PlusOutlined className="text-2xl" />
+                <span>Cash Deposit</span>
+              </button>
+              <button 
+                className="flex flex-col items-center justify-center gap-2 bg-white text-blue-800 hover:bg-blue-50 border border-blue-200 h-auto rounded-xl text-sm font-semibold py-4 cursor-pointer transition-colors"
                 onClick={() => setWithdrawVisible(true)}
               >
-                Cash Withdrawal
-              </Button>
-              <Button 
-                type="primary" 
-                size="large"
-                icon={<SendOutlined />} 
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold border-0 flex flex-col items-center justify-center py-6 h-auto"
+                <MinusOutlined className="text-2xl" />
+                <span>Cash Withdrawal</span>
+              </button>
+              <button 
+                className="flex flex-col items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white border border-transparent h-auto rounded-xl text-sm font-semibold py-4 cursor-pointer transition-colors shadow-sm"
                 onClick={() => setTransferVisible(true)}
               >
-                Fund Transfer
-              </Button>
-              <Button 
-                size="large"
-                icon={<FileTextOutlined />} 
-                className="bg-blue-50 text-blue-800 hover:bg-blue-200 border-blue-200 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
+                <SendOutlined className="text-2xl" />
+                <span>Fund Transfer</span>
+              </button>
+              <button 
+                className="flex flex-col items-center justify-center gap-2 bg-blue-50 text-blue-800 hover:bg-blue-200 border border-blue-200 h-auto rounded-xl text-sm font-semibold py-4 cursor-pointer transition-colors"
                 onClick={() => setStatementVisible(true)}
               >
-                Mini Statement
-              </Button>
+                <FileTextOutlined className="text-2xl" />
+                <span>Mini Statement</span>
+              </button>
             </div>
           </Card>
         </Col>

@@ -14,6 +14,7 @@ import {
   SearchOutlined
 } from '@ant-design/icons';
 import { bankStore, subscribeToStore } from '../../src/store';
+import api from '../../src/api';
 import CustomerManagement from '../customers/index.jsx';
 import MISDashboard from './mis.jsx';
 
@@ -32,6 +33,7 @@ const AdminDashboard = ({ activeMenu }) => {
   const [reserveModalVisible, setReserveModalVisible] = useState(false);
   const [createAccountVisible, setCreateAccountVisible] = useState(false);
   const [editingEmp, setEditingEmp] = useState(null);
+  const [editingDep, setEditingDep] = useState(null);
 
   // Form States
   const [empForm] = Form.useForm();
@@ -40,11 +42,25 @@ const AdminDashboard = ({ activeMenu }) => {
   const [createAccountForm] = Form.useForm();
 
   // Load Store Data
-  const loadStoreData = () => {
+  const loadStoreData = async () => {
     setReserve(bankStore.getBankReserve());
-    setEmployees(bankStore.getEmployees());
-    setDepartments(bankStore.getDepartments());
     setAccounts(bankStore.getAccounts());
+    
+    // Fetch employees from database
+    try {
+      const resEmp = await api.get('/admin/employees');
+      setEmployees(resEmp.data);
+    } catch (err) {
+      console.error("Failed to load employees from DB:", err);
+    }
+    
+    // Fetch departments from database
+    try {
+      const res = await api.get('/admin/departments');
+      setDepartments(res.data);
+    } catch (err) {
+      console.error("Failed to load departments from DB:", err);
+    }
   };
 
   useEffect(() => {
@@ -80,48 +96,58 @@ const AdminDashboard = ({ activeMenu }) => {
   };
 
   // Employee Actions
-  const handleSaveEmployee = (values) => {
+  const handleSaveEmployee = async (values) => {
     try {
       if (editingEmp) {
-        bankStore.updateEmployee(editingEmp.id, values);
-        message.success('Employee updated successfully!');
+        await api.put(`/admin/employees/${editingEmp.id}`, values);
+        message.success('Employee updated successfully in database!');
       } else {
-        bankStore.addEmployee(values);
-        message.success('Employee added successfully!');
+        await api.post('/admin/employees', values);
+        message.success('Employee added successfully in database!');
       }
       setEmpModalVisible(false);
       setEditingEmp(null);
       empForm.resetFields();
+      loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to save employee');
+      message.error(err.response?.data?.message || err.message || 'Failed to save employee');
     }
   };
 
-  const handleDeleteEmployee = (id) => {
+  const handleDeleteEmployee = async (id) => {
     try {
-      bankStore.deleteEmployee(id);
-      message.success('Employee deleted successfully!');
+      await api.delete(`/admin/employees/${id}`);
+      message.success('Employee deleted successfully from database!');
+      loadStoreData();
     } catch (err) {
       message.error('Failed to delete employee');
     }
   };
 
   // Department Actions
-  const handleAddDepartment = (values) => {
+  const handleAddDepartment = async (values) => {
     try {
-      bankStore.addDepartment(values.name);
-      message.success('Department created successfully!');
+      if (editingDep) {
+        await api.put(`/admin/departments/${editingDep.id}`, { name: values.name });
+        message.success('Department updated successfully in database!');
+      } else {
+        await api.post('/admin/departments', { name: values.name });
+        message.success('Department created successfully in database!');
+      }
       setDepModalVisible(false);
+      setEditingDep(null);
       depForm.resetFields();
+      loadStoreData(); // Refresh list
     } catch (err) {
-      message.error(err.message || 'Failed to create department');
+      message.error(err.response?.data?.message || err.message || 'Failed to save department');
     }
   };
 
-  const handleDeleteDepartment = (id) => {
+  const handleDeleteDepartment = async (id) => {
     try {
-      bankStore.deleteDepartment(id);
-      message.success('Department deleted successfully!');
+      await api.delete(`/admin/departments/${id}`);
+      message.success('Department deleted successfully from database!');
+      loadStoreData(); // Refresh list
     } catch (err) {
       message.error('Failed to delete department');
     }
@@ -226,20 +252,31 @@ const AdminDashboard = ({ activeMenu }) => {
       title: 'Actions',
       key: 'actions',
       render: (_, record) => (
-        <Popconfirm
-          title="Delete Department"
-          description="Remove this department? This won't delete the employees inside it."
-          onConfirm={() => handleDeleteDepartment(record.id)}
-          okText="Remove"
-          cancelText="Cancel"
-          okButtonProps={{ danger: true }}
-        >
+        <Space size="middle">
           <Button 
             type="text" 
-            danger 
-            icon={<DeleteOutlined />} 
+            icon={<EditOutlined className="text-blue-700" />} 
+            onClick={() => {
+              setEditingDep(record);
+              depForm.setFieldsValue({ name: record.name });
+              setDepModalVisible(true);
+            }}
           />
-        </Popconfirm>
+          <Popconfirm
+            title="Delete Department"
+            description="Remove this department? This won't delete the employees inside it."
+            onConfirm={() => handleDeleteDepartment(record.id)}
+            okText="Remove"
+            cancelText="Cancel"
+            okButtonProps={{ danger: true }}
+          >
+            <Button 
+              type="text" 
+              danger 
+              icon={<DeleteOutlined />} 
+            />
+          </Popconfirm>
+        </Space>
       )
     }
   ];
@@ -393,7 +430,11 @@ const AdminDashboard = ({ activeMenu }) => {
           <Button 
             type="primary" 
             icon={<PlusOutlined />}
-            onClick={() => setDepModalVisible(true)}
+            onClick={() => {
+              setEditingDep(null);
+              depForm.resetFields();
+              setDepModalVisible(true);
+            }}
             className="bg-blue-600 hover:bg-blue-500 text-white border-0 h-10 rounded-xl"
           >
             Create Department
@@ -414,7 +455,7 @@ const AdminDashboard = ({ activeMenu }) => {
           title={
             <div className="flex items-center gap-2 pb-2 border-b border-blue-100 text-blue-950">
               <AppstoreOutlined className="text-blue-700" />
-              <span className="font-bold text-lg">Create Department</span>
+              <span className="font-bold text-lg">{editingDep ? 'Edit Department' : 'Create Department'}</span>
             </div>
           }
           open={depModalVisible}
@@ -445,7 +486,7 @@ const AdminDashboard = ({ activeMenu }) => {
                 Cancel
               </Button>
               <Button type="primary" htmlType="submit" className="bg-blue-600 hover:bg-blue-500 text-white border-0 rounded-lg">
-                Create
+                {editingDep ? 'Save Changes' : 'Create'}
               </Button>
             </div>
           </Form>

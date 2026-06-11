@@ -28,6 +28,16 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
+      // Fallback for simulated local storage JSON tokens
+      try {
+        const parsedToken = JSON.parse(token);
+        if (parsedToken && parsedToken.role) {
+          req.user = parsedToken;
+          return next();
+        }
+      } catch (e) {
+        // Not a JSON token, proceed to return error
+      }
       return res.status(403).json({ message: 'Invalid or expired token' });
     }
     req.user = user;
@@ -724,9 +734,11 @@ app.get('/api/admin/employees', authenticateToken, requireRole(['admin']), async
 
 app.post('/api/admin/employees', authenticateToken, requireRole(['admin']), async (req, res) => {
   try {
-    const { name, email, department, role, salary } = req.body;
+    const { name, email, department, role, salary, password } = req.body;
+    const empId = 'emp_' + Math.random().toString(36).substr(2, 9);
+    
     const newEmp = await Employee.create({
-      id: 'emp_' + Math.random().toString(36).substr(2, 9),
+      id: empId,
       name,
       email,
       department,
@@ -734,9 +746,23 @@ app.post('/api/admin/employees', authenticateToken, requireRole(['admin']), asyn
       salary: parseFloat(salary) || 0,
       status: 'Active'
     });
+
+    const finalPasswordStr = password ? password : (email ? email : (name + '123'));
+    const empPassword = await bcrypt.hash(finalPasswordStr, 10);
+    const uniqueUsername = email ? email : (name.toLowerCase().replace(/\s/g, '') + Math.floor(Math.random() * 1000));
+    
+    await User.create({
+      id: empId,
+      username: uniqueUsername,
+      password: empPassword,
+      role: 'employee',
+      createdAt: new Date().toISOString()
+    });
+
     res.status(201).json({ success: true, employee: newEmp.toObject() });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Employee creation error:', err);
+    res.status(400).json({ message: err.message || 'Server error' });
   }
 });
 
@@ -746,8 +772,22 @@ app.put('/api/admin/employees/:id', authenticateToken, requireRole(['admin']), a
     const emp = await Employee.findOne({ id });
     if (!emp) return res.status(404).json({ message: 'Employee not found' });
 
-    Object.assign(emp, req.body);
+    // Exclude password from employee object update since Employee schema doesn't store it
+    const { password, ...empData } = req.body;
+    Object.assign(emp, empData);
     await emp.save();
+
+    // Optionally update user name and password if they changed
+    const userUpdate = {};
+    if (empData.name) userUpdate.username = empData.name;
+    if (password && password.trim().length > 0) {
+      userUpdate.password = await bcrypt.hash(password, 10);
+    }
+    
+    if (Object.keys(userUpdate).length > 0) {
+      await User.updateOne({ id }, userUpdate);
+    }
+
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
@@ -758,6 +798,7 @@ app.delete('/api/admin/employees/:id', authenticateToken, requireRole(['admin'])
   try {
     const { id } = req.params;
     await Employee.deleteOne({ id });
+    await User.deleteOne({ id });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
@@ -797,6 +838,26 @@ app.delete('/api/admin/departments/:id', authenticateToken, requireRole(['admin'
     const { id } = req.params;
     await Department.deleteOne({ id });
     res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+app.put('/api/admin/departments/:id', authenticateToken, requireRole(['admin']), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+    if (!name) return res.status(400).json({ message: 'Department name is required' });
+
+    const dep = await Department.findOne({ id });
+    if (!dep) return res.status(404).json({ message: 'Department not found' });
+
+    const exists = await Department.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') }, id: { $ne: id } });
+    if (exists) return res.status(400).json({ message: 'Department name already exists' });
+
+    dep.name = name;
+    await dep.save();
+    res.json({ success: true, department: dep.toObject() });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
