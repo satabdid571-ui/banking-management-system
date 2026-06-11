@@ -84,8 +84,13 @@ const CustomerManagement = () => {
   const [addForm] = Form.useForm();
   const [editForm] = Form.useForm();
 
-  const loadData = () => {
-    setCustomers(bankStore.getCustomers());
+  const loadData = async () => {
+    try {
+      const data = await bankStore.getCustomers();
+      setCustomers(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -119,7 +124,7 @@ const CustomerManagement = () => {
   }), [customers]);
 
   // ─── Handlers ────────────────────────────────────────────────────────────
-  const handleAddCustomer = (values) => {
+  const handleAddCustomer = async (values) => {
     setLoading(true);
     try {
       const submitData = {
@@ -132,21 +137,22 @@ const CustomerManagement = () => {
       if (!submitData.accountNumber || !submitData.accountNumber.trim()) {
         delete submitData.accountNumber;
       }
-      bankStore.addCustomer(submitData);
+      await bankStore.addCustomer(submitData);
       message.success({ content: `Customer "${values.fullName}" added successfully!`, icon: <CheckCircleOutlined className="text-blue-700" /> });
       addForm.resetFields();
       setView('list');
+      await loadData();
     } catch (err) {
-      message.error(err.message || 'Failed to add customer');
+      message.error(err.response?.data?.message || err.message || 'Failed to add customer');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditCustomer = (values) => {
+  const handleEditCustomer = async (values) => {
     setLoading(true);
     try {
-      bankStore.updateCustomer(selectedCustomer.id, {
+      await bankStore.updateCustomer(selectedCustomer.id, {
         ...values,
         pan: values.pan?.toUpperCase(),
         dateOfBirth: values.dateOfBirth ? dayjs(values.dateOfBirth).format('YYYY-MM-DD') : selectedCustomer.dateOfBirth,
@@ -154,22 +160,24 @@ const CustomerManagement = () => {
       message.success({ content: 'Customer record updated successfully!', icon: <CheckCircleOutlined className="text-blue-700" /> });
       setView('list');
       setSelectedCustomer(null);
+      await loadData();
     } catch (err) {
-      message.error(err.message || 'Failed to update customer');
+      message.error(err.response?.data?.message || err.message || 'Failed to update customer');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     try {
-      bankStore.deleteCustomer(customerToDelete.id);
+      await bankStore.deleteCustomer(customerToDelete.id);
       message.success({ content: `Customer "${customerToDelete.fullName}" has been deleted.`, icon: <DeleteOutlined className="text-blue-500" /> });
       setDeleteModalOpen(false);
       setCustomerToDelete(null);
       if (view !== 'list') setView('list');
+      await loadData();
     } catch (err) {
-      message.error(err.message || 'Failed to delete customer');
+      message.error(err.response?.data?.message || err.message || 'Failed to delete customer');
     }
   };
 

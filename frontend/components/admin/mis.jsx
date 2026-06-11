@@ -20,29 +20,27 @@ const MISDashboard = () => {
     transactions: []
   });
 
-  const loadData = () => {
-    setData({
-      reserve: bankStore.getBankReserve(),
-      accounts: bankStore.getAccounts(),
-      loans: bankStore.getLoans(),
-      customers: bankStore.getCustomers(),
-      employees: bankStore.getEmployees(),
-      transactions: bankStore.getBankReserve() ? loadDbTransactions() : []
-    });
-  };
-
-  // Helper to load raw tx from localstorage since bankStore doesn't expose getAllTransactions
-  const loadDbTransactions = () => {
-    const raw = localStorage.getItem('sbi_bank_database');
-    if (raw) {
-      try {
-        const parsed = JSON.parse(raw);
-        return parsed.transactions || [];
-      } catch (e) {
-        return [];
-      }
+  const loadData = async () => {
+    try {
+      const [reserve, accounts, loans, customers, employees, transactions] = await Promise.all([
+        bankStore.getBankReserve(),
+        bankStore.getAccounts(),
+        bankStore.getLoans(),
+        bankStore.getCustomers(),
+        bankStore.getEmployees(),
+        bankStore.getTransactions()
+      ]);
+      setData({
+        reserve: reserve || 0,
+        accounts: accounts || [],
+        loans: loans || [],
+        customers: customers || [],
+        employees: employees || [],
+        transactions: transactions || []
+      });
+    } catch (err) {
+      console.error(err);
     }
-    return [];
   };
 
   useEffect(() => {

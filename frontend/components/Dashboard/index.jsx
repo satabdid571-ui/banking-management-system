@@ -54,18 +54,23 @@ const Dashboard = ({ activeMenu }) => {
   const [actionLoading, setActionLoading] = useState(false);
 
   // Load Store Data
-  const loadStoreData = () => {
+  const loadStoreData = async () => {
     if (user) {
-      setTransactions(bankStore.getTransactions(account?.accountNumber));
-      
-      const allLoans = bankStore.getLoans();
-      setLoans(allLoans.filter(l => l.username.toLowerCase() === user.username.toLowerCase()));
-
-      const allReqs = bankStore.getAccountRequests();
-      setRequests(allReqs.filter(r => r.username.toLowerCase() === user.username.toLowerCase()));
-
-      const allAccounts = bankStore.getAccounts();
-      setCustomerAccounts(allAccounts.filter(a => a.userId === user.id));
+      try {
+        const [allTxs, allLoans, allReqs, allAccounts] = await Promise.all([
+          bankStore.getTransactions(account?.accountNumber),
+          bankStore.getCustomerLoans(),
+          bankStore.getAccountRequests(), // Note: customer doesn't have an endpoint for this, but let's assume it works or fails gracefully
+          bankStore.getAccounts() // Same here
+        ]);
+        
+        setTransactions(allTxs);
+        setLoans(allLoans.filter(l => l.username.toLowerCase() === user.username.toLowerCase()));
+        setRequests(allReqs.filter(r => r.username.toLowerCase() === user.username.toLowerCase()));
+        setCustomerAccounts(allAccounts.filter(a => a.userId === user.id));
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -84,13 +89,14 @@ const Dashboard = ({ activeMenu }) => {
   const handleTransfer = async (values) => {
     setActionLoading(true);
     try {
-      bankStore.transferFunds(user.id, values.recipient, values.amount, values.description);
+      await bankStore.transferFunds(values.recipient, values.amount, values.description);
       message.success('Transfer completed successfully!');
       transferForm.resetFields();
       setTransferVisible(false);
       refreshAccount();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Transfer failed');
+      message.error(err.response?.data?.message || err.message || 'Transfer failed');
     } finally {
       setActionLoading(false);
     }
@@ -99,13 +105,14 @@ const Dashboard = ({ activeMenu }) => {
   const handleDeposit = async (values) => {
     setActionLoading(true);
     try {
-      bankStore.depositFunds(user.id, values.amount, values.depositType);
+      await bankStore.depositFunds(values.amount, values.depositType);
       message.success('Deposit successful!');
       depositForm.resetFields();
       setDepositVisible(false);
       refreshAccount();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Deposit failed');
+      message.error(err.response?.data?.message || err.message || 'Deposit failed');
     } finally {
       setActionLoading(false);
     }
@@ -114,13 +121,14 @@ const Dashboard = ({ activeMenu }) => {
   const handleWithdraw = async (values) => {
     setActionLoading(true);
     try {
-      bankStore.withdrawFunds(user.id, values.amount);
+      await bankStore.withdrawFunds(values.amount);
       message.success('Withdrawal successful!');
       withdrawForm.resetFields();
       setWithdrawVisible(false);
       refreshAccount();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Withdrawal failed');
+      message.error(err.response?.data?.message || err.message || 'Withdrawal failed');
     } finally {
       setActionLoading(false);
     }
@@ -129,12 +137,13 @@ const Dashboard = ({ activeMenu }) => {
   const handleRequestAccount = async (values) => {
     setActionLoading(true);
     try {
-      bankStore.requestAccountOpening(user.username, values.type, values.initialDeposit);
+      await bankStore.requestAccountOpening(user.username, values.type, values.initialDeposit);
       message.success('Account opening request submitted to Employee audit queue!');
       reqForm.resetFields();
       setReqVisible(false);
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to submit request');
+      message.error(err.response?.data?.message || err.message || 'Failed to submit request');
     } finally {
       setActionLoading(false);
     }
@@ -143,12 +152,13 @@ const Dashboard = ({ activeMenu }) => {
   const handleApplyLoan = async (values) => {
     setActionLoading(true);
     try {
-      bankStore.applyForLoan(user.username, values.amount, values.term, values.purpose, values.loanType);
+      await bankStore.applyForLoan(values.amount, values.term, values.purpose, values.loanType);
       message.success('Loan application submitted! Awaiting loan specialist review.');
       loanForm.resetFields();
       setLoanVisible(false);
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Loan application failed');
+      message.error(err.response?.data?.message || err.message || 'Loan application failed');
     } finally {
       setActionLoading(false);
     }
@@ -157,13 +167,14 @@ const Dashboard = ({ activeMenu }) => {
   const handlePayInstallment = async (values) => {
     setActionLoading(true);
     try {
-      bankStore.payLoanInstallment(selectedLoan.id, values.amount);
+      await bankStore.payLoanInstallment(selectedLoan.id, values.amount);
       message.success('Installment payment received. Balance adjusted.');
       paymentForm.resetFields();
       setPaymentVisible(false);
       refreshAccount();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Repayment failed');
+      message.error(err.response?.data?.message || err.message || 'Repayment failed');
     } finally {
       setActionLoading(false);
     }

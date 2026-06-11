@@ -87,3 +87,28 @@ const departmentSchema = new Schema({
   name: { type: String, required: true }
 });
 export const Department = mongoose.model('Department', departmentSchema);
+
+// ─── Customer ─────────────────────────────────────────────────────────────────
+const customerSchema = new Schema({
+  id:             { type: String, required: true, unique: true },
+  customerId:     { type: String, required: true, unique: true },
+  fullName:       { type: String },
+  mobile:         { type: String },
+  email:          { type: String },
+  address:        { type: String },
+  aadhaar:        { type: String },
+  pan:            { type: String },
+  accountNumber:  { type: String },
+  accountType:    { type: String },
+  branch:         { type: String },
+  ifsc:           { type: String },
+  micr:           { type: String },
+  initialDeposit: { type: Number, default: 0 },
+  status:         { type: String, default: 'Active' },
+  dateOfBirth:    { type: String },
+  gender:         { type: String },
+  occupation:     { type: String },
+  nominee:        { type: String },
+  createdAt:      { type: String, default: () => new Date().toISOString() }
+});
+export const Customer = mongoose.model('Customer', customerSchema);

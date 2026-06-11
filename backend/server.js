@@ -13,6 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 const JWT_SECRET = process.env.JWT_SECRET || 'sbi_bank_super_secret_jwt_key_2026';
 
+function escapeRegex(text) {
+  return (text || '').replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -83,7 +87,7 @@ app.post('/api/auth/register', async (req, res) => {
       return res.status(400).json({ message: 'Username and password are required' });
     }
 
-    const existingUser = await User.findOne({ username: { $regex: new RegExp(`^${username}$`, 'i') } });
+    const existingUser = await User.findOne({ username: { $regex: new RegExp(`^${escapeRegex(username)}$`, 'i') } });
     if (existingUser) {
       return res.status(400).json({ message: 'Username already exists' });
     }
@@ -149,8 +153,8 @@ app.post('/api/auth/login', async (req, res) => {
     
     const user = await User.findOne({ 
       $or: [
-        { email: { $regex: new RegExp(`^${email}$`, 'i') } },
-        { username: { $regex: new RegExp(`^${email}$`, 'i') } }
+        { email: { $regex: new RegExp(`^${escapeRegex(email)}$`, 'i') } },
+        { username: { $regex: new RegExp(`^${escapeRegex(email)}$`, 'i') } }
       ]
     });
     if (!user) {
@@ -339,7 +343,7 @@ app.post('/api/customer/transfer', authenticateToken, requireRole(['customer']),
     if (recipient.startsWith('BANK-')) {
       recipientAccount = await Account.findOne({ accountNumber: recipient });
     } else {
-      const recipientUser = await User.findOne({ username: { $regex: new RegExp(`^${recipient}$`, 'i') } });
+      const recipientUser = await User.findOne({ username: { $regex: new RegExp(`^${escapeRegex(recipient)}$`, 'i') } });
       if (recipientUser) {
         recipientAccount = await Account.findOne({ userId: recipientUser.id });
       }
@@ -404,7 +408,7 @@ app.post('/api/customer/loans', authenticateToken, requireRole(['customer']), as
 
 app.get('/api/customer/loans', authenticateToken, requireRole(['customer']), async (req, res) => {
   try {
-    const loans = await Loan.find({ username: { $regex: new RegExp(`^${req.user.username}$`, 'i') } });
+    const loans = await Loan.find({ username: { $regex: new RegExp(`^${escapeRegex(req.user.username)}$`, 'i') } });
     res.json(loans.map(l => l.toObject()));
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
@@ -481,7 +485,7 @@ app.post('/api/customer/requests', authenticateToken, requireRole(['customer']),
 
 app.get('/api/customer/requests', authenticateToken, requireRole(['customer']), async (req, res) => {
   try {
-    const reqs = await AccountRequest.find({ username: { $regex: new RegExp(`^${req.user.username}$`, 'i') } });
+    const reqs = await AccountRequest.find({ username: { $regex: new RegExp(`^${escapeRegex(req.user.username)}$`, 'i') } });
     res.json(reqs.map(r => r.toObject()));
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
@@ -506,8 +510,8 @@ app.post('/api/employee/accounts', authenticateToken, requireRole(['employee', '
 
     const existing = await User.findOne({ 
       $or: [
-        { username: { $regex: new RegExp(`^${username}$`, 'i') } },
-        { email: { $regex: new RegExp(`^${email}$`, 'i') } }
+        { username: { $regex: new RegExp(`^${escapeRegex(username)}$`, 'i') } },
+        { email: { $regex: new RegExp(`^${escapeRegex(email)}$`, 'i') } }
       ]
     });
     if (existing) return res.status(400).json({ message: 'Username or Email already exists' });
@@ -635,7 +639,7 @@ app.put('/api/employee/requests/:id', authenticateToken, requireRole(['employee'
     reqItem.status = status;
 
     if (status === 'Approved') {
-      const user = await User.findOne({ username: { $regex: new RegExp(`^${reqItem.username}$`, 'i') } });
+      const user = await User.findOne({ username: { $regex: new RegExp(`^${escapeRegex(reqItem.username)}$`, 'i') } });
       if (user) {
         const accountNumber = await generateAccountNumber();
         const newAccount = await Account.create({
@@ -691,7 +695,7 @@ app.put('/api/employee/loans/:id', authenticateToken, requireRole(['employee', '
     loan.status = status;
 
     if (status === 'Approved') {
-      const user = await User.findOne({ username: { $regex: new RegExp(`^${loan.username}$`, 'i') } });
+      const user = await User.findOne({ username: { $regex: new RegExp(`^${escapeRegex(loan.username)}$`, 'i') } });
       if (user) {
         const account = await Account.findOne({ userId: user.id });
         if (account) {
@@ -844,7 +848,7 @@ app.post('/api/admin/departments', authenticateToken, requireRole(['admin']), as
     const { name } = req.body;
     if (!name) return res.status(400).json({ message: 'Department name is required' });
 
-    const exists = await Department.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
+    const exists = await Department.findOne({ name: { $regex: new RegExp(`^${escapeRegex(name)}$`, 'i') } });
     if (exists) return res.status(400).json({ message: 'Department name already exists' });
 
     const newDep = await Department.create({
@@ -877,7 +881,7 @@ app.put('/api/admin/departments/:id', authenticateToken, requireRole(['admin']),
     const dep = await Department.findOne({ id });
     if (!dep) return res.status(404).json({ message: 'Department not found' });
 
-    const exists = await Department.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') }, id: { $ne: id } });
+    const exists = await Department.findOne({ name: { $regex: new RegExp(`^${escapeRegex(name)}$`, 'i') }, id: { $ne: id } });
     if (exists) return res.status(400).json({ message: 'Department name already exists' });
 
     dep.name = name;

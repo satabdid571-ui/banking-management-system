@@ -43,8 +43,12 @@ const AdminDashboard = ({ activeMenu }) => {
 
   // Load Store Data
   const loadStoreData = async () => {
-    setReserve(bankStore.getBankReserve());
-    setAccounts(bankStore.getAccounts());
+    try {
+      setReserve(await bankStore.getBankReserve());
+      setAccounts(await bankStore.getAccounts());
+    } catch (err) {
+      console.error(err);
+    }
     
     // Fetch employees from database
     try {
@@ -73,14 +77,15 @@ const AdminDashboard = ({ activeMenu }) => {
   const totalCustomerBalances = accounts.reduce((acc, curr) => acc + curr.balance, 0);
 
   // Reserve Actions
-  const handleUpdateReserve = (values) => {
+  const handleUpdateReserve = async (values) => {
     try {
-      bankStore.updateBankReserve(values.amount);
+      await bankStore.updateBankReserve(values.amount);
       message.success('Bank reserves updated successfully!');
       setReserveModalVisible(false);
       reserveForm.resetFields();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to update reserve');
+      message.error(err.response?.data?.message || err.message || 'Failed to update reserve');
     }
   };
 

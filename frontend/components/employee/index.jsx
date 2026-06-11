@@ -28,10 +28,19 @@ const EmployeeDashboard = ({ activeMenu }) => {
   const [adjustForm] = Form.useForm();
 
   // Load Store Data
-  const loadStoreData = () => {
-    setAccounts(bankStore.getAccounts());
-    setRequests(bankStore.getAccountRequests());
-    setLoans(bankStore.getLoans());
+  const loadStoreData = async () => {
+    try {
+      const [accs, reqs, lns] = await Promise.all([
+        bankStore.getAccounts(),
+        bankStore.getAccountRequests(),
+        bankStore.getLoans()
+      ]);
+      setAccounts(accs);
+      setRequests(reqs);
+      setLoans(lns);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -41,70 +50,77 @@ const EmployeeDashboard = ({ activeMenu }) => {
   }, []);
 
   // Employee actions
-  const handleCreateCustomer = (values) => {
+  const handleCreateCustomer = async (values) => {
     try {
-      bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.emailOrPhone, values.initialDeposit, values.accountType);
+      await bankStore.createCustomerAccount(values.fullName, values.emailOrPhone, values.emailOrPhone, values.initialDeposit, values.accountType);
       message.success(`Account created successfully for ${values.fullName}!`);
       setCreateAccountVisible(false);
       createForm.resetFields();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to create customer');
+      message.error(err.response?.data?.message || err.message || 'Failed to create customer');
     }
   };
 
-  const handleDeleteCustomer = (accountNumber) => {
+  const handleDeleteCustomer = async (accountNumber) => {
     try {
-      bankStore.deleteAccount(accountNumber);
+      await bankStore.deleteAccount(accountNumber);
       message.success(`Account ${accountNumber} has been closed.`);
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to close account');
+      message.error(err.response?.data?.message || err.message || 'Failed to close account');
     }
   };
 
-  const handleAdjustBalance = (values) => {
+  const handleAdjustBalance = async (values) => {
     try {
-      bankStore.adjustBalance(values.accountNumber, values.amount, values.type, values.description);
+      await bankStore.adjustBalance(values.accountNumber, values.amount, values.type, values.description);
       message.success(`Account adjusted successfully! Balance has been ${values.type}ed.`);
       setAdjustmentVisible(false);
       adjustForm.resetFields();
+      await loadStoreData();
     } catch (err) {
-      message.error(err.message || 'Failed to adjust account balance');
+      message.error(err.response?.data?.message || err.message || 'Failed to adjust account balance');
     }
   };
 
-  const handleApproveRequest = (id) => {
+  const handleApproveRequest = async (id) => {
     try {
-      bankStore.updateAccountRequestStatus(id, 'Approved');
+      await bankStore.updateAccountRequestStatus(id, 'Approved');
       message.success('Account opening request approved!');
+      await loadStoreData();
     } catch (err) {
-      message.error('Failed to approve request');
+      message.error(err.response?.data?.message || 'Failed to approve request');
     }
   };
 
-  const handleRejectRequest = (id) => {
+  const handleRejectRequest = async (id) => {
     try {
-      bankStore.updateAccountRequestStatus(id, 'Rejected');
+      await bankStore.updateAccountRequestStatus(id, 'Rejected');
       message.warning('Account opening request rejected.');
+      await loadStoreData();
     } catch (err) {
-      message.error('Failed to reject request');
+      message.error(err.response?.data?.message || 'Failed to reject request');
     }
   };
 
-  const handleApproveLoan = (id) => {
+  const handleApproveLoan = async (id) => {
     try {
-      bankStore.updateLoanStatus(id, 'Approved');
+      await bankStore.updateLoanStatus(id, 'Approved');
       message.success('Loan application approved and funds credited!');
+      await loadStoreData();
     } catch (err) {
-      message.error('Failed to approve loan');
+      message.error(err.response?.data?.message || 'Failed to approve loan');
     }
   };
 
-  const handleRejectLoan = (id) => {
+  const handleRejectLoan = async (id) => {
     try {
-      bankStore.updateLoanStatus(id, 'Rejected');
+      await bankStore.updateLoanStatus(id, 'Rejected');
       message.warning('Loan application rejected.');
+      await loadStoreData();
     } catch (err) {
-      message.error('Failed to reject loan');
+      message.error(err.response?.data?.message || 'Failed to reject loan');
     }
   };
 
