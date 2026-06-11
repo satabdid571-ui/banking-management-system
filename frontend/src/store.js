@@ -1,18 +1,10 @@
-const DB_KEY = 'sbi_bank_database';
+const DB_KEY = 'sbi_bank_database_v2';
 
 const initialData = {
   bankReserve: 12500000.00, // Bank vault capital amount
-  departments: [
-    { id: 'dep_1', name: 'Treasury & Vault' },
-    { id: 'dep_2', name: 'Retail Banking' },
-    { id: 'dep_3', name: 'Loan Operations' },
-    { id: 'dep_4', name: 'Risk & Compliance' }
-  ],
+  departments: [],
   employees: [],
-  users: [
-    { id: 'usr_admin',    username: 'admin',    password: 'admin123',    role: 'admin',    createdAt: new Date().toISOString() },
-    { id: 'usr_employee', username: 'employee', password: 'employee123', role: 'employee', createdAt: new Date().toISOString() }
-  ],
+  users: [],
   accounts: [],
   transactions: [],
   accountRequests: [],

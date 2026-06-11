@@ -219,7 +219,7 @@ const CustomerManagement = () => {
       sorter: (a, b) => a.fullName.localeCompare(b.fullName),
       render: (text, record) => (
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-blue-950 text-xs font-bold shadow-md">
+          <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-blue-950 text-xs font-bold shadow-md">
             {text?.charAt(0)?.toUpperCase()}
           </div>
           <div>
@@ -239,7 +239,7 @@ const CustomerManagement = () => {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      render: (text) => <Text className="text-blue-600 text-xs truncate max-w-[140px] block">{text}</Text>,
+      render: (text) => <Text className="text-blue-600 text-xs truncate max-w-35 block">{text}</Text>,
     },
     {
       title: 'Account No.',
@@ -533,9 +533,9 @@ const CustomerManagement = () => {
     return (
       <div className="space-y-5">
         {/* Page Header */}
-        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl shadow-xl">
+        <div className="flex items-center justify-between bg-linear-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl shadow-xl">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-blue-950 text-2xl font-black shadow-lg">
+            <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-blue-950 text-2xl font-black shadow-lg">
               {c.fullName?.charAt(0)?.toUpperCase()}
             </div>
             <div>
@@ -710,7 +710,7 @@ const CustomerManagement = () => {
   if (view === 'add') {
     return (
       <div className="space-y-5">
-        <div className="flex items-center justify-between bg-gradient-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl">
+        <div className="flex items-center justify-between bg-linear-to-r from-blue-100 to-white border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: '#1e3a8a' }} className="flex items-center gap-2">
               <UserAddOutlined className="text-blue-700" /> Add New Customer
@@ -732,7 +732,7 @@ const CustomerManagement = () => {
   if (view === 'edit' && selectedCustomer) {
     return (
       <div className="space-y-5">
-        <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl">
+        <div className="flex items-center justify-between bg-linear-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl">
           <div>
             <Title level={3} style={{ margin: 0, color: '#1e3a8a' }} className="flex items-center gap-2">
               <EditOutlined className="text-blue-600" /> Edit Customer
@@ -754,7 +754,7 @@ const CustomerManagement = () => {
   return (
     <div className="space-y-5">
       {/* Page Banner */}
-      <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-white border border-blue-200 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+      <div className="bg-linear-to-r from-blue-100 via-blue-50 to-white border border-blue-200 p-6 rounded-2xl shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/50 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
           <div>

@@ -103,7 +103,7 @@ const MISDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl flex items-center justify-between">
+      <div className="bg-linear-to-r from-blue-50 to-white border border-blue-200 p-6 rounded-2xl flex items-center justify-between">
         <div>
           <Title level={3} style={{ margin: 0, color: '#1e3a8a' }}>
             <PieChartOutlined className="mr-3" />

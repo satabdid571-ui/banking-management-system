@@ -459,7 +459,7 @@ const AdminDashboard = ({ activeMenu }) => {
     <div className="space-y-6">
       
       {/* Header reserve banner */}
-      <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-white p-8 rounded-3xl border border-blue-200 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-6">
+      <div className="bg-linear-to-r from-blue-100 via-blue-50 to-white p-8 rounded-3xl border border-blue-200 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-6">
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
         <div className="z-10">
           <span className="text-blue-700 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
@@ -470,7 +470,7 @@ const AdminDashboard = ({ activeMenu }) => {
           </Title>
           <Text className="text-blue-800">Maintain corporate vault liquidity and verify operations.</Text>
         </div>
-        <div className="flex items-center gap-4 bg-blue-50/40 border border-blue-200/30 px-6 py-4 rounded-2xl backdrop-blur-sm self-start md:self-auto min-w-[280px] justify-between">
+        <div className="flex items-center gap-4 bg-blue-50/40 border border-blue-200/30 px-6 py-4 rounded-2xl backdrop-blur-sm self-start md:self-auto min-w-70 justify-between">
           <div>
             <span className="text-blue-600 text-xs block uppercase tracking-wider font-semibold">Reserve Fund</span>
             <span className="text-3xl font-black font-mono tracking-tight text-blue-950">₹{reserve.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>

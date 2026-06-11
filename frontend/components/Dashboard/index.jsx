@@ -643,7 +643,7 @@ const Dashboard = ({ activeMenu }) => {
     <div className="space-y-6">
       
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-blue-100 to-white p-6 rounded-2xl border border-blue-200 shadow-xl flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-4">
+      <div className="bg-linear-to-r from-blue-100 to-white p-6 rounded-2xl border border-blue-200 shadow-xl flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-4">
         <div>
           <Title level={3} style={{ margin: 0, color: '#1e3a8a' }} className="font-bold flex items-center gap-2">
             <span className="wave">👋</span> Welcome back, {user?.username}!
@@ -664,7 +664,7 @@ const Dashboard = ({ activeMenu }) => {
         
         {/* Main Balance Card */}
         <Col xs={24} lg={16}>
-          <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-blue-950 p-8 rounded-3xl shadow-lg border border-blue-300/20 min-h-[220px] flex flex-col justify-between hover:scale-[1.01] transition-transform duration-300">
+          <div className="relative overflow-hidden bg-linear-to-br from-blue-600 via-blue-700 to-blue-800 text-blue-950 p-8 rounded-3xl shadow-lg border border-blue-300/20 min-h-55 flex flex-col justify-between hover:scale-[1.01] transition-transform duration-300">
             {/* Sparkles design elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-300/20 rounded-full blur-2xl -ml-16 -mb-16 pointer-events-none"></div>
@@ -714,7 +714,7 @@ const Dashboard = ({ activeMenu }) => {
               <Button 
                 size="large"
                 icon={<PlusOutlined />} 
-                className="bg-blue-50 text-blue-600 hover:bg-blue-100 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
+                className="bg-blue-50 text-blue-600 hover:bg-blue-100 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6"
                 onClick={() => setDepositVisible(true)}
               >
                 Cash Deposit
@@ -722,7 +722,7 @@ const Dashboard = ({ activeMenu }) => {
               <Button 
                 size="large"
                 icon={<MinusOutlined />} 
-                className="bg-white text-blue-800 hover:bg-blue-50 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6 h-auto"
+                className="bg-white text-blue-800 hover:bg-blue-50 border-blue-200 h-12 rounded-xl text-sm font-semibold flex flex-col items-center justify-center py-6"
                 onClick={() => setWithdrawVisible(true)}
               >
                 Cash Withdrawal
@@ -780,7 +780,7 @@ const Dashboard = ({ activeMenu }) => {
         className="bg-white border-blue-100 rounded-3xl overflow-hidden shadow-sm"
       >
         <div className="flex flex-col md:flex-row items-center gap-6">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-50 p-4 rounded-2xl border border-blue-500/20 flex-shrink-0 flex gap-4">
+          <div className="bg-linear-to-br from-blue-50 to-blue-50 p-4 rounded-2xl border border-blue-500/20 shrink-0 flex gap-4">
             <GlobalOutlined className="text-3xl text-blue-700" />
             <MobileOutlined className="text-3xl text-blue-600" />
           </div>

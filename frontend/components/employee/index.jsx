@@ -326,7 +326,7 @@ const EmployeeDashboard = ({ activeMenu }) => {
     <div className="space-y-6">
 
       {/* Banner info */}
-      <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-white p-8 rounded-3xl border border-blue-200 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-6">
+      <div className="bg-linear-to-r from-blue-100 via-blue-50 to-white p-8 rounded-3xl border border-blue-200 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between text-blue-950 gap-6">
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
         <div className="z-10">
           <span className="text-blue-600 text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
